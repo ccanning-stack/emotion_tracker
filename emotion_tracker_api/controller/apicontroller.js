@@ -1,4 +1,4 @@
-const conn = require('../utils/dbconn');
+const conn = require('../database/dbconn');
 
 // GET /users
 exports.getUsers = async (req, res) => {

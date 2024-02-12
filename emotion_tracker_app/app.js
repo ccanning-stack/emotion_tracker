@@ -1,6 +1,8 @@
+//sets up server, middleware, and routes
+
 const express = require('express');
 const morgan = require('morgan');
-const router = require('./controller/routes/routes');
+const router = require('./routes/routes');
 const path = require('path');
 
 const app = express();
