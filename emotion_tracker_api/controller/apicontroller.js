@@ -12,5 +12,22 @@ exports.getUsers = async (req, res) => {
 
     }catch (err) {
         console.log(err);
+        res.json(err);
     };
 };
+
+exports.getSummary
+
+exports.getSnapshot
+
+exports.getTrigger
+
+exports.postTrigger
+
+exports.deleteTrigger
+
+exports.postSnapshot
+
+exports.patchSnapshot
+
+exports.deleteSnapshot

@@ -8,17 +8,7 @@
     <title>Insightful Emotions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style.css">
-    <script>
-        var slider = document.getElementById("enjoyment-slider");
-        var output = document.getElementById("demo"); // Display the default slider value
-        output.innerHTML = slider.value;
-
-        // Update the current slider value (each time you drag the slider handle)
-        slider.oninput = function () {
-            output.innerHTML = this.value;
-        }
-    </script>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -64,33 +54,39 @@
             <h4>Emotion Intensity</h4>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="10" value="0" class="slider" id="enjoyment-slider">
-                <p>Value: <span id="demo"></span></p>
+                <input type="range" min="1" max="10" value="1" class="slider" id="enjoyment-slider">
+                <p>Value: <output id="enjoyment-value"></output></p>
             </div>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="10" value="0" class="slider" id="sadness-slider">
+                <input type="range" min="1" max="10" value="1" class="slider" id="sadness-slider">
+                <p>Value: <output id="sadness-value"></output></p>
             </div>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="10" value="0" class="slider" id="anger-slider">
+                <input type="range" min="1" max="10" value="1" class="slider" id="anger-slider">
             </div>
+            <p>Value: <output id="anger-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="10" value="0" class="slider" id="contempt-slider">
+                <input type="range" min="1" max="10" value="1" class="slider" id="contempt-slider">
             </div>
+            <p>Value: <output id="contempt-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="10" value="0" class="slider" id="disgust-slider">
+                <input type="range" min="1" max="10" value="1" class="slider" id="disgust-slider">
             </div>
+            <p>Value: <output id="disgust-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="10" value="0" class="slider" id="fear-slider">
+                <input type="range" min="1" max="10" value="1" class="slider" id="fear-slider">
             </div>
+            <p>Value: <output id="fear-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" min="1" max="10" value="0" class="slider" id="surprise-slider">
+                <input type="range" min="1" max="10" value="1" class="slider" id="surprise-slider">
             </div>
+            <p>Value: <output id="surprise-value"></output></p>
 
 
             <h4>Contextual Triggers</h4>
@@ -139,6 +135,8 @@
 
     </main>
 
+    
+    <script src="./js/create-snapshot.js"></script>
 </body>
 
 </html>

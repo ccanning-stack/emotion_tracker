@@ -9,6 +9,14 @@ exports.getWelcomePage = async (req,res) => {
     res.render('welcome');
 }
 
+exports.getRegisterPage = async (req,res) => {
+    res.render('register');
+}
+
+exports.getSuccessfulRegistrationPage = async (req,res) => {
+    res.render('successful-registration');
+}
+
 exports.getLoginPage = async (req,res) => {
     res.render('login');
 }
@@ -19,10 +27,6 @@ exports.getResetPasswordPage = async (req,res) => {
 
 exports.getCreateSnapshotPage = async (req,res) => {
     res.render('create-snapshot');
-}
-
-exports.getRegisterPage = async (req,res) => {
-    res.render('register');
 }
 
 exports.getInsightsPage = async (req,res) => {
