@@ -1,6 +1,37 @@
 //This should contain business logic and data manipulation code
-
 const axios = require('axios');
+
+exports.getRedirect = async (req,res) => {
+    res.redirect('/welcome');
+}
+
+exports.getWelcomePage = async (req,res) => {
+    res.render('welcome');
+}
+
+exports.getLoginPage = async (req,res) => {
+    res.render('login');
+}
+
+exports.getResetPasswordPage = async (req,res) => {
+    res.render('reset-password');
+}
+
+exports.getCreateSnapshotPage = async (req,res) => {
+    res.render('create-snapshot');
+}
+
+exports.getRegisterPage = async (req,res) => {
+    res.render('register');
+}
+
+exports.getInsightsPage = async (req,res) => {
+    res.render('insights');
+}
+
+exports.getSummaryPage = async (req,res) => {
+    res.render('summary');
+}
 
 exports.getMakeAPIRequest = async (req, res) => {
 
