@@ -18,7 +18,6 @@ exports.getUsers = async (req, res) => {
 
 exports.postLogin = async (req, res) => {
 
-    console.log("req body is"+req.body);
     const {username, password} = req.body;
     const vals = [username, password];
 
@@ -26,7 +25,7 @@ exports.postLogin = async (req, res) => {
     `SELECT * FROM user WHERE email = ? AND password = ?`;
 
     try {
-        const rows = await conn.query(checkuserSQL, vals);
+        const [rows] = await conn.query(checkuserSQL, vals);
 
         console.log("vals are " +vals);
         const numrows = rows.length;
@@ -34,11 +33,11 @@ exports.postLogin = async (req, res) => {
 
         if (numrows>0){
             console.log(rows);
-            const session =req.session;
-            session.isloggedin = true;
-            console.log(session);
-            res.redirect('/create-snapshot');
-            //res.json(result);
+            //const session =req.session;
+            //session.isloggedin = true;
+            //console.log(session);
+            //res.redirect('/create-snapshot');
+            res.json(rows[0]);
         } else {
 
             res.redirect('/login');
