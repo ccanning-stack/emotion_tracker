@@ -21,8 +21,12 @@ exports.getLoginPage = async (req,res) => {
     res.render('login');
 }
 
+exports.getConfirmUserPage = async (req,res) => {
+    res.render('reset-password-step1');
+}
+
 exports.getResetPasswordPage = async (req,res) => {
-    res.render('reset-password');
+    res.render('reset-password-step2');
 }
 
 exports.getCreateSnapshotPage = async (req,res) => {
@@ -43,6 +47,27 @@ exports.getMakeAPIRequest = async (req, res) => {
 
     try {
             const response = await axios.get(endpoint)
+            console.log("API Endpoint returned");
+            console.log(response.data);
+            res.json(response.data);
+           
+        } catch(error) {
+            console.log("ERROR connecting to API");
+            console.log(error);
+            res.status(500).json({error: "Failed to fetch data from API"});
+        };
+
+}
+
+exports.postAPILoginRequest = async (req, res) => {
+
+    const endpoint = 'http://localhost:3002/login';
+    
+    //const converted= JSON.stringify(req.body);
+    //console.log("Req body is"+converted);
+
+    try {
+            const response = await axios.post(endpoint, req.body);
             console.log("API Endpoint returned");
             console.log(response.data);
             res.json(response.data);

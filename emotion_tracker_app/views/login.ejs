@@ -15,7 +15,7 @@
 
     <main>
         <h1>Login</h1>
-        <form action="" method="post">
+        <form action="/login" method="post">
 
             <p>
     
@@ -25,7 +25,7 @@
     
             <div>
     
-                <input type="email" name="username" placeholder="" id="userlogin-input">
+                <input type="email" name="username" id="userlogin-input">
     
             </div>
 
@@ -37,20 +37,27 @@
     
             <div>
     
-                <input type="password" name="password" placeholder="" id="passlogin-input">
+                <input type="password" name="password" id="passlogin-input">
     
             </div>
 
+            <div>
+                <button type="submit" name="login-attempt">Log In</button>
+                <br>
+
+            </div>
+    
+
         </form>
 
-        <button type="submit">Forgot Username</button>
+        <button type="submit" name="forgot_username">Forgot Username</button>
         <br>
-        <a href="./reset-password.html">Forgot Password</a>
+        <a href="./reset-password">Forgot Password</a>
 
 
 
     </main>
 
 
-
+    <script src="./js/login.js"></script>
 </body>

@@ -16,6 +16,43 @@ exports.getUsers = async (req, res) => {
     };
 };
 
+exports.postLogin = async (req, res) => {
+
+    console.log("req body is"+req.body);
+    const {username, password} = req.body;
+    const vals = [username, password];
+
+    const checkuserSQL = 
+    `SELECT * FROM user WHERE email = ? AND password = ?`;
+
+    try {
+        const rows = await conn.query(checkuserSQL, vals);
+
+        console.log("vals are " +vals);
+        const numrows = rows.length;
+        console.log("number of rows:" + numrows);
+
+        if (numrows>0){
+            console.log(rows);
+            const session =req.session;
+            session.isloggedin = true;
+            console.log(session);
+            res.redirect('/create-snapshot');
+            //res.json(result);
+        } else {
+
+            res.redirect('/login');
+        }
+        
+
+    }catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
+
+
+
 exports.getSummary
 
 exports.getSnapshot
