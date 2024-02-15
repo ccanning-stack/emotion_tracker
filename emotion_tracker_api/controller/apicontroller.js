@@ -33,13 +33,11 @@ exports.postLogin = async (req, res) => {
 
         if (numrows>0){
             console.log(rows);
-            //const session =req.session;
-            //session.isloggedin = true;
-            //console.log(session);
-            //res.redirect('/create-snapshot');
-            res.json(rows[0]);
+            const session =req.session;
+            session.isloggedin = true;
+            console.log(session);
+            res.send(session);
         } else {
-
             res.redirect('/login');
         }
         

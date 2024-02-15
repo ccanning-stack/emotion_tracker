@@ -6,7 +6,11 @@ const session = require('express-session');
 
 const app = express();
 
-
+app.use(session({
+    secret: 'randomlygeneratedsecret55$',
+    resave: false,
+    saveUninitialized: false
+}));
 app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

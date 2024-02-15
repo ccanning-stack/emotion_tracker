@@ -69,8 +69,8 @@ exports.postAPILoginRequest = async (req, res) => {
     try {
             const response = await axios.post(endpoint, req.body);
             console.log("API Endpoint returned");
-            //console.log(response.data);
-            res.json(response.data);
+            console.log(response.data);
+            res.redirect('create-snapshot');
            
         } catch(error) {
             console.log("ERROR connecting to API");
