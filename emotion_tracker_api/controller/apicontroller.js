@@ -1,4 +1,5 @@
 const conn = require('../database/dbconn');
+const jwt = require('jsonwebtoken');
 
 // GET /users
 exports.getUsers = async (req, res) => {
@@ -33,10 +34,13 @@ exports.postLogin = async (req, res) => {
 
         if (numrows>0){
             console.log(rows);
-            const session =req.session;
-            session.isloggedin = true;
-            console.log(session);
-            res.send(session);
+            //const session =req.session;
+            //session.isloggedin = true;
+            //console.log(session);
+            //res.send(session);
+            const user = {name: username};
+            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
+            res.json({accessToken: accessToken});
         } else {
             res.redirect('/login');
         }

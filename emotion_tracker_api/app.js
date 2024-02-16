@@ -1,16 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
 const router = require('./routes/apiroutes');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+//const cookieParser = require('cookie-parser');
 
 const app = express();
 
-app.use(session({
-    secret: 'randomlygeneratedsecret55$',
-    resave: false,
-    saveUninitialized: false
-}));
+/*
+https://expressjs.com/en/resources/middleware/session.html
+https://blogs.halodoc.io/user-authentication-jwt-vs-session/#:~:text=JWTs%20are%20ideal%20for%20stateless,management%2C%20and%20sensitive%20data%20protection.
+*/
+
 app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
