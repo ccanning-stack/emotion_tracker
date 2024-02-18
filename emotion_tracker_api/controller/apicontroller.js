@@ -1,5 +1,6 @@
 const conn = require('../database/dbconn');
 const jwt = require('jsonwebtoken');
+const auth = require('./../utils/middleware/authentication');
 
 // GET /users
 exports.getUsers = async (req, res) => {
@@ -33,19 +34,20 @@ exports.postLogin = async (req, res) => {
         console.log("number of rows:" + numrows);
 
         if (numrows>0){
+            const user_identifier = rows[0].user_id;
+            const greeting = rows[0].login_greeting;
+            
             console.log(rows);
-            //const session =req.session;
-            //session.isloggedin = true;
-            //console.log(session);
-            //res.send(session);
-            const user = {name: username};
-            const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET);
-            res.json({accessToken: accessToken});
-        } else {
-            res.redirect('/login');
+            const userObj = { user: user_identifier };
+            const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET);
+            //res.json({accessToken: accessToken});
+            res.cookie('token', accessToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict'
+            });
+            res.send(greeting);
         }
-        
-
     }catch (err) {
         console.log(err);
         res.json(err);

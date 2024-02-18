@@ -63,20 +63,17 @@ exports.postAPILoginRequest = async (req, res) => {
 
     const endpoint = 'http://localhost:3002/login';
 
-    //const converted= JSON.stringify(req.body);
-    //console.log("Req body is"+converted);
-
     try {
         const response = await axios.post(endpoint, req.body);
         console.log("API Endpoint returned");
         console.log(response.data);
-        const jwtToken = response.data.accessToken;
-        console.log(jwtToken);
+        const jwtToken = response.headers['set-cookie'];
+        //const welcome = response.data;
+        //console.log(jwtToken);
         res.cookie('token', jwtToken, {
             httpOnly: true,
             secure: true,
             sameSite: 'strict'
-
         });
         res.redirect('create-snapshot');
 

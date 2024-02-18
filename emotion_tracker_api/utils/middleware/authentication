@@ -1,0 +1,29 @@
+const jwt = require("jsonwebtoken");
+/*
+https://www.youtube.com/watch?v=mbsmsi7l3r4
+*/
+
+exports.checkAuth= (req, res, next) => {
+// Token comes in header called 'Bearer'
+const token = req.cookies['token'];
+
+//console.log("REQ HEADERS"+JSON.stringify(req.cookies));
+//ensure we have received a tokenToCheck- return token or undefined
+//const token = tokenToCheck && tokenToCheck.split(' ')[1];
+
+//check for undefined
+if (token == null || !token) {
+    return res.sendStatus(401); //not sent token
+}
+
+//verify token is valid
+jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
+    if (err) {
+        return res.sendStatus(403); //token no longer valid, no access
+    }
+
+    //at this point token is valid
+    req.user = user;
+    next();
+})
+};
