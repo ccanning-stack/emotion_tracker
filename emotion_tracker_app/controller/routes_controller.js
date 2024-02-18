@@ -67,20 +67,23 @@ exports.postAPILoginRequest = async (req, res) => {
         const response = await axios.post(endpoint, req.body);
         console.log("API Endpoint returned");
         console.log(response.data);
-        const jwtToken = response.headers['set-cookie'];
-        //const welcome = response.data;
-        //console.log(jwtToken);
+        const token = response.headers['x-auth-token'];
+
+        if (jwtToken) {
+            localStorage.setItem('jwtToken', token);
+        }
+        /*const welcome = response.data;
+        console.log(jwtToken);
         res.cookie('token', jwtToken, {
             httpOnly: true,
             secure: true,
             sameSite: 'strict'
-        });
+        });*/
         res.redirect('create-snapshot');
 
     } catch (error) {
-        console.log("ERROR connecting to API");
         console.log(error);
-        res.status(500).json({ error: "Failed to fetch data from API" });
+        res.status(500).json({ error: `${error}` });
     };
 
 }

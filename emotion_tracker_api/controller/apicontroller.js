@@ -36,16 +36,18 @@ exports.postLogin = async (req, res) => {
         if (numrows>0){
             const user_identifier = rows[0].user_id;
             const greeting = rows[0].login_greeting;
-            
+
             console.log(rows);
             const userObj = { user: user_identifier };
-            const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET);
-            //res.json({accessToken: accessToken});
+            const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET, 
+                {expiresIn: '900000'});
+            /*res.json({accessToken: accessToken});
             res.cookie('token', accessToken, {
                 httpOnly: true,
                 secure: true,
                 sameSite: 'strict'
-            });
+            });*/
+            res.setHeader('x-auth-token', accessToken);
             res.send(greeting);
         }
     }catch (err) {
