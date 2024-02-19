@@ -1,5 +1,15 @@
 //This should contain business logic and data manipulation code
 const axios = require('axios');
+const https = require('https');
+const fs = require('fs');
+
+// Trust an external service's self-signed certificate
+// for outbound requests from your server
+const externalServiceCACert = fs.readFileSync('/Applications/MAMP/conf/apache/ssl/localhost.crt');
+
+const httpsAgent = new https.Agent({
+  ca: externalServiceCACert,
+});
 
 exports.getRedirect = async (req, res) => {
     res.redirect('/welcome');
@@ -43,7 +53,7 @@ exports.getSummaryPage = async (req, res) => {
 
 exports.getMakeAPIRequest = async (req, res) => {
 
-    const endpoint = 'http://localhost:3002/';
+    const endpoint = 'https://localhost:8443/';
 
     try {
         const response = await axios.get(endpoint)
@@ -61,18 +71,18 @@ exports.getMakeAPIRequest = async (req, res) => {
 
 exports.postAPILoginRequest = async (req, res) => {
 
-    const endpoint = 'http://localhost:3002/login';
+    const endpoint = 'https://localhost:8443/login';
 
     try {
-        const response = await axios.post(endpoint, req.body);
+        const response = await axios.post(endpoint, req.body, { httpsAgent });
         console.log("API Endpoint returned");
         console.log(response.data);
-        const token = response.headers['x-auth-token'];
+        /*const token = response.headers['x-auth-token'];
 
         if (jwtToken) {
             localStorage.setItem('jwtToken', token);
         }
-        /*const welcome = response.data;
+        const welcome = response.data;
         console.log(jwtToken);
         res.cookie('token', jwtToken, {
             httpOnly: true,

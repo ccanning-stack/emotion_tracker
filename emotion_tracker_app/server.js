@@ -3,7 +3,6 @@ const app = require('./app');
 const fs = require('fs');
 const https = require('https');
 
-
 https.createServer({
     key: fs.readFileSync('/Applications/MAMP/conf/apache/ssl/localhost.key'),
     cert: fs.readFileSync('/Applications/MAMP/conf/apache/ssl/localhost.crt'),

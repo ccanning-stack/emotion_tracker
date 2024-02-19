@@ -20,6 +20,7 @@ exports.getUsers = async (req, res) => {
 
 exports.postLogin = async (req, res) => {
 
+
     const {username, password} = req.body;
     const vals = [username, password];
 
@@ -47,8 +48,9 @@ exports.postLogin = async (req, res) => {
                 secure: true,
                 sameSite: 'strict'
             });*/
-            res.setHeader('x-auth-token', accessToken);
-            res.send(greeting);
+            //res.setHeader('x-auth-token', accessToken);
+            //res.send(greeting);
+            res.json("hello mucker");
         }
     }catch (err) {
         console.log(err);
