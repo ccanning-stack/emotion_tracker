@@ -4,6 +4,7 @@
 const express = require('express');
 const controller = require('./../controller/routes_controller');
 const router = express.Router();
+const auth = require('./../utils/middleware/authentication');
 
 //route handling
 router.get('/', controller.getRedirect);
@@ -14,13 +15,14 @@ router.get('/login', controller.getLoginPage);
 router.get('/reset-password-step1', controller.getConfirmUserPage);
 router.get('/reset-password-step2', controller.getResetPasswordPage);
 router.get('/create-snapshot', controller.getCreateSnapshotPage);
-//router.get('/edit-snapshot', authenticateToken, controller.getEditSnapshotPage);
+//router.get('/edit-snapshot', controller.getEditSnapshotPage);
 router.get('/snapshot-summary', controller.getSummaryPage);
 router.get('/insights', controller.getInsightsPage);
 
-router.get('/v1.1/api', controller.getMakeAPIRequest );
+//router.get('/v1.1/api', controller.getMakeAPIRequest );
 
-router.post('/login', controller.postAPILoginRequest);
+router.post('/login', controller.postAPILogin);
+router.post('/create-snapshot', auth.checkAuth, controller.postAPICreateSnapshot);
 
 //export router
 module.exports = router;

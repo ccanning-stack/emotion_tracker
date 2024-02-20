@@ -36,23 +36,42 @@ exports.postLogin = async (req, res) => {
 
         if (numrows>0){
             const user_identifier = rows[0].user_id;
-            const greeting = rows[0].login_greeting;
 
             console.log(rows);
             const userObj = { user: user_identifier };
             const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET, 
                 {expiresIn: '900000'});
-            /*res.json({accessToken: accessToken});
-            res.cookie('token', accessToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'strict'
-            });*/
-            //res.setHeader('x-auth-token', accessToken);
-            //res.send(greeting);
-            res.json("hello mucker");
+            res.json({accessToken: accessToken});
         }
     }catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
+
+
+exports.postCreateSnapshot = async (req, res) => {
+
+    /*const user = req.user;
+
+    const vals = [user];
+
+    const checkuserSQL = 
+    `SELECT * FROM user WHERE email = ?`;*/
+
+    try {/*
+        const [rows] = await conn.query(checkuserSQL, vals);
+
+        console.log("vals are " +vals);
+        const numrows = rows.length;
+        console.log("number of rows:" + numrows);
+
+        if (numrows>0){
+            console.log(rows);*/
+            console.log('working');
+            res.json("snapshot post to db working");
+        }
+    catch (err) {
         console.log(err);
         res.json(err);
     };

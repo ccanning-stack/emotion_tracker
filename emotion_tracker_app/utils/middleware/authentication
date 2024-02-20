@@ -4,25 +4,22 @@ https://www.youtube.com/watch?v=mbsmsi7l3r4
 */
 
 exports.checkAuth= (req, res, next) => {
-// Token comes in header called 'Bearer'
+
 const token = req.cookies['token'];
-
-//console.log("REQ HEADERS"+JSON.stringify(req.cookies));
-//ensure we have received a tokenToCheck- return token or undefined
-//const token = tokenToCheck && tokenToCheck.split(' ')[1];
-
-//check for undefined
+console.log ("token received from form is "+token);
+//check for undefined or inexistent token
 if (token == null || !token) {
-    return res.sendStatus(401); //not sent token
+    return res.sendStatus(401); //not sent token- Unauthorised
 }
 
 //verify token is valid
 jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
     if (err) {
-        return res.sendStatus(403); //token no longer valid, no access
+        return res.sendStatus(403); //token no longer valid, no access- Forbidden
     }
 
-    //at this point token is valid
+    //at this point token is valid- set user in authorization header for API
+    req.headers['authorization'] =`Bearer ${token}`;
     req.user = user;
     next();
 })

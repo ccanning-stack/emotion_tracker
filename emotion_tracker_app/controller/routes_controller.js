@@ -4,7 +4,8 @@ const https = require('https');
 const fs = require('fs');
 
 // Trust an external service's self-signed certificate
-// for outbound requests from your server
+// for outbound requests from server
+// Chat GPT (www.chat.openai.com)
 const externalServiceCACert = fs.readFileSync('/Applications/MAMP/conf/apache/ssl/localhost.crt');
 
 const httpsAgent = new https.Agent({
@@ -69,7 +70,7 @@ exports.getMakeAPIRequest = async (req, res) => {
 
 }
 
-exports.postAPILoginRequest = async (req, res) => {
+exports.postAPILogin = async (req, res) => {
 
     const endpoint = 'https://localhost:8443/login';
 
@@ -77,19 +78,36 @@ exports.postAPILoginRequest = async (req, res) => {
         const response = await axios.post(endpoint, req.body, { httpsAgent });
         console.log("API Endpoint returned");
         console.log(response.data);
-        /*const token = response.headers['x-auth-token'];
+        const token = response.data.accessToken;
 
-        if (jwtToken) {
-            localStorage.setItem('jwtToken', token);
-        }
-        const welcome = response.data;
-        console.log(jwtToken);
-        res.cookie('token', jwtToken, {
+        res.cookie('token', token, {
             httpOnly: true,
             secure: true,
             sameSite: 'strict'
-        });*/
-        res.redirect('create-snapshot');
+        });
+
+        res.redirect('/create-snapshot');
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: `${error}` });
+    };
+
+}
+
+exports.postAPICreateSnapshot = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/create-snapshot';
+    token = req.headers['authorization'];
+
+    try {
+        const response = await axios.post(endpoint, req.body, {
+            headers: {'authorization': `${token}`}
+        }, { httpsAgent });
+        console.log("API Endpoint returned");
+        console.log(response.data);
+        
+        res.redirect('/snapshot-summary');
 
     } catch (error) {
         console.log(error);
