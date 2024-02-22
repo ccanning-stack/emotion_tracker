@@ -4,7 +4,7 @@
 const express = require('express');
 const controller = require('./../controller/routes_controller');
 const router = express.Router();
-const auth = require('./../utils/middleware/authentication');
+const { checkAuth } = require('./../utils/middleware/authentication');
 
 //route handling
 router.get('/', controller.getRedirect);
@@ -22,7 +22,7 @@ router.get('/insights', controller.getInsightsPage);
 //router.get('/v1.1/api', controller.getMakeAPIRequest );
 
 router.post('/login', controller.postAPILogin);
-router.post('/create-snapshot', auth.checkAuth, controller.postAPICreateSnapshot);
+router.post('/create-snapshot', checkAuth, controller.postAPICreateSnapshot);
 
 //export router
 module.exports = router;

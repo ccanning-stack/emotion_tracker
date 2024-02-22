@@ -1,0 +1,42 @@
+
+exports.insertSnapshotSQL= `START TRANSACTION;
+
+    INSERT INTO snapshot (snapshot_id, title, notes, datetime_created, user_id)
+    VALUES (NULL, 'Snapshot Title', 'Snapshot Notes', CURRENT_TIMESTAMP, @userID);
+
+    SET @last_snapshot_id = LAST_INSERT_ID();
+    
+    INSERT INTO emotion_snapshot (emotion_snapshot_id, intensity, emotion_id, snapshot_id) VALUES
+    (@angerVal, 1, @last_snapshot_id),
+    (@contemptVal, 2, @last_snapshot_id),
+    (@disgustVal, 3, @last_snapshot_id),
+    (@enjoymentVal, 4, @last_snapshot_id),
+    (@fearVal, 5, @last_snapshot_id),
+    (@sadnessVal, 6, @last_snapshot_id),
+    (@surpriseVal, 7, @last_snapshot_id);
+    
+    INSERT INTO trigger_table (trigger_id, name)
+    VALUES (NULL, 'Trigger Name');
+    
+    SET @last_trigger_id = LAST_INSERT_ID();
+    
+    INSERT INTO trigger_snapshot (trigger_snapshot_id, trigger_id, snapshot_id)
+    VALUES (NULL, @last_trigger_id, @last_snapshot_id);
+
+    INSERT INTO trigger_table (trigger_id, name)
+    VALUES (NULL, 'Trigger Name');
+    
+    SET @last_trigger_id = LAST_INSERT_ID();
+    
+    INSERT INTO trigger_snapshot (trigger_snapshot_id, trigger_id, snapshot_id)
+    VALUES (NULL, @last_trigger_id, @last_snapshot_id);
+
+    INSERT INTO trigger_table (trigger_id, name)
+    VALUES (NULL, 'Trigger Name');
+    
+    SET @last_trigger_id = LAST_INSERT_ID();
+    
+    INSERT INTO trigger_snapshot (trigger_snapshot_id, trigger_id, snapshot_id)
+    VALUES (NULL, @last_trigger_id, @last_snapshot_id);
+    
+    COMMIT;`;

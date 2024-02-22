@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 https://www.youtube.com/watch?v=mbsmsi7l3r4
 */
 
+//checking token is valid and extracting/setting it in req headers
 exports.checkAuth= (req, res, next) => {
 
 const token = req.cookies['token'];
@@ -18,8 +19,10 @@ jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
         return res.sendStatus(403); //token no longer valid, no access- Forbidden
     }
 
-    //at this point token is valid- set user in authorization header for API
+    //at this point token is valid- set in req headers
     req.headers['authorization'] =`Bearer ${token}`;
+
+    //at this point token is valid- set user in req obj for subsequent use
     req.user = user;
     next();
 })

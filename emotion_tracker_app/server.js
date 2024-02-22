@@ -8,5 +8,5 @@ https.createServer({
     cert: fs.readFileSync('/Applications/MAMP/conf/apache/ssl/localhost.crt'),
 }, app).listen(process.env.PORT, (err) => {
     if (err) return console.log(err);
-    console.log(`Express listening on port ${process.env.PORT}`);
+    console.log(`Web App listening on port ${process.env.PORT}`);
 });

@@ -98,6 +98,8 @@ exports.postAPILogin = async (req, res) => {
 exports.postAPICreateSnapshot = async (req, res) => {
 
     const endpoint = 'https://localhost:8443/create-snapshot';
+
+    //extract for use with axios as headers need to be set separately
     token = req.headers['authorization'];
 
     try {
