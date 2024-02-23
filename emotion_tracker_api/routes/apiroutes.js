@@ -6,6 +6,6 @@ const {checkAuth} = require('./../utils/middleware/authentication');
 router.get('/users', controller.getUsers);
 
 router.post('/login', controller.postLogin);
-//router.post('/create-snapshot', checkAuth, controller.postCreateSnapshot);
+router.post('/create-snapshot', checkAuth, controller.postCreateSnapshot);
 
 module.exports = router;

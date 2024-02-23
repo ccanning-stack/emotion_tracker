@@ -36,55 +36,57 @@
 
             <h4>
 
-                <label for="snapshot-title">Title</label>
+                <label for="snapshot_title">Title</label>
 
             </h4>
 
             <div>
 
-                <input type="text" name="snapshot-headline" placeholder="" id="snapshot-title">
+                <input type="text" name="snapshot_headline" placeholder="" id="snapshot-title">
 
             </div>
 
+            
             <div>
                 <p>Time created:</p>
-                <input type="datetime-local" disabled>
+                <script src="./js/datescript.js"></script>
+                <span id ="dateDisplay" name="custom_date"></span>
             </div>
 
             <h4>Emotion Intensity</h4>
 
             <div class="slidecontainer">
-                <input type="range" name="anger-val" min="1" max="10" value="1" class="slider" id="anger-slider">
+                <input type="range" name="anger_val" min="1" max="10" value="1" class="slider" id="anger-slider">
             </div>
             <p>Value: <output id="anger-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" name="contempt-val" min="1" max="10" value="1" class="slider" id="contempt-slider">
+                <input type="range" name="contempt_val" min="1" max="10" value="1" class="slider" id="contempt-slider">
             </div>
             <p>Value: <output id="contempt-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" name="disgust-val" min="1" max="10" value="1" class="slider" id="disgust-slider">
+                <input type="range" name="disgust_val" min="1" max="10" value="1" class="slider" id="disgust-slider">
             </div>
             <p>Value: <output id="disgust-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" name="enjoyment-val" min="1" max="10" value="1" class="slider" id="enjoyment-slider">
+                <input type="range" name="enjoyment_val" min="1" max="10" value="1" class="slider" id="enjoyment-slider">
                 <p>Value: <output id="enjoyment-value"></output></p>
             </div>
 
             <div class="slidecontainer">
-                <input type="range" name="fear-val" min="1" max="10" value="1" class="slider" id="fear-slider">
+                <input type="range" name="fear_val" min="1" max="10" value="1" class="slider" id="fear-slider">
             </div>
             <p>Value: <output id="fear-value"></output></p>
 
             <div class="slidecontainer">
-                <input type="range" name="sadness-val" min="1" max="10" value="1" class="slider" id="sadness-slider">
+                <input type="range" name="sadness_val" min="1" max="10" value="1" class="slider" id="sadness-slider">
                 <p>Value: <output id="sadness-value"></output></p>
             </div>
 
             <div class="slidecontainer">
-                <input type="range" name="surprise-val" min="1" max="10" value="1" class="slider" id="surprise-slider">
+                <input type="range" name="surprise_val" min="1" max="10" value="1" class="slider" id="surprise-slider">
             </div>
             <p>Value: <output id="surprise-value"></output></p>
 
@@ -103,19 +105,19 @@
 
             <div>
 
-                <input type="text" name="trigger-1" placeholder="Trigger 1" id="trigger-create">
+                <input type="text" name="trigger_1" placeholder="Trigger 1" id="trigger-create">
 
             </div>
 
             <div>
 
-                <input type="text" name="trigger-1" placeholder="Trigger 2" id="trigger-create">
+                <input type="text" name="trigger_2" placeholder="Trigger 2" id="trigger-create">
 
             </div>
 
             <div>
 
-                <input type="text" name="trigger-1" placeholder="Trigger 3" id="trigger-create">
+                <input type="text" name="trigger_3" placeholder="Trigger 3" id="trigger-create">
 
             </div>
 
@@ -130,7 +132,7 @@
 
             <div>
 
-                <input type="text" name="snapshot-note" placeholder="" id="snapshot-notes">
+                <input type="text" name="snapshot_note" placeholder="" id="snapshot-notes">
 
             </div>
 

@@ -1,6 +1,7 @@
 const conn = require('../database/dbconn');
 const jwt = require('jsonwebtoken');
-const sql = require('./../sql/sql_statements');
+//const sql = require('./../sql/sql_statements');
+const getCurrentDateTimeFormatted = require('../utils/functions/datescript');
 
 // GET /users
 exports.getUsers = async (req, res) => {
@@ -39,6 +40,8 @@ exports.postLogin = async (req, res) => {
 
             console.log(rows);
             const userObj = { user: user_identifier };
+
+            //token timeout after 15 mins
             const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET, 
                 {expiresIn: '900000'});
             res.json({accessToken: accessToken});
@@ -52,75 +55,82 @@ exports.postLogin = async (req, res) => {
 
 exports.postCreateSnapshot = async (req, res) => {
 
+    const currentDate = getCurrentDateTimeFormatted();
+    console.log(currentDate );
+
     //extract user_id from req obj
     const user = req.user.user;
-    const {username, password} = req.body;
 
-    const vals = [NULL, snapshot-headline, snapshot-note, CURRENT_TIMESTAMP,
-        user, anger-val, contempt-val, disgust-val, enjoyment-val, sadness-val,
-    surprise-val, NULL, trigger_1, trigger_2, trigger_3];
+    const { snapshot_headline, snapshot_note, anger_val, contempt_val, 
+        disgust_val, enjoyment_val, fear_val, sadness_val, surprise_val, 
+        trigger_1, trigger_2, trigger_3 } = req.body;
+
+    const vals = [null, snapshot_headline, snapshot_note, currentDate,
+        user, null, anger_val, null, contempt_val, null, disgust_val, null, 
+        enjoyment_val, null, fear_val, null, sadness_val, null,
+    surprise_val, null, trigger_1, null, null, trigger_2, null, null, trigger_3, null];
 
     const postSnapshotSQL = 
     
     `START TRANSACTION;
 
     INSERT INTO snapshot (snapshot_id, title, notes, datetime_created, user_id)
-    VALUES (NULL, 'Snapshot Title', 'Snapshot Notes', CURRENT_TIMESTAMP, @userID);
+    VALUES (?, ?, ?, ?, ?);
 
     SET @last_snapshot_id = LAST_INSERT_ID();
     
     INSERT INTO emotion_snapshot (emotion_snapshot_id, intensity, emotion_id, snapshot_id) VALUES
-    (@angerVal, 1, @last_snapshot_id),
-    (@contemptVal, 2, @last_snapshot_id),
-    (@disgustVal, 3, @last_snapshot_id),
-    (@enjoymentVal, 4, @last_snapshot_id),
-    (@fearVal, 5, @last_snapshot_id),
-    (@sadnessVal, 6, @last_snapshot_id),
-    (@surpriseVal, 7, @last_snapshot_id);
+    (?, ?, 1, @last_snapshot_id),
+    (?, ?, 2, @last_snapshot_id),
+    (?, ?, 3, @last_snapshot_id),
+    (?, ?, 4, @last_snapshot_id),
+    (?, ?, 5, @last_snapshot_id),
+    (?, ?, 6, @last_snapshot_id),
+    (?, ?, 7, @last_snapshot_id);
     
     INSERT INTO trigger_table (trigger_id, name)
-    VALUES (NULL, 'Trigger Name');
+    VALUES (?, ?);
     
     SET @last_trigger_id = LAST_INSERT_ID();
     
     INSERT INTO trigger_snapshot (trigger_snapshot_id, trigger_id, snapshot_id)
-    VALUES (NULL, @last_trigger_id, @last_snapshot_id);
+    VALUES (?, @last_trigger_id, @last_snapshot_id);
 
     INSERT INTO trigger_table (trigger_id, name)
-    VALUES (NULL, 'Trigger Name');
+    VALUES (?, ?);
     
     SET @last_trigger_id = LAST_INSERT_ID();
     
     INSERT INTO trigger_snapshot (trigger_snapshot_id, trigger_id, snapshot_id)
-    VALUES (NULL, @last_trigger_id, @last_snapshot_id);
+    VALUES (?, @last_trigger_id, @last_snapshot_id);
 
     INSERT INTO trigger_table (trigger_id, name)
-    VALUES (NULL, 'Trigger Name');
+    VALUES (?, ?);
     
     SET @last_trigger_id = LAST_INSERT_ID();
     
     INSERT INTO trigger_snapshot (trigger_snapshot_id, trigger_id, snapshot_id)
-    VALUES (NULL, @last_trigger_id, @last_snapshot_id);
+    VALUES (?, @last_trigger_id, @last_snapshot_id);
     
     COMMIT;`;
 
     try {
         const [rows] = await conn.query(postSnapshotSQL, vals);
 
-        //console.log("vals are "+vals);
+        console.log("vals are "+vals);
         const numrows = rows.length;
         console.log("number of rows:" + numrows);
 
         if (numrows>0){
-            console.log(rows);
-            console.log("user is"+user);
-            res.json("API response here");
+            console.log("post to db successful");
+            res.sendStatus(200);
         }
     } catch (err) {
         console.log(err);
         res.json(err);
     };
-};
+
+}
 
 /*
 exports.postNewUser = async (req, res) => {

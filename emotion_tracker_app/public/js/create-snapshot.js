@@ -1,23 +1,10 @@
-/**
+
+
+/*
+SLIDERS
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
 https://www.w3schools.com/howto/howto_js_rangeslider.asp/
 */
-
-const enjoymentValue = document.getElementById("enjoyment-value");
-const enjoymentInput = document.getElementById("enjoyment-slider");
-enjoymentValue.textContent = enjoymentInput.value;
-enjoymentInput.addEventListener("input", (event) => {
-  enjoymentValue.textContent = event.target.value;
-});
-
-
-const sadnessValue = document.getElementById("sadness-value");
-const sadnessInput = document.getElementById("sadness-slider");
-sadnessValue.textContent = sadnessInput.value;
-sadnessInput.addEventListener("input", (event) => {
-  sadnessValue.textContent = event.target.value;
-});
-
 
 const angerValue = document.getElementById("anger-value");
 const angerInput = document.getElementById("anger-slider");
@@ -40,12 +27,28 @@ disgustInput.addEventListener("input", (event) => {
   disgustValue.textContent = event.target.value;
 });
 
+const enjoymentValue = document.getElementById("enjoyment-value");
+const enjoymentInput = document.getElementById("enjoyment-slider");
+enjoymentValue.textContent = enjoymentInput.value;
+enjoymentInput.addEventListener("input", (event) => {
+  enjoymentValue.textContent = event.target.value;
+});
+
 const fearValue = document.getElementById("fear-value");
 const fearInput = document.getElementById("fear-slider");
 fearValue.textContent = fearInput.value;
 fearInput.addEventListener("input", (event) => {
   fearValue.textContent = event.target.value;
 });
+
+
+const sadnessValue = document.getElementById("sadness-value");
+const sadnessInput = document.getElementById("sadness-slider");
+sadnessValue.textContent = sadnessInput.value;
+sadnessInput.addEventListener("input", (event) => {
+  sadnessValue.textContent = event.target.value;
+});
+
 
 const surpriseValue = document.getElementById("surprise-value");
 const surpriseInput = document.getElementById("surprise-slider");
