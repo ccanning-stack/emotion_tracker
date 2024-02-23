@@ -18,8 +18,14 @@
     <main>
         <h1>Snapshot Summary</h1>
 
-        <th></th>
-        <tr></tr>
+        <div class="card" style="width: 18rem;"></div>
+        <% apiData.forEach((row) => { %>
+            <div class="card-body">
+              <h5 class="card-title"><%= row.title %></h5>
+              <p class="card-text">Created: <%= row.datetime_created %></p>
+              <a href="#" class="btn btn-primary">View Snapshot</a>
+            </div>
+          </div>
 
     </main>
 </body>

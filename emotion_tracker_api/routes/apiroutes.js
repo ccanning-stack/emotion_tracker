@@ -4,6 +4,7 @@ const router = express.Router();
 const {checkAuth} = require('./../utils/middleware/authentication');
 
 router.get('/users', controller.getUsers);
+router.get('/snapshot-summary', checkAuth, controller.getSnapshotSummary);
 
 router.post('/login', controller.postLogin);
 router.post('/create-snapshot', checkAuth, controller.postCreateSnapshot);

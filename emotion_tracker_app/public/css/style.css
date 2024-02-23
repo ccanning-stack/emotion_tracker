@@ -9,6 +9,17 @@ h1 {
 }
 
 
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;
+}
+
+
+
 /*https://www.w3schools.com/howto/howto_js_rangeslider.asp/*/
 
 .slidecontainer {

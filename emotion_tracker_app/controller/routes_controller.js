@@ -48,8 +48,27 @@ exports.getInsightsPage = async (req, res) => {
     res.render('insights');
 }
 
-exports.getSummaryPage = async (req, res) => {
-    res.render('summary');
+exports.getAPISnapshotSummary = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/snapshot-summary';
+
+    //extract for use with axios as headers need to be set separately
+    token = req.headers['authorization'];
+
+    try {
+        const response = await axios.get(endpoint, req.body, {
+            headers: {'authorization': `${token}`}
+        }, { httpsAgent });
+
+        console.log("Snapshot Summary API Endpoint returned");
+        console.log(response.data);
+        res.render('summary', {apiData: response.data.result});
+
+    } catch (error) {
+        console.log("ERROR connecting to Snapshot Summary API");
+        console.log(error);
+        res.status(500).json({ error: "Failed to fetch data from API" });
+    };
 }
 
 exports.getMakeAPIRequest = async (req, res) => {
@@ -76,8 +95,8 @@ exports.postAPILogin = async (req, res) => {
 
     try {
         const response = await axios.post(endpoint, req.body, { httpsAgent });
-        console.log("API Endpoint returned");
-        console.log(response.data);
+
+        //extract jwt for setting in cookie for use henceforth
         const token = response.data.accessToken;
 
         res.cookie('token', token, {
@@ -106,13 +125,13 @@ exports.postAPICreateSnapshot = async (req, res) => {
         const response = await axios.post(endpoint, req.body, {
             headers: {'authorization': `${token}`}
         }, { httpsAgent });
+
         console.log("API Endpoint returned");
         console.log(response.data);
         
         res.redirect('/snapshot-summary');
 
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error: `${error}` });
     };
 

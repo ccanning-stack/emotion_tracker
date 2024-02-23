@@ -5,12 +5,9 @@ https://www.youtube.com/watch?v=mbsmsi7l3r4
 
 exports.checkAuth= (req, res, next) => {
 
-    console.log(req.headers);
-
 // Token comes in Authorization header called 'Bearer'
 const authHeader = req.headers['authorization'];
 
-console.log(authHeader);
 //if we have an authHeader return the token (returns undefined/null or token)
 const token = authHeader && authHeader.split(' ')[1];
 

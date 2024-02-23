@@ -36,72 +36,64 @@
 
             <h4>
 
-                <label for="snapshot_title">Title</label>
+                <label for="snapshot_title">Snapshot Headline:</label>
 
             </h4>
 
             <div>
 
-                <input type="text" name="snapshot_headline" placeholder="" id="snapshot-title">
+                <input type="text" name="snapshot_headline" placeholder="Enter headline here!" id="snapshot-title">
 
             </div>
 
-            
+            <br>
+
             <div>
-                <p>Time created:</p>
                 <script src="./js/datescript.js"></script>
-                <span id ="dateDisplay" name="custom_date"></span>
+                <p>Current date & time: <span id ="dateDisplay" name="custom_date"></span></p>
             </div>
 
-            <h4>Emotion Intensity</h4>
+            <br>
+
+            <h6>Please record current <b>emotion intensity</b> levels (1 = least intense, 10 = most intense):</h6>
+            <br>
 
             <div class="slidecontainer">
                 <input type="range" name="anger_val" min="1" max="10" value="1" class="slider" id="anger-slider">
             </div>
-            <p>Value: <output id="anger-value"></output></p>
+            <p>Anger: <output id="anger-value"></output></p>
 
             <div class="slidecontainer">
                 <input type="range" name="contempt_val" min="1" max="10" value="1" class="slider" id="contempt-slider">
             </div>
-            <p>Value: <output id="contempt-value"></output></p>
+            <p>Contempt: <output id="contempt-value"></output></p>
 
             <div class="slidecontainer">
                 <input type="range" name="disgust_val" min="1" max="10" value="1" class="slider" id="disgust-slider">
             </div>
-            <p>Value: <output id="disgust-value"></output></p>
+            <p>Disgust: <output id="disgust-value"></output></p>
 
             <div class="slidecontainer">
                 <input type="range" name="enjoyment_val" min="1" max="10" value="1" class="slider" id="enjoyment-slider">
-                <p>Value: <output id="enjoyment-value"></output></p>
+                <p>Enjoyment: <output id="enjoyment-value"></output></p>
             </div>
 
             <div class="slidecontainer">
                 <input type="range" name="fear_val" min="1" max="10" value="1" class="slider" id="fear-slider">
             </div>
-            <p>Value: <output id="fear-value"></output></p>
+            <p>Fear: <output id="fear-value"></output></p>
 
             <div class="slidecontainer">
                 <input type="range" name="sadness_val" min="1" max="10" value="1" class="slider" id="sadness-slider">
-                <p>Value: <output id="sadness-value"></output></p>
+                <p>Sadness: <output id="sadness-value"></output></p>
             </div>
 
             <div class="slidecontainer">
                 <input type="range" name="surprise_val" min="1" max="10" value="1" class="slider" id="surprise-slider">
             </div>
-            <p>Value: <output id="surprise-value"></output></p>
+            <p>Surprise: <output id="surprise-value"></output></p>
 
-            <h4>Contextual Triggers</h4>
-
-            <div>
-
-                <select class="trigger-select" aria-label="Default select example">
-                    <option selected>Frequently-used</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                </select>
-
-            </div>
+            <h6>Please enter up to 3 optional <b>Contextual Triggers:</b></h6>
 
             <div>
 
@@ -124,7 +116,7 @@
             <div>
                 <p>
 
-                    <label for="snapshot-notes">Notes</label>
+                    <label for="snapshot-notes">Additional Notes:</label>
 
                 </p>
             </div>

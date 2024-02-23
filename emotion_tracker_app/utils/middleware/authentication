@@ -7,7 +7,6 @@ https://www.youtube.com/watch?v=mbsmsi7l3r4
 exports.checkAuth= (req, res, next) => {
 
 const token = req.cookies['token'];
-console.log ("token received from form is "+token);
 //check for undefined or inexistent token
 if (token == null || !token) {
     return res.sendStatus(401); //not sent token- Unauthorised

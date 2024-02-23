@@ -1,6 +1,6 @@
-    const postSnapshotSQL = 
-    
-    `START TRANSACTION;
+function newSnapShotSQL() {
+
+    return `START TRANSACTION;
 
     INSERT INTO snapshot (snapshot_id, title, notes, datetime_created, user_id)
     VALUES (?, ?, ?, ?, ?);
@@ -41,3 +41,6 @@
     VALUES (?, @last_trigger_id, @last_snapshot_id);
     
     COMMIT;`;
+}
+
+module.exports = newSnapShotSQL;
