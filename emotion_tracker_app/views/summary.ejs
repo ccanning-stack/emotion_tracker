@@ -29,7 +29,9 @@
                                 </h5>
                                 <p class="card-text">Created: <%= itemdate %>
                                 </p>
-                                <a href="#" class="btn btn-primary">View/Edit Snapshot</a>
+                                <a href='/view-snapshot/<%= row.snapshot_id %>' class="btn btn-primary">
+                                    View Snapshot</a>
+                                
                             </div>
                         </div>
                         <% }); %>

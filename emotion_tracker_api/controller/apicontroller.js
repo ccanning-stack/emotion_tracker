@@ -2,7 +2,18 @@ const conn = require('../database/dbconn');
 const jwt = require('jsonwebtoken');
 //const sql = require('./../sql/sql_statements');
 const getCurrentDateTimeFormatted = require('../utils/functions/datescript');
-const newSnapShotSQL = require('../utils/functions/db_operations');
+const {
+    newSnapShotFunc,
+    getSnapshotDetailFunc,
+    getAngerIntensityFunc,
+    getContemptIntensityFunc,
+    getDisgustIntensityFunc,
+    getEnjoymentIntensityFunc,
+    getFearIntensityFunc,
+    getSadnessIntensityFunc,
+    getSurpriseIntensityFunc,
+    getTriggerDetailFunc
+} = require ('../utils/functions/db_operations');
 
 // GET /users
 exports.getUsers = async (req, res) => {
@@ -32,14 +43,11 @@ exports.postLogin = async (req, res) => {
     try {
         const [rows] = await conn.query(checkuserSQL, vals);
 
-        console.log("vals are " + vals);
         const numrows = rows.length;
-        console.log("number of rows:" + numrows);
 
         if (numrows > 0) {
             const user_identifier = rows[0].user_id;
 
-            console.log(rows);
             const userObj = { user: user_identifier };
 
             //token timeout after 30 mins
@@ -74,7 +82,7 @@ exports.postCreateSnapshot = async (req, res) => {
         surprise_val, null, trigger_1, null, null, trigger_2, null, null, trigger_3, null];
 
     //get sql from js function
-    const postSnapshotSQL = newSnapShotSQL();
+    const postSnapshotSQL = newSnapShotFunc();
 
     try {
         const [rows] = await conn.query(postSnapshotSQL, vals);
@@ -89,7 +97,7 @@ exports.postCreateSnapshot = async (req, res) => {
         res.json(err);
     };
 
-}
+};
 
 /*
 exports.postNewUser = async (req, res) => {
@@ -120,6 +128,61 @@ exports.getSnapshotSummary = async (req, res) => {
     };
 };
 
+
+exports.getSnapshotDetails = async (req, res) => {
+
+    const { id } = req.params;
+
+    console.log(id);
+
+    const angerVals= [id, 1];
+    const contemptVals= [id, 2];
+    const disgustVals= [id, 3];
+    const enjoymentVals= [id, 4];
+    const fearVals= [id, 5];
+    const sadnessVals= [id, 6];
+    const surpriseVals= [id, 7];
+
+    const getSnapshotDetailSQL = getSnapshotDetailFunc();
+
+    const getAngerIntensitySQL = getAngerIntensityFunc();
+
+    const getContemptIntensitySQL = getContemptIntensityFunc();
+
+    const getDisgustIntensitySQL = getDisgustIntensityFunc();
+
+    const getEnjoymentIntensitySQL = getEnjoymentIntensityFunc();
+
+    const getFearIntensitySQL = getFearIntensityFunc();
+
+    const getSadnessIntensitySQL = getSadnessIntensityFunc();
+
+    const getSurpriseIntensitySQL = getSurpriseIntensityFunc();
+
+    const getTriggerDetailSQL = getTriggerDetailFunc();
+
+    try {
+
+        const [snap] = await conn.query(getSnapshotDetailSQL, id);
+        const [ang] = await conn.query(getAngerIntensitySQL, angerVals);
+        const [cont] = await conn.query(getContemptIntensitySQL, contemptVals);
+        const [disg] = await conn.query(getDisgustIntensitySQL, disgustVals);
+        const [enj] = await conn.query(getEnjoymentIntensitySQL, enjoymentVals);
+        const [fear] = await conn.query(getFearIntensitySQL, fearVals);
+        const [sad] = await conn.query(getSadnessIntensitySQL, sadnessVals);
+        const [surp] = await conn.query(getSurpriseIntensitySQL, surpriseVals);
+        const [trig] = await conn.query(getTriggerDetailSQL, id);
+
+        const dataObjects = {snap, ang, cont, disg, enj, fear, sad, surp, trig };
+
+        console.log(dataObjects);
+        res.json(dataObjects);
+
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
 
 /*
 

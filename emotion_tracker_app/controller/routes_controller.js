@@ -48,28 +48,7 @@ exports.getInsightsPage = async (req, res) => {
     res.render('insights');
 }
 
-exports.getAPISnapshotSummary = async (req, res) => {
 
-    const endpoint = 'https://localhost:8443/snapshot-summary';
-
-    //extract for use with axios as headers need to be set separately
-    token = req.headers['authorization'];
-
-    try {
-        const response = await axios.get(endpoint, {
-            headers: {'authorization': `${token}`}
-        }, { httpsAgent });
-
-        console.log("Snapshot Summary API Endpoint returned with this data:");
-        console.log(response.data.length);
-        res.render('summary', {apiData: response.data});
-
-    } catch (error) {
-        console.log("ERROR connecting to Snapshot Summary API");
-        console.log(error);
-        res.status(500).json({ error: "Failed to fetch data from API" });
-    };
-}
 
 exports.getMakeAPIRequest = async (req, res) => {
 
@@ -135,4 +114,52 @@ exports.postAPICreateSnapshot = async (req, res) => {
         res.status(500).json({ error: `${error}` });
     };
 
+}
+
+exports.getAPISnapshotSummary = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/snapshot-summary';
+
+    //extract for use with axios as headers need to be set separately
+    token = req.headers['authorization'];
+
+    try {
+        const response = await axios.get(endpoint, {
+            headers: {'authorization': `${token}`}
+        }, { httpsAgent });
+
+        console.log("Snapshot Summary API Endpoint returned with this data:");
+        console.log(response.data.length);
+        res.render('summary', {apiData: response.data});
+
+    } catch (error) {
+        console.log("ERROR connecting to Snapshot Summary API");
+        console.log(error);
+        res.status(500).json({ error: "Failed to fetch data from API" });
+    };
+}
+
+exports.getAPISnapshotDetails = async (req, res) => {
+
+    const id = req.params.id;
+
+    const endpoint = `https://localhost:8443/view-snapshot/${id}`;
+
+    //extract for use with axios as headers need to be set separately
+    token = req.headers['authorization'];
+
+    try {
+        const response = await axios.get(endpoint, {
+            headers: {'authorization': `${token}`}
+        }, { httpsAgent });
+
+        console.log("Snapshot Summary API Endpoint returned with this data:");
+        console.log(response.data.length);
+        //res.render('edit-snapshot', {apiData: response.data});
+
+    } catch (error) {
+        console.log("ERROR connecting to Snapshot Summary API");
+        console.log(error);
+        res.status(500).json({ error: "Failed to fetch data from API" });
+    };
 }

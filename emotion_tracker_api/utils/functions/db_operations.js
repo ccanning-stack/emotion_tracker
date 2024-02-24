@@ -1,4 +1,4 @@
-function newSnapShotSQL() {
+function newSnapShotFunc() {
 
     return `START TRANSACTION;
 
@@ -43,4 +43,42 @@ function newSnapShotSQL() {
     COMMIT;`;
 }
 
-module.exports = newSnapShotSQL;
+function getSnapshotDetailFunc() { return `SELECT * FROM snapshot WHERE snapshot_id = ?;`;}
+
+function getAngerIntensityFunc() { return`SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
+emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
+
+function getContemptIntensityFunc() { return `SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
+emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
+
+function getDisgustIntensityFunc() {return `SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
+emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
+
+function getEnjoymentIntensityFunc() {return `SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
+emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
+
+function getFearIntensityFunc() {return`SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
+emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
+
+function getSadnessIntensityFunc() {return `SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
+emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
+
+function getSurpriseIntensityFunc() {return `SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
+emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
+
+function getTriggerDetailFunc() {return `SELECT name FROM trigger_table LEFT JOIN trigger_snapshot
+ON trigger_table.trigger_id = trigger_snapshot.trigger_id WHERE snapshot_id = ?;`;}
+
+
+module.exports = {
+    newSnapShotFunc,
+    getSnapshotDetailFunc,
+    getAngerIntensityFunc,
+    getContemptIntensityFunc,
+    getDisgustIntensityFunc,
+    getEnjoymentIntensityFunc,
+    getFearIntensityFunc,
+    getSadnessIntensityFunc,
+    getSurpriseIntensityFunc,
+    getTriggerDetailFunc
+};

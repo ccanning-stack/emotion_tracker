@@ -11,3 +11,185 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="./css/style.css">
 </head>
+
+<body>
+
+    <header>
+
+        <div class="container-fluid">
+
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <ul>
+                    <li class="nav-item"><a class="nav-link" href="create-snapshot.html">New Snapshot</a></li>
+                    <li class="nav-item"><a class="nav-link" href="summary.html">Snapshot Summary</a></li>
+                    <li class="nav-item"><a class="nav-link" href="insights.html">Insights</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+
+        <h1>Create Snapshot</h1>
+
+        <form action="/create-snapshot" method="post">
+
+            <h4>
+
+                <label for="snapshot_title">Snapshot Headline:</label>
+
+            </h4>
+
+            <div>
+
+                <input type="text" name="snapshot_headline" value="<%= apiData.title %>" id="snapshot-title">
+
+            </div>
+
+            <br>
+
+            <div>
+                <p>Date & Time Created: <span value="<%= apiData.datetime_created %>"></span></p>
+            </div>
+
+            <br>
+
+            <h6>Please record current <b>emotion intensity</b> levels (1 = least intense, 10 = most intense):</h6>
+            <br>
+
+            <% let anger_lvl= null, contempt_lvl=null , disgust_lvl=null, enjoyment_lvl=null, 
+            fear_lvl=null, sadness_lvl=null, surprise_lvl=null;
+                apiData.forEach((emotionSnapshot)=> {
+                if (emotionSnapshot.emotion_id === 1) {
+                anger_lvl = emotionSnapshot.intensity;
+                }
+                if (emotionSnapshot.emotion_id === 2) {
+                contempt_lvl = emotionSnapshot.intensity;
+                }
+                if (emotionSnapshot.emotion_id === 3) {
+                disgust_lvl = emotionSnapshot.intensity;
+                }
+                if (emotionSnapshot.emotion_id === 4) {
+                enjoyment_lvl = emotionSnapshot.intensity;
+                }
+                if (emotionSnapshot.emotion_id === 5) {
+                fear_lvl = emotionSnapshot.intensity;
+                }
+                if (emotionSnapshot.emotion_id === 6) {
+                sadness_lvl = emotionSnapshot.intensity;
+                }
+                if (emotionSnapshot.emotion_id === 7) {
+                surprise_lvl = emotionSnapshot.intensity;
+                }
+                });
+                %>
+
+                <div class="slidecontainer">
+                    <input type="range" name="anger_val" min="1" max="10" value="<%= anger_lvl %>" class="slider"
+                        id="anger-slider">
+                </div>
+                <p>Anger: <output id="anger-value"></output></p>
+
+                <div class="slidecontainer">
+                    <input type="range" name="contempt_val" min="1" max="10" value="<%= contempt_lvl %>" class="slider"
+                        id="contempt-slider">
+                </div>
+                <p>Contempt: <output id="contempt-value"></output></p>
+
+                <div class="slidecontainer">
+                    <input type="range" name="disgust_val" min="1" max="10" value="<%= disgust_lvl %>" class="slider"
+                        id="disgust-slider">
+                </div>
+                <p>Disgust: <output id="disgust-value"></output></p>
+
+                <div class="slidecontainer">
+                    <input type="range" name="enjoyment_val" min="1" max="10" value="<%= enjoyment_lvl %>"
+                        class="slider" id="enjoyment-slider">
+                    <p>Enjoyment: <output id="enjoyment-value"></output></p>
+                </div>
+
+                <div class="slidecontainer">
+                    <input type="range" name="fear_val" min="1" max="10" value="<%= fear_lvl %>" class="slider"
+                        id="fear-slider">
+                </div>
+                <p>Fear: <output id="fear-value"></output></p>
+
+                <div class="slidecontainer">
+                    <input type="range" name="sadness_val" min="1" max="10" value="<%= sadness_lvl %>" class="slider"
+                        id="sadness-slider">
+                    <p>Sadness: <output id="sadness-value"></output></p>
+                </div>
+
+                <div class="slidecontainer">
+                    <input type="range" name="surprise_val" min="1" max="10" value="<%= surprise_lvl %>" class="slider"
+                        id="surprise-slider">
+                </div>
+                <p>Surprise: <output id="surprise-value"></output></p>
+
+
+                <% let trig_1=null, trig_2=null, trig_3=null; let trig_num=1; 
+                apiData.forEach((trigger_table.name)=> {
+                    trig_num++;
+                    if (trig_num === 1) {
+                    trig_1 = trigger_table.name;
+                    }
+                    if (trig_num === 2) {
+                    trig_2 = trigger_table.name;
+                    }
+                    if (trig_num === 3) {
+                    trig_3 = trigger_table.name;
+                    }});
+                    %>
+
+                    <h6><b>Contextual Triggers:</b></h6>
+
+                    <div>
+
+                        <input type="text" name="trigger_1" value="<%= trig_1 %>" id="trigger-create">
+
+                    </div>
+
+                    <div>
+
+                        <input type="text" name="trigger_2" value="<%= trig_2 %>" id="trigger-create">
+
+                    </div>
+
+                    <div>
+
+                        <input type="text" name="trigger_3" value="<%= trig_3 %>" id="trigger-create">
+
+                    </div>
+
+                    <div>
+                        <p>
+
+                            <label for="snapshot-notes">Additional Notes:</label>
+
+                        </p>
+                    </div>
+
+
+                    <div>
+
+                        <input type="text" name="snapshot_note" value="apiData.notes" id="snapshot-notes">
+
+                    </div>
+
+                    <div>
+                        <button type="submit" name="snapshot-create">Save Snapshot</button>
+                        <br>
+
+                    </div>
+
+        </form>
+
+
+    </main>
+
+
+    <script src="./js/edit-snapshot.js"></script>
+</body>
+
+</html>
