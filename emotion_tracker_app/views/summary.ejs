@@ -17,15 +17,22 @@
 
     <main>
         <h1>Snapshot Summary</h1>
-
-        <div class="card" style="width: 18rem;"></div>
-        <% apiData.forEach((row) => { %>
-            <div class="card-body">
-              <h5 class="card-title"><%= row.title %></h5>
-              <p class="card-text">Created: <%= row.datetime_created %></p>
-              <a href="#" class="btn btn-primary">View Snapshot</a>
-            </div>
-          </div>
+        <% const dateformat={ weekday: 'short' , year: 'numeric' , month: 'short' , day: 'numeric',
+        hour: '2-digit', minute: '2-digit' }; %>
+            <% apiData.forEach((row)=> { %>
+                <% var rawdate=new Date(row.datetime_created); %>
+                    <% var itemdate=new Intl.DateTimeFormat('en-GB', dateformat).format(rawdate); %>
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= row.title %>
+                                </h5>
+                                <p class="card-text">Created: <%= itemdate %>
+                                </p>
+                                <a href="#" class="btn btn-primary">View/Edit Snapshot</a>
+                            </div>
+                        </div>
+                        <% }); %>
 
     </main>
 </body>

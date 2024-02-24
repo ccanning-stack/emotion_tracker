@@ -56,13 +56,13 @@ exports.getAPISnapshotSummary = async (req, res) => {
     token = req.headers['authorization'];
 
     try {
-        const response = await axios.get(endpoint, req.body, {
+        const response = await axios.get(endpoint, {
             headers: {'authorization': `${token}`}
         }, { httpsAgent });
 
-        console.log("Snapshot Summary API Endpoint returned");
-        console.log(response.data);
-        res.render('summary', {apiData: response.data.result});
+        console.log("Snapshot Summary API Endpoint returned with this data:");
+        console.log(response.data.length);
+        res.render('summary', {apiData: response.data});
 
     } catch (error) {
         console.log("ERROR connecting to Snapshot Summary API");
@@ -126,7 +126,7 @@ exports.postAPICreateSnapshot = async (req, res) => {
             headers: {'authorization': `${token}`}
         }, { httpsAgent });
 
-        console.log("API Endpoint returned");
+        console.log("Create Snapshot API Endpoint returned with this data:");
         console.log(response.data);
         
         res.redirect('/snapshot-summary');

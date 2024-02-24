@@ -104,17 +104,15 @@ exports.getSnapshotSummary = async (req, res) => {
     //extract user_id from req obj
     const user = req.user.user;
 
-    const getUserSnapshotsSQL = `SELECT * FROM snapshot
-    LEFT JOIN emotion_snapshot ON snapshot.snapshot_id = emotion_snapshot.snapshot_id
-    LEFT JOIN emotion ON emotion_snapshot.emotion_id = emotion.emotion_id
-    LEFT JOIN trigger_snapshot ON snapshot.snapshot_id = trigger_snapshot.snapshot_id
-    LEFT JOIN trigger_table ON trigger_snapshot.trigger_id = trigger_table.trigger_id
-    WHERE  user_id = ?;`;
+    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
+     FROM snapshot WHERE  user_id = ?;`;
 
     try {
         const result = await conn.query(getUserSnapshotsSQL, user);
-        console.log(result);
-        res.json(result);
+
+        const dataObjects = [result][0][0];
+
+        res.json(dataObjects);
 
     } catch (err) {
         console.log(err);
