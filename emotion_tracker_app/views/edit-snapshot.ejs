@@ -1,4 +1,3 @@
-!
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,14 +42,14 @@
 
             <div>
 
-                <input type="text" name="snapshot_headline" value="<%= apiData.title %>" id="snapshot-title">
+                <input type="text" name="snapshot_headline" value="<%= apiData.snap[0].title %>" id="snapshot-title">
 
             </div>
 
             <br>
 
             <div>
-                <p>Date & Time Created: <span value="<%= apiData.datetime_created %>"></span></p>
+                <p>Date & Time Created: <span> <%= apiDate %></span></p>
             </div>
 
             <br>
@@ -58,89 +57,64 @@
             <h6>Please record current <b>emotion intensity</b> levels (1 = least intense, 10 = most intense):</h6>
             <br>
 
-            <% let anger_lvl= null, contempt_lvl=null , disgust_lvl=null, enjoyment_lvl=null, 
-            fear_lvl=null, sadness_lvl=null, surprise_lvl=null;
-                apiData.forEach((emotionSnapshot)=> {
-                if (emotionSnapshot.emotion_id === 1) {
-                anger_lvl = emotionSnapshot.intensity;
-                }
-                if (emotionSnapshot.emotion_id === 2) {
-                contempt_lvl = emotionSnapshot.intensity;
-                }
-                if (emotionSnapshot.emotion_id === 3) {
-                disgust_lvl = emotionSnapshot.intensity;
-                }
-                if (emotionSnapshot.emotion_id === 4) {
-                enjoyment_lvl = emotionSnapshot.intensity;
-                }
-                if (emotionSnapshot.emotion_id === 5) {
-                fear_lvl = emotionSnapshot.intensity;
-                }
-                if (emotionSnapshot.emotion_id === 6) {
-                sadness_lvl = emotionSnapshot.intensity;
-                }
-                if (emotionSnapshot.emotion_id === 7) {
-                surprise_lvl = emotionSnapshot.intensity;
-                }
-                });
-                %>
+            
+            <%# Iterate over apiData object and extract only intensity data for keys relating to emotions %>
+
+            <% let emotionLvls={}; 
+            Object.keys(apiData).forEach(function(key) {
+                 if (['snap', 'trig'].indexOf(key)===-1) { 
+                    emotionLvls[key]=apiData[key][0].intensity; } }); %>
+
 
                 <div class="slidecontainer">
-                    <input type="range" name="anger_val" min="1" max="10" value="<%= anger_lvl %>" class="slider"
+                    <input type="range" name="anger_val" min="1" max="10" value="<%= emotionLvls.ang %>" class="slider"
                         id="anger-slider">
                 </div>
                 <p>Anger: <output id="anger-value"></output></p>
 
                 <div class="slidecontainer">
-                    <input type="range" name="contempt_val" min="1" max="10" value="<%= contempt_lvl %>" class="slider"
+                    <input type="range" name="contempt_val" min="1" max="10" value="<%= emotionLvls.cont %>" class="slider"
                         id="contempt-slider">
                 </div>
                 <p>Contempt: <output id="contempt-value"></output></p>
 
                 <div class="slidecontainer">
-                    <input type="range" name="disgust_val" min="1" max="10" value="<%= disgust_lvl %>" class="slider"
+                    <input type="range" name="disgust_val" min="1" max="10" value="<%= emotionLvls.disg %>" class="slider"
                         id="disgust-slider">
                 </div>
                 <p>Disgust: <output id="disgust-value"></output></p>
 
                 <div class="slidecontainer">
-                    <input type="range" name="enjoyment_val" min="1" max="10" value="<%= enjoyment_lvl %>"
+                    <input type="range" name="enjoyment_val" min="1" max="10" value="<%= emotionLvls.enj %>"
                         class="slider" id="enjoyment-slider">
                     <p>Enjoyment: <output id="enjoyment-value"></output></p>
                 </div>
 
                 <div class="slidecontainer">
-                    <input type="range" name="fear_val" min="1" max="10" value="<%= fear_lvl %>" class="slider"
+                    <input type="range" name="fear_val" min="1" max="10" value="<%= emotionLvls.fear %>" class="slider"
                         id="fear-slider">
                 </div>
                 <p>Fear: <output id="fear-value"></output></p>
 
                 <div class="slidecontainer">
-                    <input type="range" name="sadness_val" min="1" max="10" value="<%= sadness_lvl %>" class="slider"
+                    <input type="range" name="sadness_val" min="1" max="10" value="<%= emotionLvls.sad %>" class="slider"
                         id="sadness-slider">
                     <p>Sadness: <output id="sadness-value"></output></p>
                 </div>
 
                 <div class="slidecontainer">
-                    <input type="range" name="surprise_val" min="1" max="10" value="<%= surprise_lvl %>" class="slider"
+                    <input type="range" name="surprise_val" min="1" max="10" value="<%= emotionLvls.surp %>" class="slider"
                         id="surprise-slider">
                 </div>
                 <p>Surprise: <output id="surprise-value"></output></p>
 
 
+                <%# extract the 3 triggers from the trig object array %>
                 <% let trig_1=null, trig_2=null, trig_3=null; let trig_num=1; 
-                apiData.forEach((trigger_table.name)=> {
-                    trig_num++;
-                    if (trig_num === 1) {
-                    trig_1 = trigger_table.name;
-                    }
-                    if (trig_num === 2) {
-                    trig_2 = trigger_table.name;
-                    }
-                    if (trig_num === 3) {
-                    trig_3 = trigger_table.name;
-                    }});
-                    %>
+                 trig_1 = apiData.trig[0].name;
+                 trig_2 = apiData.trig[1].name;
+                 trig_3 = apiData.trig[2].name; %>
+
 
                     <h6><b>Contextual Triggers:</b></h6>
 
@@ -173,7 +147,7 @@
 
                     <div>
 
-                        <input type="text" name="snapshot_note" value="apiData.notes" id="snapshot-notes">
+                        <input type="text" name="snapshot_note" value="<%= apiData.snap[0].notes %>" id="snapshot-notes">
 
                     </div>
 
@@ -189,7 +163,7 @@
     </main>
 
 
-    <script src="./js/edit-snapshot.js"></script>
+    <script src=".js/edit-snapshot.js"></script>
 </body>
 
 </html>

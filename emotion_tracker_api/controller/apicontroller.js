@@ -135,6 +135,7 @@ exports.getSnapshotDetails = async (req, res) => {
 
     console.log(id);
 
+    //prepare vals for param. queries
     const angerVals= [id, 1];
     const contemptVals= [id, 2];
     const disgustVals= [id, 3];
@@ -143,22 +144,15 @@ exports.getSnapshotDetails = async (req, res) => {
     const sadnessVals= [id, 6];
     const surpriseVals= [id, 7];
 
+    //obtain sql from functions
     const getSnapshotDetailSQL = getSnapshotDetailFunc();
-
     const getAngerIntensitySQL = getAngerIntensityFunc();
-
     const getContemptIntensitySQL = getContemptIntensityFunc();
-
     const getDisgustIntensitySQL = getDisgustIntensityFunc();
-
     const getEnjoymentIntensitySQL = getEnjoymentIntensityFunc();
-
     const getFearIntensitySQL = getFearIntensityFunc();
-
     const getSadnessIntensitySQL = getSadnessIntensityFunc();
-
     const getSurpriseIntensitySQL = getSurpriseIntensityFunc();
-
     const getTriggerDetailSQL = getTriggerDetailFunc();
 
     try {
@@ -173,7 +167,7 @@ exports.getSnapshotDetails = async (req, res) => {
         const [surp] = await conn.query(getSurpriseIntensitySQL, surpriseVals);
         const [trig] = await conn.query(getTriggerDetailSQL, id);
 
-        const dataObjects = {snap, ang, cont, disg, enj, fear, sad, surp, trig };
+        const dataObjects = {snap, ang, cont, disg, enj, fear, sad, surp, trig};
 
         console.log(dataObjects);
         res.json(dataObjects);

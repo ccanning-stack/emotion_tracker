@@ -2,6 +2,7 @@
 const axios = require('axios');
 const https = require('https');
 const fs = require('fs');
+const dateFormatFunc = require('../public/js/datescript2');
 
 // Trust an external service's self-signed certificate
 // for outbound requests from server
@@ -153,9 +154,10 @@ exports.getAPISnapshotDetails = async (req, res) => {
             headers: {'authorization': `${token}`}
         }, { httpsAgent });
 
-        console.log("Snapshot Summary API Endpoint returned with this data:");
-        console.log(response.data.length);
-        //res.render('edit-snapshot', {apiData: response.data});
+        //extract date from api response for conversion and passing into EJS template
+        const dbDate = response.data.snap[0].datetime_created;
+
+        res.render('edit-snapshot', {apiData: response.data, apiDate: dateFormatFunc(dbDate)});
 
     } catch (error) {
         console.log("ERROR connecting to Snapshot Summary API");
