@@ -15,7 +15,7 @@ router.get('/login', controller.getLoginPage);
 router.get('/reset-password-step1', controller.getConfirmUserPage);
 router.get('/reset-password-step2', controller.getResetPasswordPage);
 router.get('/create-snapshot', checkAuth, controller.getCreateSnapshotPage);
-router.get('/view-snapshot/:id', checkAuth, controller.getAPISnapshotDetails);
+router.get('/edit-snapshot/:id', checkAuth, controller.getAPISnapshotDetails);
 router.get('/snapshot-summary', checkAuth, controller.getAPISnapshotSummary);
 
 router.get('/insights', controller.getInsightsPage);

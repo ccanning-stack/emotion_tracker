@@ -8,7 +8,7 @@
     <title>Insightful Emotions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
 <body>
@@ -68,45 +68,45 @@
 
                 <div class="slidecontainer">
                     <input type="range" name="anger_val" min="1" max="10" value="<%= emotionLvls.ang %>" class="slider"
-                        id="anger-slider">
+                        id="anger-slider2">
                 </div>
-                <p>Anger: <output id="anger-value"></output></p>
+                <p>Anger: <output id="anger-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="contempt_val" min="1" max="10" value="<%= emotionLvls.cont %>" class="slider"
-                        id="contempt-slider">
+                        id="contempt-slider2">
                 </div>
-                <p>Contempt: <output id="contempt-value"></output></p>
+                <p>Contempt: <output id="contempt-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="disgust_val" min="1" max="10" value="<%= emotionLvls.disg %>" class="slider"
-                        id="disgust-slider">
+                        id="disgust-slider2">
                 </div>
-                <p>Disgust: <output id="disgust-value"></output></p>
+                <p>Disgust: <output id="disgust-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="enjoyment_val" min="1" max="10" value="<%= emotionLvls.enj %>"
-                        class="slider" id="enjoyment-slider">
-                    <p>Enjoyment: <output id="enjoyment-value"></output></p>
+                        class="slider" id="enjoyment-slider2">
+                    <p>Enjoyment: <output id="enjoyment-value2"></output></p>
                 </div>
 
                 <div class="slidecontainer">
                     <input type="range" name="fear_val" min="1" max="10" value="<%= emotionLvls.fear %>" class="slider"
-                        id="fear-slider">
+                        id="fear-slider2">
                 </div>
-                <p>Fear: <output id="fear-value"></output></p>
+                <p>Fear: <output id="fear-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="sadness_val" min="1" max="10" value="<%= emotionLvls.sad %>" class="slider"
-                        id="sadness-slider">
-                    <p>Sadness: <output id="sadness-value"></output></p>
+                        id="sadness-slider2">
+                    <p>Sadness: <output id="sadness-value2"></output></p>
                 </div>
 
                 <div class="slidecontainer">
                     <input type="range" name="surprise_val" min="1" max="10" value="<%= emotionLvls.surp %>" class="slider"
-                        id="surprise-slider">
+                        id="surprise-slider2">
                 </div>
-                <p>Surprise: <output id="surprise-value"></output></p>
+                <p>Surprise: <output id="surprise-value2"></output></p>
 
 
                 <%# extract the 3 triggers from the trig object array %>
@@ -163,7 +163,7 @@
     </main>
 
 
-    <script src=".js/edit-snapshot.js"></script>
+    <script src="/js/edit-snapshot.js"></script>
 </body>
 
 </html>

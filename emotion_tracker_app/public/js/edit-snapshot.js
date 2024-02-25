@@ -5,53 +5,55 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
 https://www.w3schools.com/howto/howto_js_rangeslider.asp/
 */
 
-const angerValue = document.getElementById("anger-value");
-const angerInput = document.getElementById("anger-slider");
-angerValue.textContent = angerInput.value;
-angerInput.addEventListener("input", (event) => {
-  angerValue.textContent = event.target.value;
+document.addEventListener('DOMContentLoaded', function () {
+const angerValue2 = document.getElementById("anger-value2");
+const angerInput2 = document.getElementById("anger-slider2");
+angerValue2.textContent = angerInput2.value;
+angerInput2.addEventListener("input", (event) => {
+  angerValue2.textContent = event.target.value;
+});
 });
 
-const contemptValue = document.getElementById("contempt-value");
-const contemptInput = document.getElementById("contempt-slider");
-contemptValue.textContent = contemptInput.value;
-contemptInput.addEventListener("input", (event) => {
-  contemptValue.textContent = event.target.value;
+const contemptValue2 = document.getElementById("contempt-value2");
+const contemptInput2 = document.getElementById("contempt-slider2");
+contemptValue2.textContent = contemptInput2.value;
+contemptInput2.addEventListener("input", (event) => {
+  contemptValue2.textContent = event.target.value;
 });
 
-const disgustValue = document.getElementById("disgust-value");
-const disgustInput = document.getElementById("disgust-slider");
-disgustValue.textContent = disgustInput.value;
-disgustInput.addEventListener("input", (event) => {
-  disgustValue.textContent = event.target.value;
+const disgustValue2 = document.getElementById("disgust-value2");
+const disgustInput2 = document.getElementById("disgust-slider2");
+disgustValue2.textContent = disgustInput2.value;
+disgustInput2.addEventListener("input", (event) => {
+  disgustValue2.textContent = event.target.value;
 });
 
-const enjoymentValue = document.getElementById("enjoyment-value");
-const enjoymentInput = document.getElementById("enjoyment-slider");
-enjoymentValue.textContent = enjoymentInput.value;
-enjoymentInput.addEventListener("input", (event) => {
-  enjoymentValue.textContent = event.target.value;
+const enjoymentValue2 = document.getElementById("enjoyment-value2");
+const enjoymentInput2 = document.getElementById("enjoyment-slider2");
+enjoymentValue2.textContent = enjoymentInput2.value;
+enjoymentInput2.addEventListener("input", (event) => {
+  enjoymentValue2.textContent = event.target.value;
 });
 
-const fearValue = document.getElementById("fear-value");
-const fearInput = document.getElementById("fear-slider");
-fearValue.textContent = fearInput.value;
-fearInput.addEventListener("input", (event) => {
-  fearValue.textContent = event.target.value;
-});
-
-
-const sadnessValue = document.getElementById("sadness-value");
-const sadnessInput = document.getElementById("sadness-slider");
-sadnessValue.textContent = sadnessInput.value;
-sadnessInput.addEventListener("input", (event) => {
-  sadnessValue.textContent = event.target.value;
+const fearValue2 = document.getElementById("fear-value2");
+const fearInput2 = document.getElementById("fear-slider2");
+fearValue2.textContent = fearInput2.value;
+fearInput2.addEventListener("input", (event) => {
+  fearValue2.textContent = event.target.value;
 });
 
 
-const surpriseValue = document.getElementById("surprise-value");
-const surpriseInput = document.getElementById("surprise-slider");
-surpriseValue.textContent = surpriseInput.value;
-surpriseInput.addEventListener("input", (event) => {
-  surpriseValue.textContent = event.target.value;
+const sadnessValue2 = document.getElementById("sadness-value2");
+const sadnessInput2 = document.getElementById("sadness-slider2");
+sadnessValue2.textContent = sadnessInput2.value;
+sadnessInput2.addEventListener("input", (event) => {
+  sadnessValue2.textContent = event.target.value;
+});
+
+
+const surpriseValue2 = document.getElementById("surprise-value2");
+const surpriseInput2 = document.getElementById("surprise-slider2");
+surpriseValue2.textContent = surpriseInput2.value;
+surpriseInput2.addEventListener("input", (event) => {
+  surpriseValue2.textContent = event.target.value;
 });
