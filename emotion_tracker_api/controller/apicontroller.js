@@ -12,8 +12,9 @@ const {
     getFearIntensityFunc,
     getSadnessIntensityFunc,
     getSurpriseIntensityFunc,
-    getTriggerDetailFunc
-} = require ('../utils/functions/db_operations');
+    getTriggerDetailFunc,
+    updateTriggersFunc
+} = require('../utils/functions/db_operations');
 
 // GET /users
 exports.getUsers = async (req, res) => {
@@ -88,7 +89,7 @@ exports.postCreateSnapshot = async (req, res) => {
         const [rows] = await conn.query(postSnapshotSQL, vals);
 
         const numrows = rows.length;
-        
+
         if (numrows > 0) {
             console.log("post to db successful");
             res.sendStatus(200);
@@ -136,13 +137,13 @@ exports.getSnapshotDetails = async (req, res) => {
     console.log(id);
 
     //prepare vals for param. queries
-    const angerVals= [id, 1];
-    const contemptVals= [id, 2];
-    const disgustVals= [id, 3];
-    const enjoymentVals= [id, 4];
-    const fearVals= [id, 5];
-    const sadnessVals= [id, 6];
-    const surpriseVals= [id, 7];
+    const angerVals = [id, 1];
+    const contemptVals = [id, 2];
+    const disgustVals = [id, 3];
+    const enjoymentVals = [id, 4];
+    const fearVals = [id, 5];
+    const sadnessVals = [id, 6];
+    const surpriseVals = [id, 7];
 
     //obtain sql from functions
     const getSnapshotDetailSQL = getSnapshotDetailFunc();
@@ -167,7 +168,7 @@ exports.getSnapshotDetails = async (req, res) => {
         const [surp] = await conn.query(getSurpriseIntensitySQL, surpriseVals);
         const [trig] = await conn.query(getTriggerDetailSQL, id);
 
-        const dataObjects = {snap, ang, cont, disg, enj, fear, sad, surp, trig};
+        const dataObjects = { snap, ang, cont, disg, enj, fear, sad, surp, trig };
 
         console.log(dataObjects);
         res.json(dataObjects);
@@ -177,6 +178,59 @@ exports.getSnapshotDetails = async (req, res) => {
         res.json(err);
     };
 };
+
+
+exports.patchUpdateSnapshot = async (req, res) => {
+
+
+    //PATCH section
+    //Get updated trigger values & original trigger_ids from req body
+    const { trig1_id, trig2_id, trig3_id, updated_trigger_1,  
+        updated_trigger_2, updated_trigger_3} = req.body;
+
+    const vals = [updated_trigger_1, trig1_id, updated_trigger_2, trig2_id,
+        updated_trigger_3, trig3_id];
+
+    const updateTriggersSQL = updateTriggersFunc();
+
+    //SUMMARY section for redirecting back to summary page after saving edits
+    //extract user_id from req obj
+    const user = req.user.user;
+    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
+     FROM snapshot WHERE  user_id = ?;`;
+    
+
+    try {
+
+        //update triggers
+        const [rows] = await conn.query(updateTriggersSQL, vals);
+
+        //retrieve snapshot objects for current user
+        const result = await conn.query(getUserSnapshotsSQL, user);
+        const dataObjects = [result][0][0];
+
+        console.log(rows);
+
+        //assisted by chatGPT - iterates over ResultSetHeader objects array
+        //checks the changedRows property and returns true as soon as it finds one instance
+        const resultSet = rows;
+        const hasChangedRows = resultSet.some(header => header.changedRows > 0);
+
+        if (hasChangedRows) {
+           console.log("db trigger update successful");
+           
+           //pass back updated snapshot summary for user
+           res.json(dataObjects);
+        }
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
+
+
+
+
 
 /*
 

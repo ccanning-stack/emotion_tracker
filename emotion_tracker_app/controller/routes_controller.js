@@ -129,9 +129,7 @@ exports.getAPISnapshotSummary = async (req, res) => {
             headers: {'authorization': `${token}`}
         }, { httpsAgent });
 
-        console.log("Snapshot Summary API Endpoint returned with this data:");
-        console.log(response.data.length);
-        res.render('summary', {apiData: response.data});
+        res.render('summary', {apiData: response.data, apiMessage: ""});
 
     } catch (error) {
         console.log("ERROR connecting to Snapshot Summary API");
@@ -144,7 +142,7 @@ exports.getAPISnapshotDetails = async (req, res) => {
 
     const id = req.params.id;
 
-    const endpoint = `https://localhost:8443/view-snapshot/${id}`;
+    const endpoint = `https://localhost:8443/edit-snapshot/${id}`;
 
     //extract for use with axios as headers need to be set separately
     token = req.headers['authorization'];
@@ -164,4 +162,27 @@ exports.getAPISnapshotDetails = async (req, res) => {
         console.log(error);
         res.status(500).json({ error: "Failed to fetch data from API" });
     };
+}
+
+
+exports.patchAPIUpdateSnapshot = async (req, res) => {
+
+    const id = req.params.id;
+
+    const endpoint = `https://localhost:8443/edit-snapshot/${id}`;
+
+    //extract for use with axios as headers need to be set separately
+    token = req.headers['authorization'];
+
+    try {
+        const response = await axios.patch(endpoint, req.body, {
+            headers: {'authorization': `${token}`}
+        }, { httpsAgent });
+
+        res.render('summary', { apiData: response.data, apiMessage: "Snapshot update successful!"});
+
+    } catch (error) {
+        res.status(500).json({ error: `${error}` });
+    };
+
 }

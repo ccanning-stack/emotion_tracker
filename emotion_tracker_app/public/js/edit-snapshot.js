@@ -1,6 +1,63 @@
 
+//With aid of ChatGPT - functions to prompt for user confirmation before submitting 
+//correct path for saving edits/deletion of snapshot
+
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('editForm');
+  let lastClickedButton = null;
+
+  // Track the last button clicked within the form
+  Array.from(form.querySelectorAll('button[type="submit"]')).forEach(button => {
+      button.addEventListener('click', function() {
+          lastClickedButton = this; // Store the last button clicked
+      });
+  });
+
+  form.addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent the form from submitting immediately
+
+      if (!lastClickedButton) {
+          return; // Exit if no button was clicked (shouldn't happen in normal operation)
+      }
+
+      let formAction = lastClickedButton.getAttribute('data-path');
+
+      // Confirm action based on the button clicked
+      let confirmationMessage = lastClickedButton.value === 'save' ?
+          'Are you sure you want to save these edits?' :
+          'Are you sure you want to delete this snapshot?';
+
+      if (!confirm(confirmationMessage)) {
+          return; // Stop the form submission if the user cancels
+      }
+
+      // Set the form's action and submit the form
+      form.action = formAction;
+      form.submit();
+  });
+});
+
+
+
+
+//With aid of ChatGPT - function to show save edits button only when there has been a change in form data
+
+function showButton() {
+  const button = document.getElementById('saveButton');
+  button.style.display = 'block';
+}
+
+// Attach change event listeners to all input fields in the form
+const form = document.getElementById('editForm');
+const inputs = form.querySelectorAll('input');
+
+inputs.forEach(input => {
+  input.addEventListener('input', showButton);
+});
+
+
 /*
-SLIDERS
+SLIDERS - disabled in edit form- Kept in case of need for more edits in future
 https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range
 https://www.w3schools.com/howto/howto_js_rangeslider.asp/
 */

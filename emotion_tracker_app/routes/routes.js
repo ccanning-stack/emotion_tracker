@@ -17,6 +17,7 @@ router.get('/reset-password-step2', controller.getResetPasswordPage);
 router.get('/create-snapshot', checkAuth, controller.getCreateSnapshotPage);
 router.get('/edit-snapshot/:id', checkAuth, controller.getAPISnapshotDetails);
 router.get('/snapshot-summary', checkAuth, controller.getAPISnapshotSummary);
+//router.get('/logout', checkAuth, controller.getAPILogout);
 
 router.get('/insights', controller.getInsightsPage);
 
@@ -24,6 +25,8 @@ router.get('/insights', controller.getInsightsPage);
 
 router.post('/login', controller.postAPILogin);
 router.post('/create-snapshot', checkAuth, controller.postAPICreateSnapshot);
+router.post('/edit-snapshot/:id', checkAuth, controller.patchAPIUpdateSnapshot);
+//router.post('/delete-snapshot/:id', checkAuth, controller.patchAPIDeleteSnapshot);
 
 //export router
 module.exports = router;

@@ -66,8 +66,22 @@ emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot
 function getSurpriseIntensityFunc() {return `SELECT intensity FROM emotion_snapshot RIGHT JOIN emotion ON
 emotion_snapshot.emotion_id = emotion.emotion_id WHERE emotion_snapshot.snapshot_id = ? AND emotion.emotion_id = ?;`;}
 
-function getTriggerDetailFunc() {return `SELECT name FROM trigger_table LEFT JOIN trigger_snapshot
+function getTriggerDetailFunc() {return `SELECT name, trigger_table.trigger_id FROM trigger_table LEFT JOIN trigger_snapshot
 ON trigger_table.trigger_id = trigger_snapshot.trigger_id WHERE snapshot_id = ?;`;}
+
+function updateTriggersFunc() {
+
+    return `START TRANSACTION;
+        
+    UPDATE trigger_table SET name = ? WHERE trigger_id = ?;
+
+    UPDATE trigger_table SET name = ? WHERE trigger_id = ?;
+
+    UPDATE trigger_table SET name = ? WHERE trigger_id = ?;
+
+    COMMIT;`;
+
+}
 
 
 module.exports = {
@@ -80,5 +94,6 @@ module.exports = {
     getFearIntensityFunc,
     getSadnessIntensityFunc,
     getSurpriseIntensityFunc,
-    getTriggerDetailFunc
+    getTriggerDetailFunc,
+    updateTriggersFunc
 };

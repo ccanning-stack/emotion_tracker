@@ -8,17 +8,13 @@ h1 {
   background-color: #04AA6D;
 }
 
-
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-th, td {
-  padding: 5px;
-  text-align: left;
+#edit-msg {
+  color: maroon;
 }
 
-
+#update_successful_msg {
+    color:green;
+}
 
 /*https://www.w3schools.com/howto/howto_js_rangeslider.asp/*/
 

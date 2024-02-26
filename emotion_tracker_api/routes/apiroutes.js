@@ -5,9 +5,13 @@ const {checkAuth} = require('./../utils/middleware/authentication');
 
 router.get('/users', controller.getUsers);
 router.get('/snapshot-summary', checkAuth, controller.getSnapshotSummary);
-router.get('/view-snapshot/:id', checkAuth, controller.getSnapshotDetails);
+router.get('/edit-snapshot/:id', checkAuth, controller.getSnapshotDetails);
 
 router.post('/login', controller.postLogin);
 router.post('/create-snapshot', checkAuth, controller.postCreateSnapshot);
+
+router.patch('/edit-snapshot/:id', checkAuth, controller.patchUpdateSnapshot);
+
+//router.delete('/edit-snapshot/:id', checkAuth, controller.deleteSnapshot);
 
 module.exports = router;

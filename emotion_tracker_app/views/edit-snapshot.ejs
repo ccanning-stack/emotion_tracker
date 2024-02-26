@@ -30,9 +30,10 @@
 
     <main>
 
-        <h1>Create Snapshot</h1>
+        <h1>View Snapshot</h1>
+        <p id="edit-msg"><em>Kindly note, only contextual triggers are editable</em></p>
 
-        <form action="/create-snapshot" method="post">
+        <form action="/edit-snapshot" method="post" id="editForm">
 
             <h4>
 
@@ -42,7 +43,8 @@
 
             <div>
 
-                <input type="text" name="snapshot_headline" value="<%= apiData.snap[0].title %>" id="snapshot-title">
+                <input type="text" name="snapshot_headline" value="<%= apiData.snap[0].title %>" 
+                id="snapshot-title" disabled>
 
             </div>
 
@@ -68,72 +70,78 @@
 
                 <div class="slidecontainer">
                     <input type="range" name="anger_val" min="1" max="10" value="<%= emotionLvls.ang %>" class="slider"
-                        id="anger-slider2">
+                        id="anger-slider2" disabled>
                 </div>
                 <p>Anger: <output id="anger-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="contempt_val" min="1" max="10" value="<%= emotionLvls.cont %>" class="slider"
-                        id="contempt-slider2">
+                        id="contempt-slider2" disabled>
                 </div>
                 <p>Contempt: <output id="contempt-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="disgust_val" min="1" max="10" value="<%= emotionLvls.disg %>" class="slider"
-                        id="disgust-slider2">
+                        id="disgust-slider2" disabled>
                 </div>
                 <p>Disgust: <output id="disgust-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="enjoyment_val" min="1" max="10" value="<%= emotionLvls.enj %>"
-                        class="slider" id="enjoyment-slider2">
+                        class="slider" id="enjoyment-slider2" disabled>
                     <p>Enjoyment: <output id="enjoyment-value2"></output></p>
                 </div>
 
                 <div class="slidecontainer">
                     <input type="range" name="fear_val" min="1" max="10" value="<%= emotionLvls.fear %>" class="slider"
-                        id="fear-slider2">
+                        id="fear-slider2" disabled>
                 </div>
                 <p>Fear: <output id="fear-value2"></output></p>
 
                 <div class="slidecontainer">
                     <input type="range" name="sadness_val" min="1" max="10" value="<%= emotionLvls.sad %>" class="slider"
-                        id="sadness-slider2">
+                        id="sadness-slider2" disabled>
                     <p>Sadness: <output id="sadness-value2"></output></p>
                 </div>
 
                 <div class="slidecontainer">
                     <input type="range" name="surprise_val" min="1" max="10" value="<%= emotionLvls.surp %>" class="slider"
-                        id="surprise-slider2">
+                        id="surprise-slider2" disabled>
                 </div>
                 <p>Surprise: <output id="surprise-value2"></output></p>
 
 
                 <%# extract the 3 triggers from the trig object array %>
-                <% let trig_1=null, trig_2=null, trig_3=null; let trig_num=1; 
+                <% let trig_1=null, trig_2=null, trig_3=null; 
                  trig_1 = apiData.trig[0].name;
                  trig_2 = apiData.trig[1].name;
-                 trig_3 = apiData.trig[2].name; %>
+                 trig_3 = apiData.trig[2].name; 
+                 
+                 
+                 let trig_1_id=null, trig_2_id=null, trig_3_id=null;
+                 trig_1_id = apiData.trig[0].trigger_id;
+                 trig_2_id = apiData.trig[1].trigger_id;
+                 trig_3_id = apiData.trig[2].trigger_id;%>
 
 
                     <h6><b>Contextual Triggers:</b></h6>
 
                     <div>
 
-                        <input type="text" name="trigger_1" value="<%= trig_1 %>" id="trigger-create">
-
+                        <input type="text" name="updated_trigger_1" value="<%= trig_1 %>" id="trigger-create">
+                        <input type="hidden" name="trig1_id" value="<%= trig_1_id %>">
                     </div>
 
                     <div>
 
-                        <input type="text" name="trigger_2" value="<%= trig_2 %>" id="trigger-create">
-
+                        <input type="text" name="updated_trigger_2" value="<%= trig_2 %>" id="trigger-create">
+                        <input type="hidden" name="trig2_id" value="<%= trig_2_id %>">
                     </div>
 
                     <div>
 
-                        <input type="text" name="trigger_3" value="<%= trig_3 %>" id="trigger-create">
-
+                        <input type="text" name="updated_trigger_3" value="<%= trig_3 %>" id="trigger-create">
+                        <input type="hidden" name="trig3_id" value="<%= trig_3_id %>">
                     </div>
 
                     <div>
@@ -147,12 +155,18 @@
 
                     <div>
 
-                        <input type="text" name="snapshot_note" value="<%= apiData.snap[0].notes %>" id="snapshot-notes">
+                        <input type="text" name="snapshot_note" value="<%= apiData.snap[0].notes %>" id="snapshot-notes" disabled>
 
                     </div>
 
+                    <%# With aid of ChatGPT %>
                     <div>
-                        <button type="submit" name="snapshot-create">Save Snapshot</button>
+                        <button type="submit" id="saveButton" style="display: none;" name="action" value="save" 
+                        data-path="/edit-snapshot/<%= apiData.snap[0].snapshot_id %>">Save Edits</a></button>
+                        <br>
+                        <button type="submit" name="action" 
+                        data-path="/delete-snapshot/<%= apiData.snap[0].snapshot_id %>"
+                        value="delete">Delete Snapshot</button>
                         <br>
 
                     </div>
