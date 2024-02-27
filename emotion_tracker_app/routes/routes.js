@@ -16,10 +16,10 @@ router.get('/reset-password-step1', controller.getConfirmUserPage);
 router.get('/reset-password-step2', controller.getResetPasswordPage);
 router.get('/create-snapshot', checkAuth, controller.getCreateSnapshotPage);
 router.get('/edit-snapshot/:id', checkAuth, controller.getAPISnapshotDetails);
-router.get('/snapshot-summary', checkAuth, controller.getAPISnapshotSummary);
-//router.get('/logout', checkAuth, controller.getAPILogout);
+router.get('/summary', checkAuth, controller.getAPISnapshotSummary);
+router.get('/logout', checkAuth, controller.getLogout);
 
-router.get('/insights', controller.getInsightsPage);
+router.get('/insights', checkAuth, controller.getInsightsPage);
 
 //router.get('/v1.1/api', controller.getMakeAPIRequest );
 

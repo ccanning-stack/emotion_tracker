@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', function() {
   
-  const message = document.getElementById('update_successful_msg');
+  const message = document.getElementById('action_successful_msg');
       
       // Set a timeout to hide the message after 5 seconds (5000 milliseconds)
       setTimeout(function() {

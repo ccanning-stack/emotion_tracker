@@ -18,7 +18,7 @@ exports.getRedirect = async (req, res) => {
 }
 
 exports.getWelcomePage = async (req, res) => {
-    res.render('welcome');
+    res.render('welcome', { logoutMessage:""});
 }
 
 exports.getRegisterPage = async (req, res) => {
@@ -109,7 +109,7 @@ exports.postAPICreateSnapshot = async (req, res) => {
         console.log("Create Snapshot API Endpoint returned with this data:");
         console.log(response.data);
         
-        res.redirect('/snapshot-summary');
+        res.redirect('summary');
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });
@@ -209,4 +209,26 @@ exports.deleteAPISnapshot = async (req, res) => {
         res.status(500).json({ error: `${error}` });
     };
 
+}
+
+exports.getLogout= (req, res) => {
+
+     //https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens
+     //https://expressjs.com/en/api.html#res.clearCookie
+
+    try {
+        
+        res.clearCookie('token',{
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict'
+        });
+        
+        res.render('welcome', {logoutMessage: "Logout successful"});
+
+    } catch (error) {
+        console.log("ERROR connecting to Snapshot Summary API");
+        console.log(error);
+        res.status(500).json({ error: "Failed to fetch data from API" });
+    };
 }

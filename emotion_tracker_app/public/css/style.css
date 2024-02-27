@@ -1,19 +1,25 @@
 * {
-    box-sizing: border-box;
+  margin: 0;
+	padding: 0;
+  box-sizing: border-box;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  background-color: cornflowerblue;
 }
 
-h1 {
 
-  color: red;
-  background-color: #04AA6D;
+
+h1, p, h2, h3, h4, h5, h6, li, output {
+
+  color: white ;
+  
 }
 
 #edit-msg {
   color: maroon;
 }
 
-#update_successful_msg {
-    color:green;
+#action_successful_msg, #logout_successful_msg {
+    color:#D4EDDA;
 }
 
 /*https://www.w3schools.com/howto/howto_js_rangeslider.asp/*/
