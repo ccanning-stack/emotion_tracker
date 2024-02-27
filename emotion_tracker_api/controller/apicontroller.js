@@ -24,7 +24,6 @@ exports.getUsers = async (req, res) => {
 
     try {
         const result = await conn.query(selectSQL);
-        console.log(result);
         res.json(result);
 
     } catch (err) {
@@ -135,8 +134,6 @@ exports.getSnapshotDetails = async (req, res) => {
 
     const { id } = req.params;
 
-    console.log(id);
-
     //prepare vals for param. queries
     const angerVals = [id, 1];
     const contemptVals = [id, 2];
@@ -171,7 +168,6 @@ exports.getSnapshotDetails = async (req, res) => {
 
         const dataObjects = { snap, ang, cont, disg, enj, fear, sad, surp, trig };
 
-        console.log(dataObjects);
         res.json(dataObjects);
 
     } catch (err) {
@@ -182,7 +178,6 @@ exports.getSnapshotDetails = async (req, res) => {
 
 
 exports.patchUpdateSnapshot = async (req, res) => {
-
 
     //PATCH section
     //Get updated trigger values & original trigger_ids from req body
@@ -210,8 +205,6 @@ exports.patchUpdateSnapshot = async (req, res) => {
         const result = await conn.query(getUserSnapshotsSQL, user);
         const dataObjects = [result][0][0];
 
-        console.log(rows);
-
         //assisted by chatGPT - iterates over ResultSetHeader objects array
         //checks the changedRows property and returns true as soon as it finds one instance
         const resultSet = rows;
@@ -232,12 +225,11 @@ exports.patchUpdateSnapshot = async (req, res) => {
 
 exports.deleteSnapshot = async (req, res) => {
 
-
     //DELETE section
-    //Get snapshot_id submitted for deletion from req body
-    const { snap_id_del } = req.body;
+    //Get snapshot_id & trigger_ids submitted for deletion from req body
+    const { snap_id_del, trig1_id, trig2_id, trig3_id } = req.body;
     const deleteSnapshotSQL = deleteSnapshotFunc();  
-    const vals = [snap_id_del, snap_id_del, snap_id_del, snap_id_del];
+    const vals = [snap_id_del, snap_id_del, trig1_id, trig2_id, trig3_id, snap_id_del];
 
     //SUMMARY section for redirecting back to summary page after saving deletion
     //extract user_id from req obj
@@ -255,17 +247,14 @@ exports.deleteSnapshot = async (req, res) => {
         const result = await conn.query(getUserSnapshotsSQL, user);
         const dataObjects = [result][0][0];
 
-        console.log(rows);
-
         //assisted by chatGPT - iterates over ResultSetHeader objects array
-        //checks the changedRows property and returns true as soon as it finds one instance
-        /*const resultSet = rows;
-        const hasChangedRows = resultSet.some(header => header.changedRows > 0);*/
-        
-        const numrows = rows.length;
+        //checks the affectedRows property and returns true as soon as it finds one instance
+        const resultSet = rows;
+        const hasAffectedRows = resultSet.some(header => header.affectedRows > 0);
 
-        if (numrows > 0){
-           console.log("db snapshot deletion successful");
+        if (hasAffectedRows){
+
+            console.log("db snapshot deletion successful");
            
            //pass back updated snapshot summary for user
            res.json(dataObjects);
@@ -275,20 +264,3 @@ exports.deleteSnapshot = async (req, res) => {
         res.json(err);
     };
 };
-
-
-/*
-
-exports.getSnapshot
-
-exports.getTrigger
-
-exports.postTrigger
-
-exports.deleteTrigger
-
-exports.postSnapshot
-
-exports.patchSnapshot
-
-exports.deleteSnapshot*/

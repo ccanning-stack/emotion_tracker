@@ -197,10 +197,12 @@ exports.deleteAPISnapshot = async (req, res) => {
     token = req.headers['authorization'];
 
     try {
-        const response = await axios.delete(endpoint, req.body, {
+        
+        const response = await axios.delete(endpoint, {
+            data: req.body,
             headers: {'authorization': `${token}`}
         }, { httpsAgent });
-
+        console.log("DELETE API RESPONSE:", response.data);
         res.render('summary', { apiData: response.data, apiMessage: "Snapshot deletion successful!"});
 
     } catch (error) {
