@@ -6,7 +6,7 @@ const dateFormatFunc = require('../public/js/datescript2');
 
 // Trust an external service's self-signed certificate
 // for outbound requests from server
-// Chat GPT (www.chat.openai.com)
+// assisted by Chat GPT (www.chat.openai.com)
 const externalServiceCACert = fs.readFileSync('/Applications/MAMP/conf/apache/ssl/localhost.crt');
 
 const httpsAgent = new https.Agent({
@@ -180,6 +180,28 @@ exports.patchAPIUpdateSnapshot = async (req, res) => {
         }, { httpsAgent });
 
         res.render('summary', { apiData: response.data, apiMessage: "Snapshot update successful!"});
+
+    } catch (error) {
+        res.status(500).json({ error: `${error}` });
+    };
+
+}
+
+exports.deleteAPISnapshot = async (req, res) => {
+
+    const id = req.params.id;
+
+    const endpoint = `https://localhost:8443/delete-snapshot/${id}`;
+
+    //extract for use with axios as headers need to be set separately
+    token = req.headers['authorization'];
+
+    try {
+        const response = await axios.delete(endpoint, req.body, {
+            headers: {'authorization': `${token}`}
+        }, { httpsAgent });
+
+        res.render('summary', { apiData: response.data, apiMessage: "Snapshot deletion successful!"});
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });

@@ -83,6 +83,23 @@ function updateTriggersFunc() {
 
 }
 
+function deleteSnapshotFunc() {
+
+    return `START TRANSACTION;
+
+    DELETE FROM emotion_snapshot WHERE snapshot_id = ?;
+    
+    DELETE FROM trigger_table WHERE trigger_id IN (SELECT trigger_id
+        FROM trigger_snapshot WHERE snapshot_id = ?);
+    
+    DELETE FROM trigger_snapshot WHERE snapshot_id = ?;
+    
+    DELETE FROM snapshot WHERE snapshot_id = ?;
+    
+    COMMIT;`;
+
+} 
+
 
 module.exports = {
     newSnapShotFunc,
@@ -95,5 +112,6 @@ module.exports = {
     getSadnessIntensityFunc,
     getSurpriseIntensityFunc,
     getTriggerDetailFunc,
-    updateTriggersFunc
+    updateTriggersFunc,
+    deleteSnapshotFunc
 };

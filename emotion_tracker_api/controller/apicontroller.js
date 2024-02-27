@@ -13,7 +13,8 @@ const {
     getSadnessIntensityFunc,
     getSurpriseIntensityFunc,
     getTriggerDetailFunc,
-    updateTriggersFunc
+    updateTriggersFunc,
+    deleteSnapshotFunc
 } = require('../utils/functions/db_operations');
 
 // GET /users
@@ -229,7 +230,51 @@ exports.patchUpdateSnapshot = async (req, res) => {
 };
 
 
+exports.deleteSnapshot = async (req, res) => {
 
+
+    //DELETE section
+    //Get snapshot_id submitted for deletion from req body
+    const { snap_id_del } = req.body;
+    const deleteSnapshotSQL = deleteSnapshotFunc();  
+    const vals = [snap_id_del, snap_id_del, snap_id_del, snap_id_del];
+
+    //SUMMARY section for redirecting back to summary page after saving deletion
+    //extract user_id from req obj
+    const user = req.user.user;
+    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
+     FROM snapshot WHERE  user_id = ?;`;
+    
+
+    try {
+
+        //delete snapshot
+        const [rows] = await conn.query(deleteSnapshotSQL, vals);
+
+        //retrieve remaining snapshots for current user
+        const result = await conn.query(getUserSnapshotsSQL, user);
+        const dataObjects = [result][0][0];
+
+        console.log(rows);
+
+        //assisted by chatGPT - iterates over ResultSetHeader objects array
+        //checks the changedRows property and returns true as soon as it finds one instance
+        /*const resultSet = rows;
+        const hasChangedRows = resultSet.some(header => header.changedRows > 0);*/
+        
+        const numrows = rows.length;
+
+        if (numrows > 0){
+           console.log("db snapshot deletion successful");
+           
+           //pass back updated snapshot summary for user
+           res.json(dataObjects);
+        }
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
 
 
 /*

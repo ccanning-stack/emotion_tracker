@@ -45,6 +45,7 @@
 
                 <input type="text" name="snapshot_headline" value="<%= apiData.snap[0].title %>" 
                 id="snapshot-title" disabled>
+                <input type="hidden" name="snap_id_del" value="<%= apiData.snap[0].snapshot_id %>">
 
             </div>
 
@@ -60,7 +61,8 @@
             <br>
 
             
-            <%# Iterate over apiData object and extract only intensity data for keys relating to emotions %>
+            <%# Iterate over apiData object and extract only intensity data for keys relating to emotions.
+            Assisted by ChatGPT %>
 
             <% let emotionLvls={}; 
             Object.keys(apiData).forEach(function(key) {
@@ -111,7 +113,8 @@
                 <p>Surprise: <output id="surprise-value2"></output></p>
 
 
-                <%# extract the 3 triggers from the trig object array %>
+                <%# extract the 3 triggers along with corresponding ids from the trig object array %>
+
                 <% let trig_1=null, trig_2=null, trig_3=null; 
                  trig_1 = apiData.trig[0].name;
                  trig_2 = apiData.trig[1].name;

@@ -12,6 +12,6 @@ router.post('/create-snapshot', checkAuth, controller.postCreateSnapshot);
 
 router.patch('/edit-snapshot/:id', checkAuth, controller.patchUpdateSnapshot);
 
-//router.delete('/edit-snapshot/:id', checkAuth, controller.deleteSnapshot);
+router.delete('/delete-snapshot/:id', checkAuth, controller.deleteSnapshot);
 
 module.exports = router;

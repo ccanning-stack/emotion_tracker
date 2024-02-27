@@ -26,7 +26,7 @@ router.get('/insights', controller.getInsightsPage);
 router.post('/login', controller.postAPILogin);
 router.post('/create-snapshot', checkAuth, controller.postAPICreateSnapshot);
 router.post('/edit-snapshot/:id', checkAuth, controller.patchAPIUpdateSnapshot);
-//router.post('/delete-snapshot/:id', checkAuth, controller.patchAPIDeleteSnapshot);
+router.post('/delete-snapshot/:id', checkAuth, controller.deleteAPISnapshot);
 
 //export router
 module.exports = router;
