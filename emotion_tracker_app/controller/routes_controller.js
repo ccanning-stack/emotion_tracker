@@ -10,7 +10,7 @@ const dateFormatFunc = require('../public/js/datescript2');
 const externalServiceCACert = fs.readFileSync('/Applications/MAMP/conf/apache/ssl/localhost.crt');
 
 const httpsAgent = new https.Agent({
-  ca: externalServiceCACert,
+    ca: externalServiceCACert,
 });
 
 exports.getRedirect = async (req, res) => {
@@ -18,7 +18,7 @@ exports.getRedirect = async (req, res) => {
 }
 
 exports.getWelcomePage = async (req, res) => {
-    res.render('welcome', { logoutMessage:""});
+    res.render('welcome', { logoutMessage: "" });
 }
 
 exports.getRegisterPage = async (req, res) => {
@@ -30,7 +30,7 @@ exports.getSuccessfulRegistrationPage = async (req, res) => {
 }
 
 exports.getLoginPage = async (req, res) => {
-    res.render('login', {accountCreatedMsg:""});
+    res.render('login', { accountCreatedMsg: "" });
 }
 
 exports.getConfirmUserPage = async (req, res) => {
@@ -75,9 +75,9 @@ exports.postAPINewUser = async (req, res) => {
 
     try {
         const response = await axios.post(endpoint, req.body, { httpsAgent });
-        console.log("API new user response: ",response.data);
+        console.log("API new user response: ", response.data);
 
-        res.render('login', {accountCreatedMsg: "Account successfully created!  You can now log in."});
+        res.render('login', { accountCreatedMsg: "Account successfully created!  You can now log in." });
 
     } catch (error) {
         console.log(error);
@@ -106,12 +106,26 @@ exports.postAPILogin = async (req, res) => {
         res.redirect('/create-snapshot');
 
     } catch (error) {
-        if (error.response.status === 401){
-
-            res.status(401).json({error: "Invalid login credentials.  Please try again"});
+        if (error.response.status === 401) {
+            //Redirect to login after informing user- improved user experience- with help from chatGPT
+            //https://www.w3schools.com/js/js_window_location.asp
+            const loginUrl = 'https://localhost/login';
+            return res.status(401).send(`
+        <html>
+            <body>
+                <script>
+                    setTimeout(function() {
+                        window.location.href = '${loginUrl}';
+                    }, 5000); // Redirects after 5 seconds
+                </script>
+                <p>Incorrect credentials, you will be redirected to the login page in 5 seconds. 
+                If not, click <a href="${loginUrl}">here</a> to login again.</p>
+            </body>
+        </html>
+    `);
+            //res.status(401).json({error: "Invalid login credentials.  Please try again"});
         }
         else {
-            console.log(error);
             res.status(500).json({ error: `${error}` });
         }
     };
@@ -128,12 +142,12 @@ exports.postAPICreateSnapshot = async (req, res) => {
 
     try {
         const response = await axios.post(endpoint, req.body, {
-            headers: {'authorization': `${token}`}
+            headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
         console.log("Create Snapshot API Endpoint returned with this data:");
         console.log(response.data);
-        
+
         res.redirect('summary');
 
     } catch (error) {
@@ -151,15 +165,13 @@ exports.getAPISnapshotSummary = async (req, res) => {
 
     try {
         const response = await axios.get(endpoint, {
-            headers: {'authorization': `${token}`}
+            headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
-        res.render('summary', {apiData: response.data, apiMessage: ""});
+        res.render('summary', { apiData: response.data, apiMessage: "" });
 
     } catch (error) {
-        console.log("ERROR connecting to Snapshot Summary API");
-        console.log(error);
-        res.status(500).json({ error: "Failed to fetch data from API" });
+        res.status(500).json({ error: `${error}` });
     };
 }
 
@@ -174,18 +186,16 @@ exports.getAPISnapshotDetails = async (req, res) => {
 
     try {
         const response = await axios.get(endpoint, {
-            headers: {'authorization': `${token}`}
+            headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
         //extract date from api response for conversion and passing into EJS template
         const dbDate = response.data.snap[0].datetime_created;
 
-        res.render('edit-snapshot', {apiData: response.data, apiDate: dateFormatFunc(dbDate)});
+        res.render('edit-snapshot', { apiData: response.data, apiDate: dateFormatFunc(dbDate) });
 
     } catch (error) {
-        console.log("ERROR connecting to Snapshot Summary API");
-        console.log(error);
-        res.status(500).json({ error: "Failed to fetch data from API" });
+        res.status(500).json({ error: `${error}` });
     };
 }
 
@@ -201,10 +211,10 @@ exports.patchAPIUpdateSnapshot = async (req, res) => {
 
     try {
         const response = await axios.patch(endpoint, req.body, {
-            headers: {'authorization': `${token}`}
+            headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
-        res.render('summary', { apiData: response.data, apiMessage: "Snapshot update successful!"});
+        res.render('summary', { apiData: response.data, apiMessage: "Snapshot update successful!" });
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });
@@ -222,13 +232,13 @@ exports.deleteAPISnapshot = async (req, res) => {
     token = req.headers['authorization'];
 
     try {
-        
+
         const response = await axios.delete(endpoint, {
             data: req.body,
-            headers: {'authorization': `${token}`}
+            headers: { 'authorization': `${token}` }
         }, { httpsAgent });
         console.log("DELETE API RESPONSE:", response.data);
-        res.render('summary', { apiData: response.data, apiMessage: "Snapshot deletion successful!"});
+        res.render('summary', { apiData: response.data, apiMessage: "Snapshot deletion successful!" });
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });
@@ -236,24 +246,22 @@ exports.deleteAPISnapshot = async (req, res) => {
 
 }
 
-exports.getLogout= (req, res) => {
+exports.getLogout = (req, res) => {
 
-     //https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens
-     //https://expressjs.com/en/api.html#res.clearCookie
+    //https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens
+    //https://expressjs.com/en/api.html#res.clearCookie
 
     try {
-        
-        res.clearCookie('token',{
+
+        res.clearCookie('token', {
             httpOnly: true,
             secure: true,
             sameSite: 'strict'
         });
-        
-        res.render('welcome', {logoutMessage: "Logout successful"});
+
+        res.render('welcome', { logoutMessage: "Logout successful" });
 
     } catch (error) {
-        console.log("ERROR connecting to Snapshot Summary API");
-        console.log(error);
-        res.status(500).json({ error: "Failed to fetch data from API" });
+        res.status(500).json({ error: `${error}` });
     };
 }

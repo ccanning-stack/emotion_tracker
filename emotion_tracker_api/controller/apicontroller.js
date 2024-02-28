@@ -97,7 +97,7 @@ exports.postLogin = async (req, res) => {
 
             //token timeout after 20 mins
             const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '20m' });
+                { expiresIn: '10s' });
             res.json({ accessToken: accessToken });
         }
     } catch (err) {

@@ -17,6 +17,7 @@ exports.checkAuth = (req, res, next) => {
         if (err) {
 
             //Login timeout script for improved user experience- with help from chatGPT
+            //https://www.w3schools.com/js/js_window_location.asp
             const loginUrl = 'https://localhost/login';
             return res.status(403).send(`
         <html>
@@ -24,9 +25,9 @@ exports.checkAuth = (req, res, next) => {
                 <script>
                     setTimeout(function() {
                         window.location.href = '${loginUrl}';
-                    }, 5000); // Redirect after 5 seconds
+                    }, 5000); // Redirects after 5 seconds
                 </script>
-                <p>Session has timed out, you will be redirected to the login page in 5 seconds. 
+                <p>Session has timed out, you will be returned to the login page in 5 seconds. 
                 If not, click <a href="${loginUrl}">here</a> to login again.</p>
             </body>
         </html>
