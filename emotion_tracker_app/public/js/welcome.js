@@ -1,4 +1,4 @@
-//With aid of ChatGPT (chat.openai.com) - function that displays successful logout message for 5 secs
+//With aid of ChatGPT (chat.openai.com) - function that hides logout successful message for 5 secs
 
 document.addEventListener('DOMContentLoaded', function() {
   

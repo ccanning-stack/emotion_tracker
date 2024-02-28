@@ -8,6 +8,7 @@ router.get('/snapshot-summary', checkAuth, controller.getSnapshotSummary);
 router.get('/edit-snapshot/:id', checkAuth, controller.getSnapshotDetails);
 
 router.post('/login', controller.postLogin);
+router.post('/new-user', controller.postNewUser);
 router.post('/create-snapshot', checkAuth, controller.postCreateSnapshot);
 
 router.patch('/edit-snapshot/:id', checkAuth, controller.patchUpdateSnapshot);

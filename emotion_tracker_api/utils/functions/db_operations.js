@@ -103,6 +103,15 @@ function deleteSnapshotFunc() {
 
 } 
 
+function insertUserFunc () {
+    return `INSERT INTO user (user_id, first_name, last_name, registration_date, 
+        birthdate, security_question_one, 
+        security_answer_one, security_question_two, 
+        security_answer_two, email, password) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`;
+
+}
+
 
 module.exports = {
     newSnapShotFunc,
@@ -116,5 +125,6 @@ module.exports = {
     getSurpriseIntensityFunc,
     getTriggerDetailFunc,
     updateTriggersFunc,
-    deleteSnapshotFunc
+    deleteSnapshotFunc,
+    insertUserFunc
 };

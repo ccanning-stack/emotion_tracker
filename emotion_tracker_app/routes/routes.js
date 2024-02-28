@@ -24,6 +24,7 @@ router.get('/insights', checkAuth, controller.getInsightsPage);
 //router.get('/v1.1/api', controller.getMakeAPIRequest );
 
 router.post('/login', controller.postAPILogin);
+router.post('/new-user', controller.postAPINewUser);
 router.post('/create-snapshot', checkAuth, controller.postAPICreateSnapshot);
 router.post('/edit-snapshot/:id', checkAuth, controller.patchAPIUpdateSnapshot);
 router.post('/delete-snapshot/:id', checkAuth, controller.deleteAPISnapshot);

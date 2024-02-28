@@ -1,6 +1,6 @@
 const conn = require('../database/dbconn');
 const jwt = require('jsonwebtoken');
-//const sql = require('./../sql/sql_statements');
+const bcrypt= require('bcrypt');
 const getCurrentDateTimeFormatted = require('../utils/functions/datescript');
 const {
     newSnapShotFunc,
@@ -14,8 +14,10 @@ const {
     getSurpriseIntensityFunc,
     getTriggerDetailFunc,
     updateTriggersFunc,
-    deleteSnapshotFunc
+    deleteSnapshotFunc,
+    insertUserFunc
 } = require('../utils/functions/db_operations');
+
 
 // GET /users
 exports.getUsers = async (req, res) => {
@@ -32,21 +34,63 @@ exports.getUsers = async (req, res) => {
     };
 };
 
-exports.postLogin = async (req, res) => {
 
+exports.postNewUser = async (req, res) => {
 
-    const { username, password } = req.body;
-    const vals = [username, password];
+    //extract register values from req body
+    const { first_name, surname, email_add, birthdate,security_qtn_1,
+        security_ans_1,security_qtn_2,security_ans_2,initial_password} = req.body;
 
-    const checkuserSQL =
-        `SELECT * FROM user WHERE email = ? AND password = ?`;
+    const hash = await bcrypt.hash(initial_password, 13);
+
+    //get time in db timestamp format from js function
+    const currentDate = getCurrentDateTimeFormatted();
+
+    const vals = [null, first_name, surname, currentDate, birthdate, security_qtn_1,
+        security_ans_1,security_qtn_2,security_ans_2,email_add, hash];
+
+    console.log("vals are:", vals);
+
+    const insertUserSQL = insertUserFunc();
 
     try {
-        const [rows] = await conn.query(checkuserSQL, vals);
+        const [rows] = await conn.query(insertUserSQL, vals);
+        console.log("rows are:",rows);
+        const {affectedRows} = rows;
 
-        const numrows = rows.length;
+        if (affectedRows>0){
 
-        if (numrows > 0) {
+            res.sendStatus(200);
+        }
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
+
+
+
+exports.postLogin = async (req, res) => {
+//https://www.npmjs.com/package/bcrypt
+//https://www.youtube.com/watch?v=AzA_LTDoFqY
+
+    const { username, password } = req.body;
+
+    const checkuserSQL =
+        `SELECT * FROM user WHERE email = ?`;
+
+    try {
+        const [rows] = await conn.query(checkuserSQL, username);
+
+        console.log("Returned rows are ",rows);
+
+        const isMatch = await bcrypt.compare(password, rows[0].password);
+
+        if(!isMatch){
+            res.sendStatus(403);
+        }
+
+        if (isMatch) {
             const user_identifier = rows[0].user_id;
 
             const userObj = { user: user_identifier };
@@ -61,6 +105,7 @@ exports.postLogin = async (req, res) => {
         res.json(err);
     };
 };
+
 
 
 exports.postCreateSnapshot = async (req, res) => {
@@ -100,11 +145,6 @@ exports.postCreateSnapshot = async (req, res) => {
 
 };
 
-/*
-exports.postNewUser = async (req, res) => {
-
-    //INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `registration_date`, `birthdate`, `security_question_one`, `security_answer_one`, `security_question_two`, `security_answer_two`, `email`, `password`) VALUES (NULL, 'Bob', 'Murray', CURRENT_TIMESTAMP, '2024-02-22', 'Favourite day', 'Friday', 'Fave colour', 'Red', 'robert@hotmail.com', 0xbf2dfbc3351e46b3ce64 )
-}*/
 
 
 

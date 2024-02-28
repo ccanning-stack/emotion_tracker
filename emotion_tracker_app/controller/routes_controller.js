@@ -30,7 +30,7 @@ exports.getSuccessfulRegistrationPage = async (req, res) => {
 }
 
 exports.getLoginPage = async (req, res) => {
-    res.render('login');
+    res.render('login', {accountCreatedMsg:""});
 }
 
 exports.getConfirmUserPage = async (req, res) => {
@@ -69,6 +69,24 @@ exports.getMakeAPIRequest = async (req, res) => {
 
 }
 
+exports.postAPINewUser = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/new-user';
+
+    try {
+        const response = await axios.post(endpoint, req.body, { httpsAgent });
+        console.log("API new user response: ",response.data);
+
+        res.render('login', {accountCreatedMsg: "Account successfully created!  You can now log in."});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: `${error}` });
+    };
+
+}
+
+
 exports.postAPILogin = async (req, res) => {
 
     const endpoint = 'https://localhost:8443/login';
@@ -88,11 +106,18 @@ exports.postAPILogin = async (req, res) => {
         res.redirect('/create-snapshot');
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: `${error}` });
+        if (error.response.status === 403){
+
+            res.status(403).json({error: "Invalid login credentials.  Please try again"});
+        }
+        else {
+            console.log(error);
+            res.status(500).json({ error: `${error}` });
+        }
     };
 
 }
+
 
 exports.postAPICreateSnapshot = async (req, res) => {
 
