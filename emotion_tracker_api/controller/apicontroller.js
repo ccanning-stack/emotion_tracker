@@ -49,17 +49,13 @@ exports.postNewUser = async (req, res) => {
     const vals = [null, first_name, surname, currentDate, birthdate, security_qtn_1,
         security_ans_1,security_qtn_2,security_ans_2,email_add, hash];
 
-    console.log("vals are:", vals);
-
     const insertUserSQL = insertUserFunc();
 
     try {
         const [rows] = await conn.query(insertUserSQL, vals);
-        console.log("rows are:",rows);
         const {affectedRows} = rows;
 
         if (affectedRows>0){
-
             res.sendStatus(200);
         }
     } catch (err) {
@@ -73,6 +69,7 @@ exports.postNewUser = async (req, res) => {
 exports.postLogin = async (req, res) => {
 //https://www.npmjs.com/package/bcrypt
 //https://www.youtube.com/watch?v=AzA_LTDoFqY
+//https://www.npmjs.com/package/jsonwebtoken
 
     const { username, password } = req.body;
 
@@ -82,12 +79,15 @@ exports.postLogin = async (req, res) => {
     try {
         const [rows] = await conn.query(checkuserSQL, username);
 
-        console.log("Returned rows are ",rows);
+        //user not found in db
+        if(rows.length<1){
+            return res.sendStatus(401);
+        }
 
         const isMatch = await bcrypt.compare(password, rows[0].password);
 
         if(!isMatch){
-            res.sendStatus(403);
+            return res.sendStatus(401);
         }
 
         if (isMatch) {
@@ -97,7 +97,7 @@ exports.postLogin = async (req, res) => {
 
             //token timeout after 20 mins
             const accessToken = jwt.sign(userObj, process.env.ACCESS_TOKEN_SECRET,
-                { expiresIn: '1200000' });
+                { expiresIn: '20m' });
             res.json({ accessToken: accessToken });
         }
     } catch (err) {
@@ -136,7 +136,6 @@ exports.postCreateSnapshot = async (req, res) => {
         const numrows = rows.length;
 
         if (numrows > 0) {
-            console.log("post to db successful");
             res.sendStatus(200);
         }
     } catch (err) {

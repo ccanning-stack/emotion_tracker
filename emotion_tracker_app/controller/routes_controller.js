@@ -106,9 +106,9 @@ exports.postAPILogin = async (req, res) => {
         res.redirect('/create-snapshot');
 
     } catch (error) {
-        if (error.response.status === 403){
+        if (error.response.status === 401){
 
-            res.status(403).json({error: "Invalid login credentials.  Please try again"});
+            res.status(401).json({error: "Invalid login credentials.  Please try again"});
         }
         else {
             console.log(error);
