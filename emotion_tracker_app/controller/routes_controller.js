@@ -106,12 +106,11 @@ exports.postAPILogin = async (req, res) => {
 
         res.redirect('/create-snapshot');
 
+    //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
     } catch (error) {
         if (error.response.status === 401) {
-
             res.render('login', { accountCreatedMsg:"", 
             invalidCredentialsMsg: "Incorrect username and/or password" });
-
         }
         else {
             res.status(500).json({ error: `${error}` });
