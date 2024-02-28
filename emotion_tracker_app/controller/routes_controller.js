@@ -30,7 +30,7 @@ exports.getSuccessfulRegistrationPage = async (req, res) => {
 }
 
 exports.getLoginPage = async (req, res) => {
-    res.render('login', { accountCreatedMsg: "" });
+    res.render('login', { accountCreatedMsg: "", invalidCredentialsMsg:"" });
 }
 
 exports.getConfirmUserPage = async (req, res) => {
@@ -77,7 +77,8 @@ exports.postAPINewUser = async (req, res) => {
         const response = await axios.post(endpoint, req.body, { httpsAgent });
         console.log("API new user response: ", response.data);
 
-        res.render('login', { accountCreatedMsg: "Account successfully created!  You can now log in." });
+        res.render('login', { accountCreatedMsg: "Account successfully created!  You can now log in.", 
+        invalidCredentialsMsg: "" });
 
     } catch (error) {
         console.log(error);
@@ -107,23 +108,10 @@ exports.postAPILogin = async (req, res) => {
 
     } catch (error) {
         if (error.response.status === 401) {
-            //Redirect to login after informing user- improved user experience- with help from chatGPT
-            //https://www.w3schools.com/js/js_window_location.asp
-            const loginUrl = 'https://localhost/login';
-            return res.status(401).send(`
-        <html>
-            <body>
-                <script>
-                    setTimeout(function() {
-                        window.location.href = '${loginUrl}';
-                    }, 5000); // Redirects after 5 seconds
-                </script>
-                <p>Incorrect credentials, you will be redirected to the login page in 5 seconds. 
-                If not, click <a href="${loginUrl}">here</a> to login again.</p>
-            </body>
-        </html>
-    `);
-            //res.status(401).json({error: "Invalid login credentials.  Please try again"});
+
+            res.render('login', { accountCreatedMsg:"", 
+            invalidCredentialsMsg: "Incorrect username and/or password" });
+
         }
         else {
             res.status(500).json({ error: `${error}` });

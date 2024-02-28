@@ -14,7 +14,7 @@ h1, p, h2, h3, h4, h5, h6, li, output {
   
 }
 
-#edit-msg {
+#edit-msg, #invalid_credentials_msg {
   color: maroon;
 }
 
