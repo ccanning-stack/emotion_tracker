@@ -17,6 +17,7 @@
         <form action="/login" method="post">
             <div id="account_successful_msg"><%= accountCreatedMsg %></div>
             <div id="invalid_credentials_msg"><%= invalidCredentialsMsg %></div>
+            <div id="pwd_change_ok_msg"><%= passwordChangedMsg %></div>
             <p>
     
                 <label for="userlogin-input">Username</label>
@@ -25,7 +26,7 @@
     
             <div>
     
-                <input type="email" name="username" id="userlogin-input">
+                <input type="email" name="username" id="userlogin-input" required>
     
             </div>
 
@@ -37,7 +38,7 @@
     
             <div>
     
-                <input type="password" name="password" id="passlogin-input">
+                <input type="password" name="password" id="passlogin-input" required>
     
             </div>
 

@@ -22,7 +22,9 @@ exports.getWelcomePage = async (req, res) => {
 }
 
 exports.getRegisterPage = async (req, res) => {
-    res.render('register');
+    res.render('register', {
+        emailExistsMsg: ""
+    });
 }
 
 exports.getSuccessfulRegistrationPage = async (req, res) => {
@@ -30,7 +32,8 @@ exports.getSuccessfulRegistrationPage = async (req, res) => {
 }
 
 exports.getLoginPage = async (req, res) => {
-    res.render('login', { accountCreatedMsg: "", invalidCredentialsMsg:"" });
+    res.render('login', { accountCreatedMsg: "", invalidCredentialsMsg: "", 
+    passwordChangedMsg:"" });
 }
 
 exports.getConfirmUserPage = async (req, res) => {
@@ -57,13 +60,9 @@ exports.getMakeAPIRequest = async (req, res) => {
 
     try {
         const response = await axios.get(endpoint)
-        console.log("API Endpoint returned");
-        console.log(response.data);
         res.json(response.data);
 
     } catch (error) {
-        console.log("ERROR connecting to API");
-        console.log(error);
         res.status(500).json({ error: "Failed to fetch data from API" });
     };
 
@@ -75,16 +74,22 @@ exports.postAPINewUser = async (req, res) => {
 
     try {
         const response = await axios.post(endpoint, req.body, { httpsAgent });
-        console.log("API new user response: ", response.data);
 
-        res.render('login', { accountCreatedMsg: "Account successfully created!  You can now log in.", 
-        invalidCredentialsMsg: "" });
+        res.render('login', {
+            accountCreatedMsg: "Account successfully created!  You can now log in.",
+            invalidCredentialsMsg: "",
+            passwordChangedMsg:""
+        });
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ error: `${error}` });
-    };
-
+        if (error.response.status === 409) {
+            res.render('register', {
+                emailExistsMsg: "The email address provided already has an account associated with it"
+            });
+        } else {
+            res.status(500).json({ error: `${error}` });
+        };
+    }
 }
 
 
@@ -106,11 +111,14 @@ exports.postAPILogin = async (req, res) => {
 
         res.redirect('/create-snapshot');
 
-    //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+        //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
     } catch (error) {
         if (error.response.status === 401) {
-            res.render('login', { accountCreatedMsg:"", 
-            invalidCredentialsMsg: "Incorrect username and/or password" });
+            res.render('login', {
+                accountCreatedMsg: "",
+                invalidCredentialsMsg: "Incorrect username and/or password",
+                passwordChangedMsg:""
+            });
         }
         else {
             res.status(500).json({ error: `${error}` });
@@ -132,10 +140,8 @@ exports.postAPICreateSnapshot = async (req, res) => {
             headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
-        console.log("Create Snapshot API Endpoint returned with this data:");
-        console.log(response.data);
-
-        res.redirect('summary');
+        res.render('summary', { apiData: response.data, 
+            apiMessage: "Snapshot created successfully!" });
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });
@@ -224,8 +230,8 @@ exports.deleteAPISnapshot = async (req, res) => {
             data: req.body,
             headers: { 'authorization': `${token}` }
         }, { httpsAgent });
-        console.log("DELETE API RESPONSE:", response.data);
-        res.render('summary', { apiData: response.data, apiMessage: "Snapshot deletion successful!" });
+        res.render('summary', { apiData: response.data, 
+            apiMessage: "Snapshot deletion successful!" });
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });

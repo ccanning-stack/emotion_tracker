@@ -37,11 +37,24 @@ exports.getUsers = async (req, res) => {
 
 exports.postNewUser = async (req, res) => {
 
-    //extract register values from req body
+    //extract register values from req body & immediately hash password
     const { first_name, surname, email_add, birthdate,security_qtn_1,
         security_ans_1,security_qtn_2,security_ans_2,initial_password} = req.body;
-
     const hash = await bcrypt.hash(initial_password, 13);
+
+    //first: check if email is already in db
+    try {
+    const checkEmailSQL = `SELECT email FROM user WHERE email = ?`;
+    const [rows] = await conn.query(checkEmailSQL, email_add);
+
+    if (!rows.length == 0){
+    //https://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
+        return res.sendStatus(409);
+    } 
+    }catch(err){
+        console.log(err);
+        res.json(err);
+    }
 
     //get time in db timestamp format from js function
     const currentDate = getCurrentDateTimeFormatted();
@@ -130,12 +143,21 @@ exports.postCreateSnapshot = async (req, res) => {
     //get sql from js function
     const postSnapshotSQL = newSnapShotFunc();
 
+    //SUMMARY section for redirecting back to summary page after saving deletion
+    //extract user_id from req obj
+    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
+     FROM snapshot WHERE  user_id = ?;`;
+
     try {
         const [rows] = await conn.query(postSnapshotSQL, vals);
-
         const numrows = rows.length;
 
+        //retrieve remaining snapshots for current user
+        const result = await conn.query(getUserSnapshotsSQL, user);
+        const dataObjects = [result][0][0];
+
         if (numrows > 0) {
+            res.json(dataObjects);
             res.sendStatus(200);
         }
     } catch (err) {
@@ -292,9 +314,6 @@ exports.deleteSnapshot = async (req, res) => {
         const hasAffectedRows = resultSet.some(header => header.affectedRows > 0);
 
         if (hasAffectedRows){
-
-            console.log("db snapshot deletion successful");
-           
            //pass back updated snapshot summary for user
            res.json(dataObjects);
         }

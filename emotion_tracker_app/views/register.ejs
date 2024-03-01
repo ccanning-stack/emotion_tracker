@@ -15,6 +15,8 @@
 
     <h1>Registration Form</h1>
 
+    <div id="email_exists_msg"><%= emailExistsMsg %></div>
+
     <form action="/new-user" method="post">
 
         <p>
@@ -25,7 +27,8 @@
 
         <div>
 
-            <input type="text" name="first_name" placeholder="Enter First Name" id="firstname-input">
+            <input type="text" name="first_name" placeholder="Enter First Name" 
+            id="firstname-input" required>
 
         </div>
 
@@ -38,7 +41,8 @@
 
         <div>
 
-            <input type="text" name="surname" placeholder="Enter Surname" id="surname-input">
+            <input type="text" name="surname" placeholder="Enter Surname" 
+            id="surname-input" required>
 
         </div>
 
@@ -50,7 +54,7 @@
 
         <div>
 
-            <input type="email" name="email_add" placeholder="user@example.com" id="email-input">
+            <input type="email" name="email_add" placeholder="user@example.com" id="email-input" required>
 
         </div>
 
@@ -62,7 +66,8 @@
 
         <div>
 
-            <input type="date" name="birthdate" id="birthdate-input">
+            <input type="date" name="birthdate" id="birthdate-input" 
+             max="2008-03-01" min="1910-03-01"required>
 
         </div>
 
@@ -75,7 +80,8 @@
 
         <div>
 
-            <input type="text" name="security_qtn_1" placeholder="Example:  Name of First School" id="sec-q1-input">
+            <input type="text" name="security_qtn_1" placeholder="Example:  Name of First School" 
+            id="sec-q1-input" required>
 
         </div>
 
@@ -87,7 +93,8 @@
 
         <div>
 
-            <input type="text" name="security_ans_1" placeholder="Enter answer" id="sec-a1-input">
+            <input type="text" name="security_ans_1" placeholder="Enter answer" id="sec-a1-input"
+            required>
 
         </div>
 
@@ -99,7 +106,8 @@
 
         <div>
 
-            <input type="text" name="security_qtn_2" placeholder="Example:  First Employer" id="sec-q2-input">
+            <input type="text" name="security_qtn_2" placeholder="Example:  Name of First Employer" id="sec-q2-input"
+            required>
 
         </div>
 
@@ -111,7 +119,8 @@
 
         <div>
 
-            <input type="text" name="security_ans_2" placeholder="Enter answer" id="sec-a2-input">
+            <input type="text" name="security_ans_2" placeholder="Enter answer" id="sec-a2-input"
+            required>
 
         </div>
 
@@ -123,7 +132,10 @@
 
         <div>
 
-            <input type="password" name="initial_password" placeholder="Enter Password" id="password-input">
+            <input type="password" name="initial_password" placeholder="Enter Password" id="password-input"
+            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one  number and one uppercase and lowercase letter, 
+            and at least 8 or more characters" onkeyup="check()">
 
         </div>
 
@@ -136,7 +148,11 @@
 
         <div>
 
-            <input type="password" name="password_confirmation" placeholder="Re-enter Password" id="passconfirm-input">
+            <input type="password" name="password_confirmation" placeholder="Re-enter Password" id="passconfirm-input"
+            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one  number and one uppercase and lowercase letter, 
+            and at least 8 or more characters" onkeyup="check()">
+            <span id='match_message'></span>
 
         </div>
 
@@ -146,11 +162,5 @@
 
     </form>
 
-
-
-
-
-
-
-
+    <script src="/js/register.js"></script>
 </body>
