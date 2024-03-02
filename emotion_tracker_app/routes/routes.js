@@ -8,7 +8,7 @@
 const express = require('express');
 const controller = require('./../controller/routes_controller');
 const router = express.Router();
-const { checkAuth } = require('./../utils/middleware/authentication');
+const { checkAuth } = require('../utils/middleware/authentication.js');
 
 //route handling
 router.get('/', controller.getRedirect);

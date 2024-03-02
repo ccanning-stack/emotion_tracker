@@ -1,7 +1,7 @@
 const express = require('express');
 const controller = require('../controller/apicontroller');
 const router = express.Router();
-const {checkAuth} = require('./../utils/middleware/authentication');
+const {checkAuth} = require('../utils/middleware/authentication.js');
 const {sanitiseData} = require('./../utils/middleware/sanitiser');
 
 router.get('/users', sanitiseData(), controller.getUsers);
