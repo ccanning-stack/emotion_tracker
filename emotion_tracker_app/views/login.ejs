@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insightful Emotions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-<link rel="stylesheet" href="/css/style.css">
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
@@ -15,31 +16,39 @@
     <main>
         <h1>Login</h1>
         <form action="/login" method="post">
-            <div id="account_successful_msg"><%= accountCreatedMsg %></div>
-            <div id="invalid_credentials_msg"><%= invalidCredentialsMsg %></div>
-            <div id="pwd_change_ok_msg"><%= passwordChangedMsg %></div>
+            <div id="account_successful_msg">
+                <%= accountCreatedMsg %>
+            </div>
+            <div id="invalid_credentials_msg">
+                <%= invalidCredentialsMsg %>
+            </div>
+            <div id="pwd_change_ok_msg">
+                <%= passwordChangedMsg %>
+            </div>
             <p>
-    
+
                 <label for="userlogin-input">Username</label>
-    
+
             </p>
-    
+
             <div>
-    
+
                 <input type="email" name="username" id="userlogin-input" required>
-    
+
             </div>
 
             <p>
-    
+
                 <label for="passlogin-input">Password</label>
-    
+
             </p>
-    
+
             <div>
-    
-                <input type="password" name="password" id="passlogin-input" required>
-    
+
+                <input type="password" name="password" id="passlogin-input" required
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords contain at least one  number and one uppercase and lowercase letter, 
+            and at least 8 or more characters" maxlength="20">
+
             </div>
 
             <div>
@@ -47,7 +56,7 @@
                 <br>
 
             </div>
-    
+
 
         </form>
 

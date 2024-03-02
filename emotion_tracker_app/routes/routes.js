@@ -1,4 +1,8 @@
 // Defines the endpoints and is associated with the controller layer
+// https://www.linkedin.com/advice/0/how-do-you-use-encoding-escaping-techniques-prevent#:~:text=For%20example%2C%20if%20you%20have,%26%2C%20%22%2C%20and%20%27.
+// https://www.npmjs.com/package/express-validator
+// https://express-validator.github.io/docs
+
 
 //import modules
 const express = require('express');
