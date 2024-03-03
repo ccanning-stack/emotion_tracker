@@ -9,6 +9,7 @@ const express = require('express');
 const controller = require('./../controller/routes_controller');
 const router = express.Router();
 const { checkAuth } = require('../utils/middleware/authentication.js');
+const { protectPasswordRoute, protectStep2Route } = require('../utils/middleware/routeProtector.js');
 
 //route handling
 router.get('/', controller.getRedirect);
@@ -16,7 +17,8 @@ router.get('/welcome', controller.getWelcomePage);
 router.get('/register', controller.getRegisterPage);
 router.get('/login', controller.getLoginPage);
 router.get('/reset-password-step1', controller.getConfirmUserPage);
-router.get('/reset-password-step2', controller.getResetPasswordPage);
+router.get('/reset-password-step2', protectStep2Route, controller.getVerifySecurityPage);
+router.get('/change-password', protectPasswordRoute, controller.getChangePasswordPage);
 router.get('/create-snapshot', checkAuth, controller.getCreateSnapshotPage);
 router.get('/edit-snapshot/:id', checkAuth, controller.getAPISnapshotDetails);
 router.get('/summary', checkAuth, controller.getAPISnapshotSummary);
@@ -31,6 +33,9 @@ router.post('/new-user', controller.postAPINewUser);
 router.post('/create-snapshot', checkAuth, controller.postAPICreateSnapshot);
 router.post('/edit-snapshot/:id', checkAuth, controller.patchAPIUpdateSnapshot);
 router.post('/delete-snapshot/:id', checkAuth, controller.deleteAPISnapshot);
+router.post('/reset-password-step1', controller.postAPIConfirmUsername);
+router.post('/reset-password-step2', controller.postAPIConfirmSecurity);
+router.post('/change-password', controller.patchAPIChangePassword);
 
 //export router
 module.exports = router;

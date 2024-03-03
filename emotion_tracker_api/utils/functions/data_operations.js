@@ -21,4 +21,17 @@ function validateNewUserData() {
 
 }
 
-module.exports = { sanitiseData, validateNewUserData };
+function validatePasswords() {
+
+  const validatorChain= [
+  check('pwd_change_1').isLength({ min: 8, max: 20 }).matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+  .withMessage('Passwords must be of length 8-20 and contain at minimum one uppercase letter, one lowercase letter, and one number'),
+  check('pwd_change_2').custom((value, { req }) => {
+  return value === req.body.pwd_change_1;
+}).withMessage('Passwords must match') ];
+
+return validatorChain;
+
+}
+
+module.exports = { sanitiseData, validateNewUserData, validatePasswords };

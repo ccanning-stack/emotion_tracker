@@ -1,7 +1,7 @@
 const conn = require('../database/dbconn');
 const jwt = require('jsonwebtoken');
-const bcrypt= require('bcrypt');
-const {validationResult} = require('express-validator');
+const bcrypt = require('bcrypt');
+const { validationResult } = require('express-validator');
 const getCurrentDateTimeFormatted = require('../utils/functions/datescript');
 const {
     newSnapShotFunc,
@@ -39,30 +39,30 @@ exports.getUsers = async (req, res) => {
 exports.postNewUser = async (req, res) => {
 
     const validatorErrors = validationResult(req);
-    console.log("ERRORS ARE",validatorErrors.array());
+    console.log("ERRORS ARE", validatorErrors.array());
 
-    if (!validatorErrors.isEmpty()){
+    if (!validatorErrors.isEmpty()) {
         const responseData = {
-            errors : validatorErrors.array(),
+            errors: validatorErrors.array(),
         };
         return res.status(422).json(responseData);
     }
 
     //extract register values from req body & immediately hash password
-    const { first_name, surname, email_add, birthdate,security_qtn_1,
-        security_ans_1,security_qtn_2,security_ans_2,initial_password} = req.body;
+    const { first_name, surname, email_add, birthdate, security_qtn_1,
+        security_ans_1, security_qtn_2, security_ans_2, initial_password } = req.body;
     const hash = await bcrypt.hash(initial_password, 13);
 
     //first: check if email is already in db
     try {
-    const checkEmailSQL = `SELECT email FROM user WHERE email = ?`;
-    const [rows] = await conn.query(checkEmailSQL, email_add);
+        const checkEmailSQL = `SELECT email FROM user WHERE email = ?`;
+        const [rows] = await conn.query(checkEmailSQL, email_add);
 
-    if (!rows.length == 0){
-    //https://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
-        return res.sendStatus(409);
-    } 
-    }catch(err){
+        if (!rows.length == 0) {
+            //https://stackoverflow.com/questions/3825990/http-response-code-for-post-when-resource-already-exists
+            return res.sendStatus(409);
+        }
+    } catch (err) {
         console.log(err);
         res.json(err);
     }
@@ -71,15 +71,15 @@ exports.postNewUser = async (req, res) => {
     const currentDate = getCurrentDateTimeFormatted();
 
     const vals = [null, first_name, surname, currentDate, birthdate, security_qtn_1,
-        security_ans_1,security_qtn_2,security_ans_2,email_add, hash];
+        security_ans_1, security_qtn_2, security_ans_2, email_add, hash];
 
     const insertUserSQL = insertUserFunc();
 
     try {
         const [rows] = await conn.query(insertUserSQL, vals);
-        const {affectedRows} = rows;
+        const { affectedRows } = rows;
 
-        if (affectedRows>0){
+        if (affectedRows > 0) {
             res.sendStatus(200);
         }
     } catch (err) {
@@ -91,9 +91,9 @@ exports.postNewUser = async (req, res) => {
 
 
 exports.postLogin = async (req, res) => {
-//https://www.npmjs.com/package/bcrypt
-//https://www.youtube.com/watch?v=AzA_LTDoFqY
-//https://www.npmjs.com/package/jsonwebtoken
+    //https://www.npmjs.com/package/bcrypt
+    //https://www.youtube.com/watch?v=AzA_LTDoFqY
+    //https://www.npmjs.com/package/jsonwebtoken
 
     const { username, password } = req.body;
 
@@ -104,13 +104,13 @@ exports.postLogin = async (req, res) => {
         const [rows] = await conn.query(checkuserSQL, username);
 
         //user not found in db
-        if(rows.length<1){
+        if (rows.length < 1) {
             return res.sendStatus(401);
         }
 
         const isMatch = await bcrypt.compare(password, rows[0].password);
 
-        if(!isMatch){
+        if (!isMatch) {
             return res.sendStatus(401);
         }
 
@@ -253,8 +253,8 @@ exports.patchUpdateSnapshot = async (req, res) => {
 
     //PATCH section
     //Get updated trigger values & original trigger_ids from req body
-    const { trig1_id, trig2_id, trig3_id, updated_trigger_1,  
-        updated_trigger_2, updated_trigger_3} = req.body;
+    const { trig1_id, trig2_id, trig3_id, updated_trigger_1,
+        updated_trigger_2, updated_trigger_3 } = req.body;
 
     const vals = [updated_trigger_1, trig1_id, updated_trigger_2, trig2_id,
         updated_trigger_3, trig3_id];
@@ -266,7 +266,7 @@ exports.patchUpdateSnapshot = async (req, res) => {
     const user = req.user.user;
     const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
      FROM snapshot WHERE  user_id = ?;`;
-    
+
 
     try {
 
@@ -283,10 +283,8 @@ exports.patchUpdateSnapshot = async (req, res) => {
         const hasChangedRows = resultSet.some(header => header.changedRows > 0);
 
         if (hasChangedRows) {
-           console.log("db trigger update successful");
-           
-           //pass back updated snapshot summary for user
-           res.json(dataObjects);
+            //pass back updated snapshot summary for user
+            res.json(dataObjects);
         }
     } catch (err) {
         console.log(err);
@@ -300,7 +298,7 @@ exports.deleteSnapshot = async (req, res) => {
     //DELETE section
     //Get snapshot_id & trigger_ids submitted for deletion from req body
     const { snap_id_del, trig1_id, trig2_id, trig3_id } = req.body;
-    const deleteSnapshotSQL = deleteSnapshotFunc();  
+    const deleteSnapshotSQL = deleteSnapshotFunc();
     const vals = [snap_id_del, snap_id_del, trig1_id, trig2_id, trig3_id, snap_id_del];
 
     //SUMMARY section for redirecting back to summary page after saving deletion
@@ -308,7 +306,7 @@ exports.deleteSnapshot = async (req, res) => {
     const user = req.user.user;
     const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
      FROM snapshot WHERE  user_id = ?;`;
-    
+
 
     try {
 
@@ -324,10 +322,117 @@ exports.deleteSnapshot = async (req, res) => {
         const resultSet = rows;
         const hasAffectedRows = resultSet.some(header => header.affectedRows > 0);
 
-        if (hasAffectedRows){
-           //pass back updated snapshot summary for user
-           res.json(dataObjects);
+        if (hasAffectedRows) {
+            //pass back updated snapshot summary for user
+            res.json(dataObjects);
         }
+    } catch (err) {
+
+        res.json(err);
+    };
+};
+
+exports.postConfirmUsername = async (req, res) => {
+
+    const { user_confirm } = req.body;
+
+    const validateUsernameSQL =
+        `SELECT user_id, security_question_one, security_question_two FROM user WHERE email = ?`;
+
+    try {
+        const [rows] = await conn.query(validateUsernameSQL, user_confirm);
+        console.log("ROWS: ", rows);
+
+        //user not found in db
+        if (rows.length < 1) {
+            return res.sendStatus(404);
+        }
+
+        const responseData = {
+            user_id: rows[0].user_id,
+            security_question_one: rows[0].security_question_one,
+            security_question_two: rows[0].security_question_two
+        };
+        return res.status(200).json(responseData);
+
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
+
+
+exports.postConfirmSecurity = async (req, res) => {
+
+    const { user_changing_pwd, reset_answer_1, reset_answer_2, user_sec_1, user_sec_2 } = req.body;
+
+    const verifySecuritySQL =
+        `SELECT user_id FROM user WHERE user_id = ? AND security_answer_one = ? AND
+            security_answer_two = ?`;
+
+    const vals = [user_changing_pwd, reset_answer_1, reset_answer_2];
+
+    const securityData = {
+        user_id: user_changing_pwd,
+        security_question_one: user_sec_1,
+        security_question_two: user_sec_2
+    };
+
+    try {
+        const [rows] = await conn.query(verifySecuritySQL, vals);
+        console.log("ROWS: ", rows);
+
+        console.log("SEC DATA IS", securityData);
+
+        //details not correct
+        if (rows.length < 1) {
+            return res.status(403).json(securityData);
+        };
+
+        const responseData = {
+            user_id: rows[0].user_id
+        };
+        return res.status(200).json(responseData);
+
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
+
+exports.patchChangePassword = async (req, res) => {
+
+    const validatorErrors = validationResult(req);
+    console.log("ERRORS ARE", validatorErrors.array());
+
+    if (!validatorErrors.isEmpty()) {
+        const responseData = {
+            errors: validatorErrors.array(),
+        };
+        return res.status(422).json(responseData);
+    }
+
+    const { user_changing_pwd, pwd_change_1, pwd_change_2 } = req.body;
+    const hash = await bcrypt.hash(pwd_change_1, 13);
+
+    const changePasswordSQL = `UPDATE user SET password = ? WHERE user_id = ?;`;
+
+    const vals = [hash, user_changing_pwd];
+
+    try {
+        const [rows] = await conn.query(changePasswordSQL, vals);
+
+        const resultSet = rows;
+        const hasChangedRows = resultSet.some(header => header.changedRows > 0);
+
+
+        //password not changed
+        if (!hasChangedRows < 1) {
+            return res.sendStatus(400);
+        }
+
+        return res.sendStatus(200);
+
     } catch (err) {
         console.log(err);
         res.json(err);

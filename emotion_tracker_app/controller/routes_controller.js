@@ -34,11 +34,15 @@ exports.getLoginPage = async (req, res) => {
 }
 
 exports.getConfirmUserPage = async (req, res) => {
-    res.render('reset-password-step1');
+    res.render('reset-password-step1', {userNotFoundmsg: ""});
 }
 
-exports.getResetPasswordPage = async (req, res) => {
+exports.getVerifySecurityPage = async (req, res) => {
     res.render('reset-password-step2');
+}
+
+exports.getChangePasswordPage = async (req, res) => {
+    res.render('change-password');
 }
 
 exports.getCreateSnapshotPage = async (req, res) => {
@@ -86,7 +90,6 @@ exports.postAPINewUser = async (req, res) => {
                 validationErrorsArray: null
             });
         } else if (error.response.status === 422){
-            console.log("response data is",error.response.data)
             res.render('register', {
                 emailExistsMsg: "",
                 validationErrorsArray: error.response.data
@@ -263,4 +266,71 @@ exports.getLogout = (req, res) => {
     } catch (error) {
         res.status(500).json({ error: `${error}` });
     };
+}
+
+
+exports.postAPIConfirmUsername = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/reset-password-step1';
+
+
+    try {
+        const response = await axios.post(endpoint, req.body,{ httpsAgent });
+
+        res.render('reset-password-step2', { apiData: response.data, wrongAnswersMsg:""});
+
+    } catch (error) {
+        if (error.response.status === 404) {
+            return res.render('reset-password-step1', {
+                userNotFoundmsg: "Username not found"
+            });
+        }
+        res.status(500).json({ error: `${error}` });
+    };
+
+}
+
+exports.postAPIConfirmSecurity = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/reset-password-step2';
+
+
+    try {
+        const response = await axios.post(endpoint, req.body,{ httpsAgent });
+
+        res.render('change-password', { apiData: response.data, validationErrorsArray: null});
+
+    } catch (error) {
+        if (error.response.status === 403) {
+            console.log("403 data",error.response.data);
+            return res.render('reset-password-step2', {
+                wrongAnswersMsg: "Incorrect answers to security questions",
+                apiData: error.response.data
+            });
+        }
+        res.status(500).json({ error: `${error}` });
+    };
+
+}
+
+exports.patchAPIChangePassword = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/change-password';
+
+
+    try {
+        const response = await axios.patch(endpoint, req.body,{ httpsAgent });
+
+        res.render('login', { passwordChangedMsg: "Password successfully changed!", 
+        accountCreatedMsg: "", invalidCredentialsMsg: ""});
+
+    } catch (error) {
+        if (error.response.status === 422){
+            return res.render('change-password', {
+                validationErrorsArray: error.response.data,
+                apiData: null
+            })};
+        res.status(500).json({ error: `${error}` });
+    };
+
 }

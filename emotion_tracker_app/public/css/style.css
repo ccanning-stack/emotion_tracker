@@ -18,12 +18,13 @@ h1, p, h2, h3, h4, h5, h6, li, output {
   color: maroon;
 }
 
-#edit-msg, #invalid_credentials_msg, #email_exists_msg {
+#edit-msg, #invalid_credentials_msg, #email_exists_msg, 
+#user_not_found_msg, #wrong_sec_answers_msg {
   color: maroon;
 }
 
-#action_successful_msg, #logout_successful_msg {
-    color:#D4EDDA;
+#action_successful_msg, #logout_successful_msg, #username_reminder_msg, #pwd_change_ok_msg {
+    color:#6ff58e;
 }
 
 /*https://www.w3schools.com/howto/howto_js_rangeslider.asp/*/

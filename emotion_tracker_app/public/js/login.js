@@ -27,3 +27,15 @@ document.addEventListener('DOMContentLoaded', function () {
         message.style.display = 'none';
     }, 5000); 
 });
+
+function displayUsernameReminder() {
+    const usernameReminderMsg = "Username is an email address";
+    const reminderElement = document.getElementById("username_reminder_msg");
+    reminderElement.textContent = usernameReminderMsg;
+    
+    setTimeout(function() {
+      reminderElement.textContent = "";
+    }, 2000);
+  }
+  
+document.getElementById("forgotUsernameBtn").addEventListener("click", displayUsernameReminder);
