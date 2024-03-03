@@ -14,7 +14,6 @@ const { checkAuth } = require('../utils/middleware/authentication.js');
 router.get('/', controller.getRedirect);
 router.get('/welcome', controller.getWelcomePage);
 router.get('/register', controller.getRegisterPage);
-router.get('/successful-registration', controller.getSuccessfulRegistrationPage);
 router.get('/login', controller.getLoginPage);
 router.get('/reset-password-step1', controller.getConfirmUserPage);
 router.get('/reset-password-step2', controller.getResetPasswordPage);

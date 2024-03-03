@@ -28,10 +28,6 @@ exports.getRegisterPage = async (req, res) => {
     });
 }
 
-exports.getSuccessfulRegistrationPage = async (req, res) => {
-    res.render('successful-registration');
-}
-
 exports.getLoginPage = async (req, res) => {
     res.render('login', { accountCreatedMsg: "", invalidCredentialsMsg: "", 
     passwordChangedMsg:"" });
