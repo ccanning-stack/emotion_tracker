@@ -1,6 +1,7 @@
 const conn = require('../database/dbconn');
 const jwt = require('jsonwebtoken');
 const bcrypt= require('bcrypt');
+const {validationResult} = require('express-validator');
 const getCurrentDateTimeFormatted = require('../utils/functions/datescript');
 const {
     newSnapShotFunc,
@@ -36,6 +37,16 @@ exports.getUsers = async (req, res) => {
 
 
 exports.postNewUser = async (req, res) => {
+
+    const validatorErrors = validationResult(req);
+    console.log("ERRORS ARE",validatorErrors.array());
+
+    if (!validatorErrors.isEmpty()){
+        const responseData = {
+            errors : validatorErrors.array(),
+        };
+        return res.status(422).json(responseData);
+    }
 
     //extract register values from req body & immediately hash password
     const { first_name, surname, email_add, birthdate,security_qtn_1,

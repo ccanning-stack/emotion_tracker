@@ -14,6 +14,10 @@ h1, p, h2, h3, h4, h5, h6, li, output {
   
 }
 
+.error-msg {
+  color: maroon;
+}
+
 #edit-msg, #invalid_credentials_msg, #email_exists_msg {
   color: maroon;
 }

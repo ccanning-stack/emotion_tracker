@@ -23,7 +23,8 @@ exports.getWelcomePage = async (req, res) => {
 
 exports.getRegisterPage = async (req, res) => {
     res.render('register', {
-        emailExistsMsg: ""
+        emailExistsMsg: "",
+        validationErrorsArray: null
     });
 }
 
@@ -72,8 +73,9 @@ exports.postAPINewUser = async (req, res) => {
 
     const endpoint = 'https://localhost:8443/new-user';
 
+    let response = null;
     try {
-        const response = await axios.post(endpoint, req.body, { httpsAgent });
+        response = await axios.post(endpoint, req.body, { httpsAgent });
 
         res.render('login', {
             accountCreatedMsg: "Account successfully created!  You can now log in.",
@@ -84,8 +86,16 @@ exports.postAPINewUser = async (req, res) => {
     } catch (error) {
         if (error.response.status === 409) {
             res.render('register', {
-                emailExistsMsg: "The email address provided already has an account associated with it"
+                emailExistsMsg: "The email address provided already has an account associated with it",
+                validationErrorsArray: null
             });
+        } else if (error.response.status === 422){
+            console.log("response data is",error.response.data)
+            res.render('register', {
+                emailExistsMsg: "",
+                validationErrorsArray: error.response.data
+            });
+
         } else {
             res.status(500).json({ error: `${error}` });
         };
