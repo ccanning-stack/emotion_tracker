@@ -23,6 +23,7 @@ router.get('/create-snapshot', checkAuth, controller.getCreateSnapshotPage);
 router.get('/edit-snapshot/:id', checkAuth, controller.getAPISnapshotDetails);
 router.get('/summary', checkAuth, controller.getAPISnapshotSummary);
 router.get('/logout', checkAuth, controller.getLogout);
+router.get('/user-is-logged-in', checkAuth, controller.getChangePasswordPageLoggedIn);
 
 router.get('/insights', checkAuth, controller.getInsightsPage);
 

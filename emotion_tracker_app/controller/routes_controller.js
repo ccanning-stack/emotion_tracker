@@ -334,3 +334,10 @@ exports.patchAPIChangePassword = async (req, res) => {
     };
 
 }
+
+exports.getChangePasswordPageLoggedIn = async (req, res) => {
+
+    const userIdentifier = {user_id: req.user.user};
+    res.render('change-password', { apiData: userIdentifier, validationErrorsArray:null});
+}
+

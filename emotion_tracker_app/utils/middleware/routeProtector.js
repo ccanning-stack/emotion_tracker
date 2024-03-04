@@ -1,6 +1,6 @@
 //assistance by ChatGPT
 const allowedRouteStep2 = ['/reset-password-step1'];
-const allowedRoutePassword = ['/reset-password-step2'];
+const allowedRoutePassword = ['/reset-password-step2', '/user-is-logged-in'];
 
 exports.protectPasswordRoute= (req, res, next) => {
     
