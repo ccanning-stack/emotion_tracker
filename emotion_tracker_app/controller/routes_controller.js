@@ -321,7 +321,13 @@ exports.patchAPIChangePassword = async (req, res) => {
     try {
         const response = await axios.patch(endpoint, req.body,{ httpsAgent });
 
-        res.render('login', { passwordChangedMsg: "Password successfully changed!", 
+        res.clearCookie('token', {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict'
+        });
+
+        res.render('login', { passwordChangedMsg: "Password successfully changed!  Please log in using new password.", 
         accountCreatedMsg: "", invalidCredentialsMsg: ""});
 
     } catch (error) {
@@ -335,9 +341,11 @@ exports.patchAPIChangePassword = async (req, res) => {
 
 }
 
+
 exports.getChangePasswordPageLoggedIn = async (req, res) => {
 
-    const userIdentifier = {user_id: req.user.user};
-    res.render('change-password', { apiData: userIdentifier, validationErrorsArray:null});
+    const responseData = {user_id: req.user.user};
+
+    res.render('change-password', { apiData: responseData, validationErrorsArray:null});
 }
 

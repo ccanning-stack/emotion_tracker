@@ -1,5 +1,7 @@
 //assistance by ChatGPT
 const allowedRouteStep2 = ['/reset-password-step1'];
+
+//only from navbar when logged in or by following the path
 const allowedRoutePassword = ['/reset-password-step2', '/user-is-logged-in'];
 
 exports.protectPasswordRoute= (req, res, next) => {

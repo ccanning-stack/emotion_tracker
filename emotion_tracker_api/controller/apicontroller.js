@@ -39,7 +39,6 @@ exports.getUsers = async (req, res) => {
 exports.postNewUser = async (req, res) => {
 
     const validatorErrors = validationResult(req);
-    console.log("ERRORS ARE", validatorErrors.array());
 
     if (!validatorErrors.isEmpty()) {
         const responseData = {
@@ -168,8 +167,7 @@ exports.postCreateSnapshot = async (req, res) => {
         const dataObjects = [result][0][0];
 
         if (numrows > 0) {
-            res.json(dataObjects);
-            res.sendStatus(200);
+            res.status(200).json(dataObjects);
         }
     } catch (err) {
         res.json(err);
@@ -341,7 +339,6 @@ exports.postConfirmUsername = async (req, res) => {
 
     try {
         const [rows] = await conn.query(validateUsernameSQL, user_confirm);
-        console.log("ROWS: ", rows);
 
         //user not found in db
         if (rows.length < 1) {
@@ -380,9 +377,6 @@ exports.postConfirmSecurity = async (req, res) => {
 
     try {
         const [rows] = await conn.query(verifySecuritySQL, vals);
-        console.log("ROWS: ", rows);
-
-        console.log("SEC DATA IS", securityData);
 
         //details not correct
         if (rows.length < 1) {
@@ -392,6 +386,7 @@ exports.postConfirmSecurity = async (req, res) => {
         const responseData = {
             user_id: rows[0].user_id
         };
+
         return res.status(200).json(responseData);
 
     } catch (err) {
@@ -403,7 +398,6 @@ exports.postConfirmSecurity = async (req, res) => {
 exports.patchChangePassword = async (req, res) => {
 
     const validatorErrors = validationResult(req);
-    console.log("ERRORS ARE", validatorErrors.array());
 
     if (!validatorErrors.isEmpty()) {
         const responseData = {
@@ -422,15 +416,13 @@ exports.patchChangePassword = async (req, res) => {
     try {
         const [rows] = await conn.query(changePasswordSQL, vals);
 
-        const resultSet = rows;
-        const hasChangedRows = resultSet.some(header => header.changedRows > 0);
-
+        const changedRows = rows.changedRows;
 
         //password not changed
-        if (!hasChangedRows < 1) {
+        if (changedRows === 0||!changedRows) {
             return res.sendStatus(400);
         }
-
+        
         return res.sendStatus(200);
 
     } catch (err) {
