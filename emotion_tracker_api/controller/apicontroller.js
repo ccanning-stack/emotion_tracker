@@ -184,7 +184,7 @@ exports.getSnapshotSummary = async (req, res) => {
     const user = req.user.user;
 
     const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
-     FROM snapshot WHERE  user_id = ?;`;
+     FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;
 
     try {
         const result = await conn.query(getUserSnapshotsSQL, user);
@@ -419,11 +419,75 @@ exports.patchChangePassword = async (req, res) => {
         const changedRows = rows.changedRows;
 
         //password not changed
-        if (changedRows === 0||!changedRows) {
+        if (changedRows === 0 || !changedRows) {
             return res.sendStatus(400);
         }
-        
+
         return res.sendStatus(200);
+
+    } catch (err) {
+        console.log(err);
+        res.json(err);
+    };
+};
+
+exports.getInsights = async (req, res) => {
+
+    //extract user_id from req obj
+    const user_id = req.user.user;
+
+    //Get all snapshot_ids for this user
+
+    const getSnapshotsSQL = `SELECT snapshot_id FROM snapshot WHERE user_id= ?;`;
+
+
+    //obtain sql from functions
+    const getSnapshotDetailSQL = getSnapshotDetailFunc();
+    const getAngerIntensitySQL = getAngerIntensityFunc();
+    const getContemptIntensitySQL = getContemptIntensityFunc();
+    const getDisgustIntensitySQL = getDisgustIntensityFunc();
+    const getEnjoymentIntensitySQL = getEnjoymentIntensityFunc();
+    const getFearIntensitySQL = getFearIntensityFunc();
+    const getSadnessIntensitySQL = getSadnessIntensityFunc();
+    const getSurpriseIntensitySQL = getSurpriseIntensityFunc();
+    const getTriggerDetailSQL = getTriggerDetailFunc();
+
+    const dataObjects = [];
+
+    try {
+
+        const [rows] = await conn.query(getSnapshotsSQL, user_id);
+
+        console.log("ROWS ARE: ",rows);
+
+        for (const {snapshot_id} of rows) {
+
+            //prepare vals for param. queries
+            const angerVals = [snapshot_id, 1];
+            const contemptVals = [snapshot_id, 2];
+            const disgustVals = [snapshot_id, 3];
+            const enjoymentVals = [snapshot_id, 4];
+            const fearVals = [snapshot_id, 5];
+            const sadnessVals = [snapshot_id, 6];
+            const surpriseVals = [snapshot_id, 7];
+
+            const [snap] = await conn.query(getSnapshotDetailSQL, snapshot_id);
+            const [ang] = await conn.query(getAngerIntensitySQL, angerVals);
+            const [cont] = await conn.query(getContemptIntensitySQL, contemptVals);
+            const [disg] = await conn.query(getDisgustIntensitySQL, disgustVals);
+            const [enj] = await conn.query(getEnjoymentIntensitySQL, enjoymentVals);
+            const [fear] = await conn.query(getFearIntensitySQL, fearVals);
+            const [sad] = await conn.query(getSadnessIntensitySQL, sadnessVals);
+            const [surp] = await conn.query(getSurpriseIntensitySQL, surpriseVals);
+            const [trig] = await conn.query(getTriggerDetailSQL, snapshot_id);
+
+            const snapshotDetail = { snapshot_id, snap, ang, cont, disg, enj, fear, sad, surp, trig };
+
+            dataObjects.push(snapshotDetail);
+        }
+
+        console.log(dataObjects);
+        res.json(dataObjects);
 
     } catch (err) {
         console.log(err);

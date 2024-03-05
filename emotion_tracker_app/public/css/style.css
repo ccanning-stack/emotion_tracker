@@ -23,7 +23,7 @@ h1, p, h2, h3, h4, h5, h6, li, output {
   color: maroon;
 }
 
-#action_successful_msg, #logout_successful_msg, #username_reminder_msg, #pwd_change_ok_msg {
+#action_successful_msg, #account_successful_msg, #logout_successful_msg, #username_reminder_msg, #pwd_change_ok_msg {
     color:#6ff58e;
 }
 
@@ -68,4 +68,8 @@ h1, p, h2, h3, h4, h5, h6, li, output {
     height: 25px; /* Slider handle height */
     background: #04AA6D; /* Green background */
     cursor: pointer; /* Cursor on hover */
+  }
+
+  .card {
+    display: inline-block;
   }

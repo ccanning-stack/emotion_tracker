@@ -23,7 +23,7 @@
             <% apiData.forEach((row)=> { %>
                 <% var rawdate=new Date(row.datetime_created); %>
                     <% var itemdate=new Intl.DateTimeFormat('en-GB', dateformat).format(rawdate); %>
-                        <div class="card" style="width: 18rem;">
+                        <div class="card" style="width: 20rem;">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <%= row.title %>

@@ -7,6 +7,7 @@ const {sanitiseData, validateNewUserData, validatePasswords } = require('../util
 router.get('/users', sanitiseData(), controller.getUsers);
 router.get('/snapshot-summary', sanitiseData(), checkAuth, controller.getSnapshotSummary);
 router.get('/edit-snapshot/:id', sanitiseData(), checkAuth, controller.getSnapshotDetails);
+router.get('/insights', sanitiseData(), checkAuth, controller.getInsights);
 
 router.post('/login', sanitiseData(), controller.postLogin);
 router.post('/new-user', validateNewUserData(), sanitiseData(), controller.postNewUser);

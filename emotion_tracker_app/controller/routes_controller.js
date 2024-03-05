@@ -3,6 +3,7 @@ const axios = require('axios');
 const https = require('https');
 const fs = require('fs');
 const dateFormatFunc = require('../public/js/datescript2');
+const calculateStatsFunc = require('../public/js/stats');
 
 // Trust an external service's self-signed certificate
 // for outbound requests from server
@@ -48,11 +49,6 @@ exports.getChangePasswordPage = async (req, res) => {
 exports.getCreateSnapshotPage = async (req, res) => {
     res.render('create-snapshot');
 }
-
-exports.getInsightsPage = async (req, res) => {
-    res.render('insights');
-}
-
 
 
 exports.getMakeAPIRequest = async (req, res) => {
@@ -349,3 +345,25 @@ exports.getChangePasswordPageLoggedIn = async (req, res) => {
     res.render('change-password', { apiData: responseData, validationErrorsArray:null});
 }
 
+
+exports.getAPIInsightsPage = async (req, res) => {
+
+    const endpoint = 'https://localhost:8443/insights';
+
+    //extract for use with axios as headers need to be set separately
+    token = req.headers['authorization'];
+
+    try {
+        const response = await axios.get(endpoint, {
+            headers: { 'authorization': `${token}` }
+        }, { httpsAgent });
+
+
+        const stats = calculateStatsFunc(response.data);
+
+        res.render('insights', { stats });
+
+    } catch (error) {
+        res.status(500).json({ error: `${error}` });
+    };
+}

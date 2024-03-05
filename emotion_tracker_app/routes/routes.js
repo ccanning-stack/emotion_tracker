@@ -24,8 +24,7 @@ router.get('/edit-snapshot/:id', checkAuth, controller.getAPISnapshotDetails);
 router.get('/summary', checkAuth, controller.getAPISnapshotSummary);
 router.get('/logout', checkAuth, controller.getLogout);
 router.get('/user-is-logged-in', checkAuth, controller.getChangePasswordPageLoggedIn);
-
-router.get('/insights', checkAuth, controller.getInsightsPage);
+router.get('/insights', checkAuth, controller.getAPIInsightsPage);
 
 //router.get('/v1.1/api', controller.getMakeAPIRequest );
 
