@@ -1,9 +1,14 @@
 //with help from ChatGPT
 
-function calculateStatsFunc(data) {
+function calculateNumberSnapshotsFunc(data) {
+    const totalSnapshots = data.length;
+    return totalSnapshots;
+    
+}
+
+function calculateEmotionAveragesFunc(data) {
 
     const totalSnapshots = data.length;
-    console.log("Total number of snapshots:", totalSnapshots);
 
     //object to store intensity levels per emotion across all snapshots
     const intensityCounts = {
@@ -72,11 +77,85 @@ function calculateStatsFunc(data) {
        averageIntensity[emotion] = roundedAverage;
    });
 
-
-   console.log( averageIntensity);
+   console.log("AVERAGES PER EMOTION ARE:",averageIntensity);
 
    return averageIntensity;
 
 }
 
-module.exports = calculateStatsFunc;
+function obtainTop3TriggersFunc(data) {
+
+
+    const triggerCounts = {}; // Object to store trigger counts
+    
+    // Iterate through each snapshot object
+    data.forEach(snapshot => {
+        // Iterate through each trigger in the current snapshot
+        snapshot.trig.forEach(trigger => {
+            // Extract trigger value
+            const triggerValue = trigger.name;
+            // Increment trigger count
+            triggerCounts[triggerValue] = (triggerCounts[triggerValue] || 0) + 1;
+        });
+    });
+    
+    // Convert trigger counts to an array of objects for easier sorting
+    const triggerCountsArray = Object.entries(triggerCounts).map(([trigger, count]) => ({ trigger, count }));
+    
+    // Sort trigger counts array in descending order of count
+    triggerCountsArray.sort((a, b) => b.count - a.count);
+    
+    // Extract top 3 triggers
+    const topTriggers = triggerCountsArray.slice(0, 3);
+    
+    console.log("TOP TRIGGERS:",topTriggers);
+    return topTriggers;
+}
+
+function getTopTriggerFunc(topTriggers, position){
+
+return topTriggers[position].trigger;
+
+}
+
+
+function filterSnapshotsByTriggerFunc(data, topTrigger) {
+
+    const snapshotsWithTopTrigger = data.filter(snapshot => {
+        // Extract and map triggers (transform each trigger object into its value) for current snapshot
+        const snapshotTriggers = snapshot.trig.map(trigger => trigger.name);
+        // Check if any trigger in the current snapshot matches the top trigger
+        return snapshotTriggers.includes(topTrigger);
+    });
+
+    return snapshotsWithTopTrigger;
+
+}
+
+function calculateDifferencesFunc(averageEmotions, averagesTrigger){
+
+    const difference = {};
+
+    // Iterate over each emotion in the triggerEmotions object
+    Object.keys(averagesTrigger).forEach(emotion => {
+        // Calculate the difference between the trigger emotion value and the average emotion value
+        const emotionDifference = ((averagesTrigger[emotion] - averageEmotions[emotion]) / averageEmotions[emotion]) * 100;
+        // Store the difference in the difference object
+        const roundedAverage = parseFloat(emotionDifference.toFixed(2));
+        difference[emotion] = roundedAverage;
+    });
+
+    console.log("AVERAGES DIFFERENCE:",difference);
+    return difference;
+}
+
+
+
+
+module.exports = {
+    getTopTriggerFunc,
+    calculateNumberSnapshotsFunc, 
+    calculateEmotionAveragesFunc, 
+    obtainTop3TriggersFunc, 
+    filterSnapshotsByTriggerFunc,
+    calculateDifferencesFunc};

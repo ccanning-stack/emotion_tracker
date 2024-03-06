@@ -3,7 +3,13 @@ const axios = require('axios');
 const https = require('https');
 const fs = require('fs');
 const dateFormatFunc = require('../public/js/datescript2');
-const calculateStatsFunc = require('../public/js/stats');
+const {
+    calculateNumberSnapshotsFunc, 
+    calculateEmotionAveragesFunc, 
+    obtainTop3TriggersFunc, 
+    filterSnapshotsByTriggerFunc,
+    getTopTriggerFunc,
+    calculateDifferencesFunc } = require('../public/js/stats');
 
 // Trust an external service's self-signed certificate
 // for outbound requests from server
@@ -359,9 +365,29 @@ exports.getAPIInsightsPage = async (req, res) => {
         }, { httpsAgent });
 
 
-        const stats = calculateStatsFunc(response.data);
+        const noSnapshots= calculateNumberSnapshotsFunc(response.data);
+        const emotionAverages = calculateEmotionAveragesFunc(response.data);
+        const topTriggers = obtainTop3TriggersFunc(response.data);
+        const no1Trigger = getTopTriggerFunc(topTriggers, 0);
+        const no2Trigger = getTopTriggerFunc(topTriggers, 1);
+        const no3Trigger = getTopTriggerFunc(topTriggers, 2);
+        console.log("TOP TRIGGER #1",no1Trigger);
+        console.log("TOP TRIGGER #2",no2Trigger);
+        console.log("TOP TRIGGER #3",no3Trigger);
 
-        res.render('insights', { stats });
+        //obtain snapshots per top trigger
+        const snapshotsTrigger1 = filterSnapshotsByTriggerFunc(response.data, no1Trigger);
+        const snapshotsTrigger2 = filterSnapshotsByTriggerFunc(response.data, no2Trigger);
+        const snapshotsTrigger3 = filterSnapshotsByTriggerFunc(response.data, no3Trigger);
+
+        //calculate averages per top trigger
+        const averagesTrigger1 = calculateEmotionAveragesFunc(snapshotsTrigger1);
+        const averagesTrigger2 = calculateEmotionAveragesFunc(snapshotsTrigger2);
+        const averagesTrigger3 = calculateEmotionAveragesFunc(snapshotsTrigger3);
+
+        const wifeAverageComparison = calculateDifferencesFunc(emotionAverages, averagesTrigger1);
+
+        res.render('insights', { noSnapshots, emotionAverages });
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });
