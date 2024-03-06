@@ -14,9 +14,46 @@ h1, p, h2, h3, h4, h5, h6, li, output {
   
 }
 
+canvas {
+  display: inline;
+}
+
+table {
+  display: inline;
+}
+
+.emotion-averages {
+
+  display: block;
+  padding: 30px;
+}
+
 .error-msg {
   color: maroon;
 }
+
+.average-stats {
+
+  display: inline;
+  padding: 30px;
+}
+.trigger-class {
+  display: inline-block;
+  padding: 30px;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.no-change {
+  color: black;
+}
+
 
 #edit-msg, #invalid_credentials_msg, #email_exists_msg, 
 #user_not_found_msg, #wrong_sec_answers_msg {

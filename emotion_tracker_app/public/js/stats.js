@@ -71,7 +71,7 @@ function calculateEmotionAveragesFunc(data) {
        const average = finalIntensityCount[emotion] / totalSnapshots;
 
        // Round the average intensity to 2 decimal places
-       const roundedAverage = parseFloat(average.toFixed(2));
+       const roundedAverage = Math.round(average);
 
        // Store the average intensity for the current emotion in the averageIntensity object
        averageIntensity[emotion] = roundedAverage;
@@ -141,7 +141,7 @@ function calculateDifferencesFunc(averageEmotions, averagesTrigger){
         // Calculate the difference between the trigger emotion value and the average emotion value
         const emotionDifference = ((averagesTrigger[emotion] - averageEmotions[emotion]) / averageEmotions[emotion]) * 100;
         // Store the difference in the difference object
-        const roundedAverage = parseFloat(emotionDifference.toFixed(2));
+        const roundedAverage = Math.round(emotionDifference);
         difference[emotion] = roundedAverage;
     });
 
@@ -149,7 +149,23 @@ function calculateDifferencesFunc(averageEmotions, averagesTrigger){
     return difference;
 }
 
-
+function formatValuesFunc(data) {
+    const formattedData = {};
+    for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+            const value = data[key];
+            if (value > 0) {
+                formattedData[key] = `${'↑'}${value}%`;
+        
+            } else if (value < 0) {
+                formattedData[key] = `${'↓'}${(-value)}%`;
+            } else {
+                formattedData[key] = 'no change';
+            }
+        }
+    }
+    return formattedData;
+}
 
 
 module.exports = {
@@ -158,4 +174,5 @@ module.exports = {
     calculateEmotionAveragesFunc, 
     obtainTop3TriggersFunc, 
     filterSnapshotsByTriggerFunc,
-    calculateDifferencesFunc};
+    calculateDifferencesFunc,
+    formatValuesFunc};

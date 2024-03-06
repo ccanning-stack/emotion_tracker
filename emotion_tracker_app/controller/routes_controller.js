@@ -9,7 +9,8 @@ const {
     obtainTop3TriggersFunc, 
     filterSnapshotsByTriggerFunc,
     getTopTriggerFunc,
-    calculateDifferencesFunc } = require('../public/js/stats');
+    calculateDifferencesFunc,
+    formatValuesFunc } = require('../public/js/stats');
 
 // Trust an external service's self-signed certificate
 // for outbound requests from server
@@ -364,16 +365,14 @@ exports.getAPIInsightsPage = async (req, res) => {
             headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
-
         const noSnapshots= calculateNumberSnapshotsFunc(response.data);
         const emotionAverages = calculateEmotionAveragesFunc(response.data);
         const topTriggers = obtainTop3TriggersFunc(response.data);
+
+        //obtain top 3 triggers
         const no1Trigger = getTopTriggerFunc(topTriggers, 0);
         const no2Trigger = getTopTriggerFunc(topTriggers, 1);
         const no3Trigger = getTopTriggerFunc(topTriggers, 2);
-        console.log("TOP TRIGGER #1",no1Trigger);
-        console.log("TOP TRIGGER #2",no2Trigger);
-        console.log("TOP TRIGGER #3",no3Trigger);
 
         //obtain snapshots per top trigger
         const snapshotsTrigger1 = filterSnapshotsByTriggerFunc(response.data, no1Trigger);
@@ -385,9 +384,18 @@ exports.getAPIInsightsPage = async (req, res) => {
         const averagesTrigger2 = calculateEmotionAveragesFunc(snapshotsTrigger2);
         const averagesTrigger3 = calculateEmotionAveragesFunc(snapshotsTrigger3);
 
-        const wifeAverageComparison = calculateDifferencesFunc(emotionAverages, averagesTrigger1);
+        //comparison when trigger is present vs general averages
+        const averageComparisonTrigger1 = calculateDifferencesFunc(emotionAverages, averagesTrigger1);
+        const averageComparisonTrigger2 = calculateDifferencesFunc(emotionAverages, averagesTrigger2);
+        const averageComparisonTrigger3 = calculateDifferencesFunc(emotionAverages, averagesTrigger3);
 
-        res.render('insights', { noSnapshots, emotionAverages });
+        //format all values before rendering
+        const formattedTrig1Averages = formatValuesFunc(averageComparisonTrigger1);
+        const formattedTrig2Averages = formatValuesFunc(averageComparisonTrigger2);
+        const formattedTrig3Averages = formatValuesFunc(averageComparisonTrigger3);
+
+        res.render('insights', { noSnapshots, emotionAverages, topTriggers, 
+            formattedTrig1Averages, formattedTrig2Averages, formattedTrig3Averages });
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });
