@@ -12,6 +12,20 @@ function dateFormatFunc(isoDateString) {
       return formattedDateString;
 }
 
-//With the help of ChatGPT***
+//With the help of ChatGPT
 
-  module.exports = dateFormatFunc;
+function dateFormatDataSetFunc(data){
+
+  data.forEach(item => {
+    item.snap.forEach(snapItem => {
+      if(snapItem.datetime_created) {
+        // Apply the dateFormatFunc to the datetime_created field
+        snapItem.datetime_created = dateFormatFunc(snapItem.datetime_created);
+      }
+    });
+  });
+  return data; // Return the modified dataset
+
+}
+
+module.exports = {dateFormatFunc, dateFormatDataSetFunc};

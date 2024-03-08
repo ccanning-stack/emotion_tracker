@@ -72,7 +72,7 @@
         </table>
 
         <div>
-            <canvas id="barchart" width="500px" height="200px" style="background-color: white;"></canvas>
+            <canvas id="barchart" width="600px" height="250px" style="background-color: white;"></canvas>
         </div>
 
 
@@ -276,7 +276,7 @@
     <div>
         <h5>Emotion Tracker</h5>
         <div>
-            <canvas id="linechart" width="500px" height="500px"></canvas>
+            <canvas id="linechart"></canvas>
         </div>
 
 
@@ -285,10 +285,12 @@
 
     <script>
 
+
+        //bar chart set up and config
+
         const xlabels = ["Anger", "Contempt", "Disgust", "Enjoyment", "Fear", "Sadness", "Surprise"];
         const avEmotionData = [`<%= emotionAverages.ang %>`, `<%= emotionAverages.cont %>`, `<%= emotionAverages.disg %>`,
-        `<%= emotionAverages.enj %>`,`<%= emotionAverages.fear %>`,`<%= emotionAverages.sad %>`, `<%= emotionAverages.surp %>`];
-        console.log(avEmotionData);
+            `<%= emotionAverages.enj %>`, `<%= emotionAverages.fear %>`, `<%= emotionAverages.sad %>`, `<%= emotionAverages.surp %>`];
 
         const labels = xlabels;
         const chartdata = {
@@ -308,7 +310,7 @@
             }]
         };
 
-        const config = {
+        const barconfig = {
             type: 'bar',
             data: chartdata,
             options: {
@@ -318,19 +320,140 @@
                 maintainAspectRatio: true,
                 scales: { x: { min: 0, max: 10 } },
                 plugins: {
-                    legend: {display:false},
-                    tooltips: {enabled:true},
+                    legend: { display: false },
+                    tooltips: { enabled: true },
                     title: {
-                        display:true,
+                        display: true,
                         text: "Average Intensities",
-                        font: {size: 16}
+                        font: { size: 16 }
                     }
                 }
 
             }
         };
 
-        const barChart = new Chart('barchart', config);
+
+        // line chart set up and config- help from ChatGPT
+
+        const linelabels = extractAllDateTimeCreated(JSON.parse(`<%- JSON.stringify(apiData) %>`));
+
+        function extractAllDateTimeCreated(data) {
+            let allDateTimeCreated = [];
+
+            data.forEach(item => {
+                // Iterate over each object in the 'snap' array of the item
+                item.snap.forEach(snapItem => {
+                    // Assuming each snapItem has a 'datetime_created' property
+                    if (snapItem.datetime_created) {
+                        allDateTimeCreated.push(snapItem.datetime_created);
+                    }
+                });
+            });
+
+            return allDateTimeCreated;
+        }
+
+        const angerData = extractEmotionIntensities(JSON.parse(`<%- JSON.stringify(apiData) %>`), 'ang');
+        const contemptData = extractEmotionIntensities(JSON.parse(`<%- JSON.stringify(apiData) %>`), 'cont');
+        const disgustData = extractEmotionIntensities(JSON.parse(`<%- JSON.stringify(apiData) %>`), 'disg');
+        const enjoymentData = extractEmotionIntensities(JSON.parse(`<%- JSON.stringify(apiData) %>`), 'enj');
+        const fearData = extractEmotionIntensities(JSON.parse(`<%- JSON.stringify(apiData) %>`), 'fear');
+        const sadnessData = extractEmotionIntensities(JSON.parse(`<%- JSON.stringify(apiData) %>`), 'sad');
+        const surpriseData = extractEmotionIntensities(JSON.parse(`<%- JSON.stringify(apiData) %>`), 'surp');
+
+        function extractEmotionIntensities(data, emotionKey) {
+            let allIntensities = [];
+
+            data.forEach(item => {
+                item[emotionKey].forEach(emotionItem => {
+                    // Extract the 'intensity' property from each emotion item
+                    allIntensities.push(emotionItem.intensity);
+                });
+            });
+
+            return allIntensities;
+        }
+
+        const linedata = {
+            labels: linelabels,
+            datasets: [{
+                label: 'Anger',
+                data: angerData,
+                fill: false,
+                borderColor: 'rgb(207, 0, 15, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'Contempt',
+                data: contemptData,
+                fill: false,
+                borderColor: 'rgb(112, 128, 144, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'Disgust',
+                data: disgustData,
+                fill: false,
+                borderColor: 'rgb(107, 142, 35, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'Enjoyment',
+                data: enjoymentData,
+                fill: false,
+                borderColor: 'rgb(255, 223, 0, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'Fear',
+                data: fearData,
+                fill: false,
+                borderColor: 'rgb(0, 0, 139, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'Sadness',
+                data: sadnessData,
+                fill: false,
+                borderColor: 'rgb(70, 130, 180, 0.8)',
+                tension: 0.1
+            },
+            {
+                label: 'Surprise',
+                data: surpriseData,
+                fill: false,
+                borderColor: 'rgb(255, 165, 0, 0.8)',
+                tension: 0.1
+            }
+
+        ]
+        };
+    
+
+        const lineconfig = {
+            type: 'line',
+            data: linedata,
+            options: {
+                responsive: true,
+                animation: true,
+                maintainAspectRatio: true,
+                scales: { y: { min: 0, max: 10 } },
+                plugins: {
+                    legend: { display: true },
+                    tooltips: { enabled: false },
+                    title: {
+                        display: true,
+                        text: "Average Intensities",
+                        font: { size: 16 }
+                    }
+                }
+
+            }
+        };
+
+
+        const barChart = new Chart('barchart', barconfig);
+        const lineGraph = new Chart('linechart', lineconfig);
     </script>
 </body>
 

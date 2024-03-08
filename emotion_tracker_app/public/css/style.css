@@ -14,29 +14,20 @@ h1, p, h2, h3, h4, h5, h6, li, output {
   
 }
 
-canvas {
-  display: inline;
-}
-
-table {
-  display: inline;
-}
-
-.emotion-averages {
-
-  display: block;
-  padding: 30px;
+#linechart {
+padding: 100px;
+  width: 500px;
 }
 
 .error-msg {
   color: maroon;
 }
 
-.average-stats {
-
-  display: inline;
+.emotion-averages {
+  display: block;
   padding: 30px;
 }
+
 .trigger-class {
   display: inline-block;
   padding: 30px;

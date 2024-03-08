@@ -2,7 +2,7 @@
 const axios = require('axios');
 const https = require('https');
 const fs = require('fs');
-const dateFormatFunc = require('../public/js/datescript2');
+const {dateFormatFunc, dateFormatDataSetFunc} = require('../public/js/datescript2');
 const {
     calculateNumberSnapshotsFunc, 
     calculateEmotionAveragesFunc, 
@@ -365,6 +365,10 @@ exports.getAPIInsightsPage = async (req, res) => {
             headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
+        //format dates
+        const datesFormattedData = dateFormatDataSetFunc(response.data);
+
+        //calculate initial stats
         const noSnapshots= calculateNumberSnapshotsFunc(response.data);
         const emotionAverages = calculateEmotionAveragesFunc(response.data);
         const topTriggers = obtainTop3TriggersFunc(response.data);
@@ -394,7 +398,7 @@ exports.getAPIInsightsPage = async (req, res) => {
         const formattedTrig2Averages = formatValuesFunc(averageComparisonTrigger2);
         const formattedTrig3Averages = formatValuesFunc(averageComparisonTrigger3);
 
-        res.render('insights', { noSnapshots, emotionAverages, topTriggers, 
+        res.render('insights', { apiData: datesFormattedData, noSnapshots, emotionAverages, topTriggers, 
             formattedTrig1Averages, formattedTrig2Averages, formattedTrig3Averages });
 
     } catch (error) {
