@@ -22,63 +22,17 @@
     <h6>Total number of snapshots created: <%= noSnapshots %>
     </h6>
 
-    <div class="emotion-averages">
-        <table>
-            <tr>
-                <th colspan="2">Average Emotion Intensities</th>
-            </tr>
-            <tr>
-                <td>Anger</td>
-                <td>
-                    <%= emotionAverages.ang %>
-                </td>
-            </tr>
-            <tr>
-                <td>Contempt</td>
-                <td>
-                    <%= emotionAverages.cont %>
-                </td>
-            </tr>
-            <tr>
-                <td>Disgust</td>
-                <td>
-                    <%= emotionAverages.disg %>
-                </td>
-            </tr>
-            <tr>
-                <td>Enjoyment</td>
-                <td>
-                    <%= emotionAverages.enj %>
-                </td>
-            </tr>
-            <tr>
-                <td>Fear</td>
-                <td>
-                    <%= emotionAverages.fear %>
-                </td>
-            </tr>
-            <tr>
-                <td>Sadness</td>
-                <td>
-                    <%= emotionAverages.sad %>
-                </td>
-            </tr>
-            <tr>
-                <td>Surprise</td>
-                <td>
-                    <%= emotionAverages.surp %>
-                </td>
-            </tr>
-        </table>
 
-        <div>
+
+        <div style="position: relative; height:40vh; width:80vw">
             <canvas id="barchart" width="600px" height="250px" style="background-color: white;"></canvas>
         </div>
 
 
     </div>
 
-    <div class="trigger-class">
+   
+    <div class="top3_triggers">
         <table>
             <tr>
                 <th colspan="2">Top 3 Contextual Triggers</th>
@@ -117,9 +71,7 @@
     <div class="trigger-class">
         <table>
             <tr>
-                <th colspan="2">When <b>
-                        <%= topTriggers[0].trigger%>
-                    </b> is mentioned </th>
+                <th colspan="2">When "<%= topTriggers[0].trigger%>" is mentioned </th>
             </tr>
             <tr>
                 <td>Anger</td>
@@ -169,9 +121,7 @@
     <div class="trigger-class">
         <table>
             <tr>
-                <th colspan="2">When <b>
-                        <%= topTriggers[1].trigger%>
-                    </b> is mentioned </th>
+                <th colspan="2">When "<%= topTriggers[1].trigger%>" is mentioned </th>
             </tr>
             <tr>
                 <td>Anger</td>
@@ -221,9 +171,7 @@
     <div class="trigger-class">
         <table>
             <tr>
-                <th colspan="2">When <b>
-                        <%= topTriggers[2].trigger%>
-                    </b> is mentioned </th>
+                <th colspan="2">When "<%= topTriggers[2].trigger%>" is mentioned </th>
             </tr>
             <tr>
                 <td>Anger</td>
@@ -275,8 +223,8 @@
 
     <div>
         <h5>Emotion Tracker</h5>
-        <div>
-            <canvas id="linechart"></canvas>
+        <div style="position: relative; height:40vh; width:80vw">
+            <canvas id="linechart" width="600px" height="250px" style="background-color: white";></canvas>
         </div>
 
 
@@ -296,7 +244,7 @@
         const chartdata = {
             labels: labels,
             datasets: [{
-                axis: 'y',
+                axis: 'x',
                 data: avEmotionData,
                 backgroundColor: [
                     'rgba(207, 0, 15, 0.8)',
@@ -314,17 +262,17 @@
             type: 'bar',
             data: chartdata,
             options: {
-                indexAxis: 'y',
-                responsive: false,
+                indexAxis: 'x',
+                responsive: true,
                 animation: true,
                 maintainAspectRatio: true,
-                scales: { x: { min: 0, max: 10 } },
+                scales: { y: { min: 0, max: 10 } },
                 plugins: {
                     legend: { display: false },
                     tooltips: { enabled: true },
                     title: {
                         display: true,
-                        text: "Average Intensities",
+                        text: "Average Emotion Intensities",
                         font: { size: 16 }
                     }
                 }
@@ -344,8 +292,8 @@
                 // Iterate over each object in the 'snap' array of the item
                 item.snap.forEach(snapItem => {
                     // Assuming each snapItem has a 'datetime_created' property
-                    if (snapItem.datetime_created) {
-                        allDateTimeCreated.push(snapItem.datetime_created);
+                    if (snapItem.title) {
+                        allDateTimeCreated.push(snapItem.title);
                     }
                 });
             });
