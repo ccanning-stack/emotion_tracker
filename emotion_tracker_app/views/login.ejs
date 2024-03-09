@@ -14,61 +14,67 @@
 <body>
 
     <main>
-        <h1 id="login-title">Login</h1>
-        <form action="/login" method="post">
-            <div id="account_successful_msg" class="container">
-                <%= accountCreatedMsg %>
-            </div>
-            <div id="invalid_credentials_msg" class="container">
-                <%= invalidCredentialsMsg %>
-            </div>
-            <div id="pwd_change_ok_msg" class="container">
-                <%= passwordChangedMsg %>
-            </div>
-            <p>
+        <div class="container" id="login-items">
+            <h1 id="login-title">Login</h1>
+            <form action="/login" method="post">
 
-                <label for="userlogin-input">Username</label>
 
-            </p>
+                <div id="account_successful_msg" class="container">
+                    <%= accountCreatedMsg %>
+                </div>
+                <div id="invalid_credentials_msg" class="container">
+                    <%= invalidCredentialsMsg %>
+                </div>
+                <div id="pwd_change_ok_msg" class="container">
+                    <%= passwordChangedMsg %>
+                </div>
 
-            <div class="container">
+                <p>
 
-                <input type="email" name="username" id="userlogin-input" required>
+                    <label for="userlogin-input">Username</label>
 
-            </div>
+                </p>
 
-            <p>
+                <div class="container">
 
-                <label for="passlogin-input">Password</label>
+                    <input type="email" name="username" id="userlogin-input" required>
 
-            </p>
+                </div>
 
-            <div class="container">
+                <p>
 
-                <input type="password" name="password" id="passlogin-input" required
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords contain at least one number, 
+                    <label for="passlogin-input">Password</label>
+
+                </p>
+
+                <div class="container">
+
+                    <input type="password" name="password" id="passlogin-input" required
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords contain at least one number, 
                     one uppercase letter, one lowercase letter, and at least 8 or more characters" maxlength="20">
 
-            </div>
+                </div>
+
+                <div class="container">
+                    <button type="submit" name="login-attempt" id="login-btn-2">Log In</button>
+                    <br>
+
+                </div>
+
+
+            </form>
 
             <div class="container">
-                <button type="submit" name="login-attempt" id="login-btn-2">Log In</button>
-                <br>
-
+                <button type="submit" name="forgot_username" id="forgotUsernameBtn">Forgot Username</button>
+                <div id="username_reminder_msg" class="container"></div>
             </div>
 
-
-        </form>
-
-        <div class="container">
-        <button type="submit" name="forgot_username" id="forgotUsernameBtn">Forgot Username</button>
-        <div id="username_reminder_msg" class="container"></div>
+            <a href="/reset-password-step1" id="forgot-pwd-link">Forgot Password</a>
         </div>
-
-        <a href="/reset-password-step1" id="forgot-pwd-link">Forgot Password</a>
     </main>
 
 
     <script src="/js/login.js"></script>
 </body>
+
 </html>

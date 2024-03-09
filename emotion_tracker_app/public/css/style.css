@@ -27,6 +27,10 @@ h1, p, h2, h3, h4, h5, h6, li, output {
   
 }
 
+ul, ol {
+  list-style-type: none;
+}
+
 .welcome-header {
 
   width: 60%vw;
@@ -81,9 +85,16 @@ margin-top: 1rem;
 }
 
 #forgot-pwd-link{
-  margin-left: 10.5rem;
+  margin-left: 6.5rem;
   margin-top: 2rem;
   position: absolute;
+}
+
+#login-msgs {
+
+  margin-left: 10rem;
+  margin: 2rem 0;
+  position: fixed;
 }
 
 input[type="text"],
@@ -139,7 +150,6 @@ border-radius: 10px;
 }
 
 
-
 .error-msg {
   color: maroon;
 }
@@ -166,6 +176,10 @@ border-radius: 10px;
   color: black;
 }
 
+#login-items {
+  margin: 10% 30%;
+}
+
 
 #edit-msg, #invalid_credentials_msg, #email_exists_msg, 
 #user_not_found_msg, #wrong_sec_answers_msg {
@@ -173,8 +187,13 @@ border-radius: 10px;
 }
 
 #action_successful_msg, #account_successful_msg, #logout_successful_msg, #username_reminder_msg, #pwd_change_ok_msg {
-    color:#6ff58e;
+    color: darkgreen;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
+
+
 
 /*https://www.w3schools.com/howto/howto_js_rangeslider.asp/*/
 
