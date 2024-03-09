@@ -12,9 +12,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"
         integrity="sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 </head>
 
 <body>
+        <!--Navigation bar-->
+<div id="nav-placeholder" class="container">
+
+</div>
+
+<script>
+$(function(){
+  $("#nav-placeholder").load("/html/navbar.html");
+});
+</script>
+<!--end of Navigation bar-->
+
+<main>
     <h1>Insights</h1>
 
     <h5>Stats</h5>
@@ -68,10 +82,14 @@
         </table>
     </div>
 
+    <h5>Comparison vs Average Emotion Intensities</h5>
     <div class="trigger-class">
         <table>
             <tr>
                 <th colspan="2">When "<%= topTriggers[0].trigger%>" is mentioned </th>
+            </tr>
+            <tr>
+                <th colspan="2"><br></th>
             </tr>
             <tr>
                 <td>Anger</td>
@@ -124,6 +142,9 @@
                 <th colspan="2">When "<%= topTriggers[1].trigger%>" is mentioned </th>
             </tr>
             <tr>
+                <th colspan="2"><br></th>
+            </tr>
+            <tr>
                 <td>Anger</td>
                 <td>
                     <%= formattedTrig2Averages.ang %>
@@ -172,6 +193,9 @@
         <table>
             <tr>
                 <th colspan="2">When "<%= topTriggers[2].trigger%>" is mentioned </th>
+            </tr>
+            <tr>
+                <th colspan="2"><br></th>
             </tr>
             <tr>
                 <td>Anger</td>
@@ -231,6 +255,8 @@
 
     </div>
 
+</main>
+
     <script>
 
 
@@ -266,7 +292,7 @@
                 responsive: true,
                 animation: true,
                 maintainAspectRatio: true,
-                scales: { y: { min: 0, max: 10 } },
+                scales: { y: { min: 0, max: 10 }, y: {grid: {display: false}}, x: {grid: {display:false }}},
                 plugins: {
                     legend: { display: false },
                     tooltips: { enabled: true },
@@ -329,6 +355,7 @@
                 data: angerData,
                 fill: false,
                 borderColor: 'rgb(207, 0, 15, 0.8)',
+                backgroundColor: 'rgb(207, 0, 15, 0.8)',
                 tension: 0.1
             },
             {
@@ -336,6 +363,7 @@
                 data: contemptData,
                 fill: false,
                 borderColor: 'rgb(112, 128, 144, 0.8)',
+                backgroundColor:'rgb(112, 128, 144, 0.8)',
                 tension: 0.1
             },
             {
@@ -343,6 +371,7 @@
                 data: disgustData,
                 fill: false,
                 borderColor: 'rgb(107, 142, 35, 0.8)',
+                backgroundColor: 'rgb(107, 142, 35, 0.8)',
                 tension: 0.1
             },
             {
@@ -350,6 +379,7 @@
                 data: enjoymentData,
                 fill: false,
                 borderColor: 'rgb(255, 223, 0, 0.8)',
+                backgroundColor: 'rgb(255, 223, 0, 0.8)',
                 tension: 0.1
             },
             {
@@ -357,6 +387,7 @@
                 data: fearData,
                 fill: false,
                 borderColor: 'rgb(0, 0, 139, 0.8)',
+                backgroundColor: 'rgb(0, 0, 139, 0.8)',
                 tension: 0.1
             },
             {
@@ -364,6 +395,7 @@
                 data: sadnessData,
                 fill: false,
                 borderColor: 'rgb(70, 130, 180, 0.8)',
+                backgroundColor: 'rgb(70, 130, 180, 0.8)',
                 tension: 0.1
             },
             {
@@ -371,6 +403,7 @@
                 data: surpriseData,
                 fill: false,
                 borderColor: 'rgb(255, 165, 0, 0.8)',
+                backgroundColor: 'rgb(255, 165, 0, 0.8)',
                 tension: 0.1
             }
 
@@ -382,10 +415,11 @@
             type: 'line',
             data: linedata,
             options: {
+                legend: {labels: { boxWidth:0, usePointStyle: true}},
                 responsive: true,
                 animation: true,
                 maintainAspectRatio: true,
-                scales: { y: { min: 0, max: 10 } },
+                scales: { y: { min: 0, max: 10 }, y: {grid: {display: false}}},
                 plugins: {
                     legend: { display: true },
                     tooltips: { enabled: false },
@@ -403,6 +437,8 @@
         const barChart = new Chart('barchart', barconfig);
         const lineGraph = new Chart('linechart', lineconfig);
     </script>
+
+<script src="/js/insights.js"></script>
 </body>
 
 </html>

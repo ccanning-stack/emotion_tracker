@@ -9,11 +9,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
 </head>
 
 <body>
-    <main>
+    <!--Navigation bar-->
+    <div id="nav-placeholder" class="container">
 
+    </div>
+
+    <script>
+        $(function () {
+            $("#nav-placeholder").load("/html/navbar.html");
+        });
+    </script>
+    <!--end of Navigation bar-->
+
+    <main>
         <h1>View Snapshot</h1>
         <p id="edit-msg"><em>Kindly note, only contextual triggers are editable</em></p>
 
@@ -27,8 +39,8 @@
 
             <div>
 
-                <input type="text" name="snapshot_headline" value="<%= apiData.snap[0].title %>" 
-                id="snapshot-title" disabled>
+                <input type="text" name="snapshot_headline" value="<%= apiData.snap[0].title %>" id="snapshot-title"
+                    disabled>
                 <input type="hidden" name="snap_id_del" value="<%= apiData.snap[0].snapshot_id %>">
 
             </div>
@@ -36,7 +48,9 @@
             <br>
 
             <div>
-                <p>Date & Time Created: <span> <%= apiDate %></span></p>
+                <p>Date & Time Created: <span>
+                        <%= apiDate %>
+                    </span></p>
             </div>
 
             <br>
@@ -44,126 +58,116 @@
             <h6>Please record current <b>emotion intensity</b> levels (1 = least intense, 10 = most intense):</h6>
             <br>
 
-            
-            <%# Iterate over apiData object and extract only intensity data for keys relating to emotions.
-            Assisted by ChatGPT %>
 
-            <% let emotionLvls={}; 
-            Object.keys(apiData).forEach(function(key) {
-                 if (['snap', 'trig'].indexOf(key)===-1) { 
-                    emotionLvls[key]=apiData[key][0].intensity; } }); %>
+            <%# Iterate over apiData object and extract only intensity data for keys relating to emotions. Assisted by
+                ChatGPT %>
+
+                <% let emotionLvls={}; Object.keys(apiData).forEach(function(key) { if (['snap', 'trig'
+                    ].indexOf(key)===-1) { emotionLvls[key]=apiData[key][0].intensity; } }); %>
 
 
-                <div class="slidecontainer">
-                    <input type="range" name="anger_val" min="1" max="10" value="<%= emotionLvls.ang %>" class="slider"
-                        id="anger-slider2" disabled>
-                </div>
-                <p>Anger: <output id="anger-value2"></output></p>
+                    <div class="slidecontainer">
+                        <input type="range" name="anger_val" min="1" max="10" value="<%= emotionLvls.ang %>"
+                            class="slider" id="anger-slider2" disabled>
+                    </div>
+                    <p>Anger: <output id="anger-value2"></output></p>
 
-                <div class="slidecontainer">
-                    <input type="range" name="contempt_val" min="1" max="10" value="<%= emotionLvls.cont %>" class="slider"
-                        id="contempt-slider2" disabled>
-                </div>
-                <p>Contempt: <output id="contempt-value2"></output></p>
+                    <div class="slidecontainer">
+                        <input type="range" name="contempt_val" min="1" max="10" value="<%= emotionLvls.cont %>"
+                            class="slider" id="contempt-slider2" disabled>
+                    </div>
+                    <p>Contempt: <output id="contempt-value2"></output></p>
 
-                <div class="slidecontainer">
-                    <input type="range" name="disgust_val" min="1" max="10" value="<%= emotionLvls.disg %>" class="slider"
-                        id="disgust-slider2" disabled>
-                </div>
-                <p>Disgust: <output id="disgust-value2"></output></p>
+                    <div class="slidecontainer">
+                        <input type="range" name="disgust_val" min="1" max="10" value="<%= emotionLvls.disg %>"
+                            class="slider" id="disgust-slider2" disabled>
+                    </div>
+                    <p>Disgust: <output id="disgust-value2"></output></p>
 
-                <div class="slidecontainer">
-                    <input type="range" name="enjoyment_val" min="1" max="10" value="<%= emotionLvls.enj %>"
-                        class="slider" id="enjoyment-slider2" disabled>
-                    <p>Enjoyment: <output id="enjoyment-value2"></output></p>
-                </div>
-
-                <div class="slidecontainer">
-                    <input type="range" name="fear_val" min="1" max="10" value="<%= emotionLvls.fear %>" class="slider"
-                        id="fear-slider2" disabled>
-                </div>
-                <p>Fear: <output id="fear-value2"></output></p>
-
-                <div class="slidecontainer">
-                    <input type="range" name="sadness_val" min="1" max="10" value="<%= emotionLvls.sad %>" class="slider"
-                        id="sadness-slider2" disabled>
-                    <p>Sadness: <output id="sadness-value2"></output></p>
-                </div>
-
-                <div class="slidecontainer">
-                    <input type="range" name="surprise_val" min="1" max="10" value="<%= emotionLvls.surp %>" class="slider"
-                        id="surprise-slider2" disabled>
-                </div>
-                <p>Surprise: <output id="surprise-value2"></output></p>
-
-
-                <%# extract the 3 triggers along with corresponding ids from the trig object array %>
-
-                <% let trig_1=null, trig_2=null, trig_3=null; 
-                 trig_1 = apiData.trig[0].name;
-                 trig_2 = apiData.trig[1].name;
-                 trig_3 = apiData.trig[2].name; 
-                 
-                 
-                 let trig_1_id=null, trig_2_id=null, trig_3_id=null;
-                 trig_1_id = apiData.trig[0].trigger_id;
-                 trig_2_id = apiData.trig[1].trigger_id;
-                 trig_3_id = apiData.trig[2].trigger_id;%>
-
-
-                    <h6><b>Contextual Triggers:</b></h6>
-
-                    <div>
-
-                        <input type="text" name="updated_trigger_1" value="<%= trig_1 %>" maxlength="50">
-                        <input type="hidden" name="trig1_id" value="<%= trig_1_id %>">
+                    <div class="slidecontainer">
+                        <input type="range" name="enjoyment_val" min="1" max="10" value="<%= emotionLvls.enj %>"
+                            class="slider" id="enjoyment-slider2" disabled>
+                        <p>Enjoyment: <output id="enjoyment-value2"></output></p>
                     </div>
 
-                    <div>
+                    <div class="slidecontainer">
+                        <input type="range" name="fear_val" min="1" max="10" value="<%= emotionLvls.fear %>"
+                            class="slider" id="fear-slider2" disabled>
+                    </div>
+                    <p>Fear: <output id="fear-value2"></output></p>
 
-                        <input type="text" name="updated_trigger_2" value="<%= trig_2 %>" maxlength="50">
-                        <input type="hidden" name="trig2_id" value="<%= trig_2_id %>">
+                    <div class="slidecontainer">
+                        <input type="range" name="sadness_val" min="1" max="10" value="<%= emotionLvls.sad %>"
+                            class="slider" id="sadness-slider2" disabled>
+                        <p>Sadness: <output id="sadness-value2"></output></p>
                     </div>
 
-                    <div>
-
-                        <input type="text" name="updated_trigger_3" value="<%= trig_3 %>" maxlength="50">
-                        <input type="hidden" name="trig3_id" value="<%= trig_3_id %>">
+                    <div class="slidecontainer">
+                        <input type="range" name="surprise_val" min="1" max="10" value="<%= emotionLvls.surp %>"
+                            class="slider" id="surprise-slider2" disabled>
                     </div>
-
-                    <div>
-                        <p>
-
-                            <label for="snapshot-notes">Additional Notes:</label>
-
-                        </p>
-                    </div>
+                    <p>Surprise: <output id="surprise-value2"></output></p>
 
 
-                    <div>
+                    <%# extract the 3 triggers along with corresponding ids from the trig object array %>
 
-                        <input type="text" name="snapshot_note" value="<%= apiData.snap[0].notes %>" id="snapshot-notes" disabled>
+                        <% let trig_1=null, trig_2=null, trig_3=null; trig_1=apiData.trig[0].name;
+                            trig_2=apiData.trig[1].name; trig_3=apiData.trig[2].name; let trig_1_id=null,
+                            trig_2_id=null, trig_3_id=null; trig_1_id=apiData.trig[0].trigger_id;
+                            trig_2_id=apiData.trig[1].trigger_id; trig_3_id=apiData.trig[2].trigger_id;%>
 
-                    </div>
 
-                    <%# With aid of ChatGPT %>
-                    <div>
-                        <button type="submit" id="saveButton" style="display: none;" name="action" value="save" 
-                        data-path="/edit-snapshot/<%= apiData.snap[0].snapshot_id %>">Save Edits</a></button>
-                        <br>
-                        <button type="submit" name="action" 
-                        data-path="/delete-snapshot/<%= apiData.snap[0].snapshot_id %>"
-                        value="delete">Delete Snapshot</button>
-                        <br>
+                            <h6><b>Contextual Triggers:</b></h6>
 
-                    </div>
+                            <div>
+
+                                <input type="text" name="updated_trigger_1" value="<%= trig_1 %>" maxlength="50">
+                                <input type="hidden" name="trig1_id" value="<%= trig_1_id %>">
+                            </div>
+
+                            <div>
+
+                                <input type="text" name="updated_trigger_2" value="<%= trig_2 %>" maxlength="50">
+                                <input type="hidden" name="trig2_id" value="<%= trig_2_id %>">
+                            </div>
+
+                            <div>
+
+                                <input type="text" name="updated_trigger_3" value="<%= trig_3 %>" maxlength="50">
+                                <input type="hidden" name="trig3_id" value="<%= trig_3_id %>">
+                            </div>
+
+                            <div>
+                                <p>
+
+                                    <label for="snapshot-notes">Additional Notes:</label>
+
+                                </p>
+                            </div>
+
+
+                            <div>
+
+                                <input type="text" name="snapshot_note" value="<%= apiData.snap[0].notes %>"
+                                    id="snapshot-notes" disabled>
+
+                            </div>
+
+                            <%# With aid of ChatGPT %>
+                                <div>
+                                    <button type="submit" id="saveButton" style="display: none;" name="action"
+                                        value="save" data-path="/edit-snapshot/<%= apiData.snap[0].snapshot_id %>">Save
+                                        Edits</a></button>
+                                    <br>
+                                    <button type="submit" name="action"
+                                        data-path="/delete-snapshot/<%= apiData.snap[0].snapshot_id %>"
+                                        value="delete">Delete Snapshot</button>
+                                    <br>
+
+                                </div>
 
         </form>
-
-
     </main>
-
-
     <script src="/js/edit-snapshot.js"></script>
 </body>
 

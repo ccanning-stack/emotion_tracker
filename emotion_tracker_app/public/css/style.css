@@ -1,16 +1,25 @@
+/**https://venngage.com/tools/accessible-color-palette-generator
+*Pastel contrasting palette 1*
+#faaf90, #000000 -PEACH
+#fcc9b5, #000000 -LIGHT PEACH
+#d9e4ff, #000000 -SKY BLUE
+#b3c7f7, #000000 -LIGHT BLUE
+#8babf1, #000000 -DARK BLUE
+https://getbootstrap.com/**/
+
+/**reset for ease**/
 * {
   margin: 0;
 	padding: 0;
   box-sizing: border-box;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  background-color: cornflowerblue;
 }
 
 
 
 h1, p, h2, h3, h4, h5, h6, li, output {
 
-  color: white ;
+  color: #000000 ;
   
 }
 

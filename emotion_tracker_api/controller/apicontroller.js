@@ -156,7 +156,7 @@ exports.postCreateSnapshot = async (req, res) => {
     //SUMMARY section for redirecting back to summary page after saving deletion
     //extract user_id from req obj
     const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
-     FROM snapshot WHERE  user_id = ?;`;
+    FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;
 
     try {
         const [rows] = await conn.query(postSnapshotSQL, vals);
@@ -303,7 +303,7 @@ exports.deleteSnapshot = async (req, res) => {
     //extract user_id from req obj
     const user = req.user.user;
     const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
-     FROM snapshot WHERE  user_id = ?;`;
+    FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;
 
 
     try {

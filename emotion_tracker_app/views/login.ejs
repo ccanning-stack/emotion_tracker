@@ -16,13 +16,13 @@
     <main>
         <h1>Login</h1>
         <form action="/login" method="post">
-            <div id="account_successful_msg">
+            <div id="account_successful_msg" class="container">
                 <%= accountCreatedMsg %>
             </div>
-            <div id="invalid_credentials_msg">
+            <div id="invalid_credentials_msg" class="container">
                 <%= invalidCredentialsMsg %>
             </div>
-            <div id="pwd_change_ok_msg">
+            <div id="pwd_change_ok_msg" class="container">
                 <%= passwordChangedMsg %>
             </div>
             <p>
@@ -31,7 +31,7 @@
 
             </p>
 
-            <div>
+            <div class="container">
 
                 <input type="email" name="username" id="userlogin-input" required>
 
@@ -43,7 +43,7 @@
 
             </p>
 
-            <div>
+            <div class="container">
 
                 <input type="password" name="password" id="passlogin-input" required
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords contain at least one number, 
@@ -51,7 +51,7 @@
 
             </div>
 
-            <div>
+            <div class="container">
                 <button type="submit" name="login-attempt">Log In</button>
                 <br>
 
@@ -61,7 +61,7 @@
         </form>
 
         <button type="submit" name="forgot_username" id="forgotUsernameBtn">Forgot Username</button>
-        <div id="username_reminder_msg"></div>
+        <div id="username_reminder_msg" class="container"></div>
         <br>
         <a href="/reset-password-step1">Forgot Password</a>
 

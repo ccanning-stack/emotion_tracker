@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <main>
     <h1>Registration Form</h1>
 
     <% if (validationErrorsArray) { %>
@@ -25,7 +26,7 @@
     <% }}); %>
     <% } %>
     
-    <div id="email_exists_msg"><%= emailExistsMsg %></div>
+    <div id="email_exists_msg" class="container"><%= emailExistsMsg %></div>
 
     <form action="/new-user" method="post">
 
@@ -35,7 +36,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="text" name="first_name" placeholder="Enter First Name" 
             id="firstname-input" required>
@@ -48,7 +49,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="text" name="surname" placeholder="Enter Surname" 
             id="surname-input" required>
@@ -61,7 +62,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="email" name="email_add" placeholder="user@example.com" id="email-input" required>
 
@@ -73,7 +74,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="date" name="birthdate" id="birthdate-input" 
              max="2008-03-01" min="1910-03-01"required value="2000-01-01">
@@ -86,7 +87,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="text" name="security_qtn_1" placeholder="Example:  Name of First School" 
             id="sec-q1-input" required>
@@ -99,7 +100,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="text" name="security_ans_1" placeholder="Enter answer" id="sec-a1-input"
             required>
@@ -112,7 +113,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="text" name="security_qtn_2" placeholder="Example:  Name of First Employer" id="sec-q2-input"
             required>
@@ -125,7 +126,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="text" name="security_ans_2" placeholder="Enter answer" id="sec-a2-input"
             required>
@@ -138,7 +139,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="password" name="initial_password" placeholder="Enter Password" id="password-input"
             required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -153,7 +154,7 @@
 
         </p>
 
-        <div>
+        <div class="container">
 
             <input type="password" name="password_confirmation" placeholder="Re-enter Password" id="passconfirm-input"
             required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -167,6 +168,7 @@
 
     </form>
 
+    </main>
     <script src="/js/register.js"></script>
 </body>
 </html>
