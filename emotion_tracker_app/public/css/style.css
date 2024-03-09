@@ -13,15 +13,132 @@ https://getbootstrap.com/**/
 	padding: 0;
   box-sizing: border-box;
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  
 }
 
+header, body {
 
+  background-color: #b3c7f7;
+}
 
 h1, p, h2, h3, h4, h5, h6, li, output {
 
   color: #000000 ;
   
 }
+
+.welcome-header {
+
+  width: 60%vw;
+  display: block;
+  text-align: center;
+}
+
+.welcome-title {
+  padding-top: 2rem;
+  font-size: 4rem;
+  padding-bottom: 2rem;
+}
+
+#secrets-header{
+  width: 60%vw;
+  text-align: center;
+  position: relative;
+  margin-bottom: 3rem;
+  display: block;
+}
+
+
+#elevator-pitch {
+  width: 60%;
+  display: block;
+  text-align: left;
+}
+
+#features{
+margin-top: 2rem;
+  width: 60%;
+  display: block;
+  text-align: left;
+}
+#closing-pitch {
+
+  width: 60%;
+  display: block;
+  text-align: left;
+}
+
+#signup-btn, #login-btn {
+margin-top: 1rem;
+  background-color: #8babf1;
+  color: #000000;
+  width: 25%;
+  border-width: 2px;
+  border-color: #b3c7f7;
+  padding: 15px;
+  margin: 10px;
+
+}
+
+#forgot-pwd-link{
+  margin-left: 10.5rem;
+  margin-top: 2rem;
+  position: absolute;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"]  {
+  width: 30%;
+  padding: 10px;
+  margin-bottom: 8px;
+  display: inline-block;
+  border: 5px solid #8babf1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: inline;
+}
+
+#reg-form, #rst-pwd-1, #rst-pwd-2, #login-title {
+  margin-top: 2rem;
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+#user_not_found_msg {
+  margin: 1rem 5rem;
+}
+
+label {
+  margin-left: 3rem;
+  margin-top: 15px;
+  display: inline;
+}
+
+#submit-btn{
+  background-color: #8babf1;
+  color: #000000;
+  width: 10%;
+  border: 2px solid  #d9e4ff;
+  margin-left: 12.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding: 10px;
+border-radius: 10px;
+
+}
+
+#login-btn-2, #forgotUsernameBtn, #rst-pwd-1-btn, #pwd-rst-2-btn {
+  background-color: #8babf1;
+  color: #000000;
+  width: 15%;
+  border: 3px solid #b3c7f7;
+  padding: 8px;
+  margin: 2rem 0 0 5rem;
+  border-radius: 10px;
+}
+
+
 
 .error-msg {
   color: maroon;

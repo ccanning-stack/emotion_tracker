@@ -14,7 +14,7 @@
 <body>
 
     <main>
-        <h1>Login</h1>
+        <h1 id="login-title">Login</h1>
         <form action="/login" method="post">
             <div id="account_successful_msg" class="container">
                 <%= accountCreatedMsg %>
@@ -52,7 +52,7 @@
             </div>
 
             <div class="container">
-                <button type="submit" name="login-attempt">Log In</button>
+                <button type="submit" name="login-attempt" id="login-btn-2">Log In</button>
                 <br>
 
             </div>
@@ -60,13 +60,12 @@
 
         </form>
 
+        <div class="container">
         <button type="submit" name="forgot_username" id="forgotUsernameBtn">Forgot Username</button>
         <div id="username_reminder_msg" class="container"></div>
-        <br>
-        <a href="/reset-password-step1">Forgot Password</a>
+        </div>
 
-
-
+        <a href="/reset-password-step1" id="forgot-pwd-link">Forgot Password</a>
     </main>
 
 

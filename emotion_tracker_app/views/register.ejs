@@ -13,7 +13,7 @@
 
 <body>
     <main>
-    <h1>Registration Form</h1>
+    <h1 id="reg-form">Registration Form</h1>
 
     <% if (validationErrorsArray) { %>
     <% const displayedMsgs = {}; %>
@@ -27,6 +27,7 @@
     <% } %>
     
     <div id="email_exists_msg" class="container"><%= emailExistsMsg %></div>
+    
 
     <form action="/new-user" method="post">
 
@@ -155,6 +156,7 @@
         </p>
 
         <div class="container">
+           
 
             <input type="password" name="password_confirmation" placeholder="Re-enter Password" id="passconfirm-input"
             required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -163,8 +165,9 @@
             <span id='match_message'></span>
 
         </div>
+ 
 
-        <button type="submit">Submit</button>
+        <button type="submit" id="submit-btn">Submit</button>
 
     </form>
 

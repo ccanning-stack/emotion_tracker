@@ -12,26 +12,34 @@
 </head>
 
 <body>
-    <header class="welcome-header">
-        <h1 class="welcome-title">Welcome to Insightful Emotions!</h1>
-        <div id="logout_successful_msg" class="container"><%= logoutMessage %></div>
-        <button type="submit" class="btn btn-primary" onclick="location.href='./login'">
-            Login
-        </button>
+    <div class="container">
+        <header class="welcome-header">
+            <h1 class="welcome-title">Welcome to Insightful Emotions!</h1>
+        </header>
 
-    </header>
+        <div id="logout_successful_msg" class="container">
+            <%= logoutMessage %>
+        </div>
+
+    </div>
+
     <main>
-        <div class="elevator-pitch" class="container">
-            <h2> Unlock the secrets behind your emotions.</h2>
+
+        <div class="container">
+            <h2 id="secrets-header"> Unlock the secrets behind your emotions.</h2>
+        </div>
+
+
+        <div class="container" id="elevator-pitch">
             <h3>Did you know?</h3>
             <p>Regularly tracking your emotions can significantly improve your emotional intelligence:
                 leading to better stress management, enhanced decision-making,
                 and overall increased life satisfaction.</p>
-
         </div>
 
 
-        <div class="features" class="container">
+
+        <div id="features" class="container">
             <p>Our free platform enables you to: </p>
             <ul>
                 <div>
@@ -56,13 +64,17 @@
 
         </div>
 
-        <div class="closing-pitch" class="container">
+        <div id="closing-pitch" class="container">
 
-            <p>Transform your life, one snapshot at a time.</p>
+            <p>Transform your life, one snapshot at a time!</p>
             <p>Sign up today and start your journey to a happier, more aware you.</p>
 
-            <button type="submit" class="btn btn-primary" onclick="location.href='./register'">
+            <button type="submit" class="btn btn-primary" id="signup-btn" onclick="location.href='./register'">
                 Get Started
+            </button>
+
+            <button type="submit" class="btn btn-primary" id="login-btn" onclick="location.href='./login'">
+                Log In
             </button>
 
         </div>
@@ -74,7 +86,7 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-        <script src="/js/welcome.js"></script>
+    <script src="/js/welcome.js"></script>
 </body>
 
 </html>
