@@ -116,6 +116,36 @@ input[type="password"]  {
   margin-bottom: 2rem;
 }
 
+#change-pwd-title {
+  
+    margin-top: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 2rem;
+  
+}
+
+#choose-pwd-label, #confirm-pwd-label {
+  margin-left: 9rem;
+}
+
+#snap-title {
+  margin-top: 2rem;
+  margin-left: 7rem;
+  margin-bottom: 2rem;
+}
+
+#snap-headline {
+  
+    position: relative;
+    left: -3rem;
+  
+}
+
+#add-notes{
+  position: relative;
+  left: -3rem;
+}
+
 #user_not_found_msg {
   margin: 1rem 5rem;
 }
@@ -139,13 +169,23 @@ border-radius: 10px;
 
 }
 
-#login-btn-2, #forgotUsernameBtn, #rst-pwd-1-btn, #pwd-rst-2-btn {
+#login-btn-2, #forgotUsernameBtn, #rst-pwd-1-btn, #pwd-rst-2-btn, #snapshot-save-btn {
   background-color: #8babf1;
   color: #000000;
   width: 15%;
   border: 3px solid #b3c7f7;
   padding: 8px;
-  margin: 2rem 0 0 5rem;
+  margin: 2rem 0 1rem 5rem;
+  border-radius: 10px;
+}
+
+#pwd-submit-btn {
+  background-color: #8babf1;
+  color: #000000;
+  width: 15%;
+  border: 3px solid #b3c7f7;
+  padding: 8px;
+  margin: 2rem 0 1rem 13rem;
   border-radius: 10px;
 }
 
@@ -184,16 +224,24 @@ border-radius: 10px;
 #edit-msg, #invalid_credentials_msg, #email_exists_msg, 
 #user_not_found_msg, #wrong_sec_answers_msg {
   color: maroon;
+  font-size: 1.5rem;
 }
 
-#action_successful_msg, #account_successful_msg, #logout_successful_msg, #username_reminder_msg, #pwd_change_ok_msg {
+#action_successful_msg, #account_successful_msg, #logout_successful_msg, #username_reminder_msg {
     color: darkgreen;
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 2rem;
 }
 
-
+#pwd_change_ok_msg {
+  color: darkgreen;
+  font-size: 1.5rem;
+  text-align: left;
+  margin-bottom: 2rem;
+  display: block;
+  margin: 0 30%vw;
+}
 
 /*https://www.w3schools.com/howto/howto_js_rangeslider.asp/*/
 
