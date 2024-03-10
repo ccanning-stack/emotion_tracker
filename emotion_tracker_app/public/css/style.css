@@ -84,10 +84,18 @@ margin-top: 1rem;
 
 }
 
+#username-label, #password-label {
+  position: relative;
+  margin-left: -0.1rem;
+}
+
 #forgot-pwd-link{
-  margin-left: 6.5rem;
+  margin-left: 13rem;
   margin-top: 2rem;
   position: absolute;
+  text-decoration: none;
+  color:#000000;
+  
 }
 
 #login-msgs {
@@ -100,7 +108,7 @@ margin-top: 1rem;
 input[type="text"],
 input[type="email"],
 input[type="password"]  {
-  width: 30%;
+  width: 50%;
   padding: 10px;
   margin-bottom: 8px;
   display: inline-block;
@@ -110,48 +118,129 @@ input[type="password"]  {
   display: inline;
 }
 
-#reg-form, #rst-pwd-1, #rst-pwd-2, #login-title {
+input[type="date"]  {
+  width: 10rem;
+  padding: 2px;
+  margin-bottom: 8px;
+  display: inline-block;
+  border: 5px solid #8babf1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: inline;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+#rst-pwd-1, #rst-pwd-2{
+  margin-top: 3rem;
+  margin-left: 7.5rem;
+  margin-bottom: 2rem;
+}
+
+#conf-user-lbl{
+left: -6rem;
+text-align: left;
+display: inline-block;
+position: relative;
+}
+
+#login-title {
   margin-top: 2rem;
-  margin-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+
+
+#reg-form  {
+  margin-top: 2rem;
+  margin-left: 6rem;
   margin-bottom: 2rem;
 }
 
 #change-pwd-title {
   
     margin-top: 3rem;
-    margin-left: 3rem;
+    margin-left: 8rem;
     margin-bottom: 2rem;
   
 }
 
 #choose-pwd-label, #confirm-pwd-label {
-  margin-left: 9rem;
+  margin-left: 8rem;
 }
 
 #snap-title {
   margin-top: 2rem;
-  margin-left: 7rem;
+  margin-left: 8rem;
   margin-bottom: 2rem;
 }
 
-#snap-headline {
+#edit-snap {
+  margin-top: 2rem;
+  margin-left: 11rem;
+  margin-bottom: 2rem;
+}
+
+#edit-msg {
+  color: maroon;
+  font-size: 1.2rem;
+  margin-left: 8rem;
+}
+
+#edit-snap-headline{
+  left: -6rem;
+  position: relative;
+}
+
+#edit-snap {
   
     position: relative;
     left: -3rem;
   
 }
 
+#snap-headline {
+  
+  position: relative;
+  left: -6rem;
+
+}
+
 #add-notes{
   position: relative;
-  left: -3rem;
+  left: -6rem;
+}
+
+#add-notes-2{
+  position: relative;
+  left: -6rem;
+}
+
+#delete-snap-btn, #saveButton{
+  background-color: #8babf1;
+  color: #000000;
+  width: 15rem;
+  border: 2px solid  #d9e4ff;
+  margin-left: 10rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 1rem 3rem;
+border-radius: 10px;
+text-align: center;
 }
 
 #user_not_found_msg {
-  margin: 1rem 5rem;
+  margin: 1rem 7rem;
+}
+
+#sec-qtn-1-lbl, #sec-qtn-2-lbl{
+
+  position: relative;
+  left: -6rem;
 }
 
 label {
-  margin-left: 3rem;
+  margin-left: 6rem;
   margin-top: 15px;
   display: inline;
 }
@@ -159,17 +248,18 @@ label {
 #submit-btn{
   background-color: #8babf1;
   color: #000000;
-  width: 10%;
+  width: 10rem;
   border: 2px solid  #d9e4ff;
-  margin-left: 12.5rem;
+  margin-left: 20rem;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  padding: 10px;
+  padding: 1rem 3rem;
 border-radius: 10px;
+text-align: center;
 
 }
 
-#login-btn-2, #forgotUsernameBtn, #rst-pwd-1-btn, #pwd-rst-2-btn, #snapshot-save-btn {
+#pwd-rst-2-btn, #snapshot-save-btn {
   background-color: #8babf1;
   color: #000000;
   width: 15%;
@@ -179,16 +269,49 @@ border-radius: 10px;
   border-radius: 10px;
 }
 
+#rst-pwd-1-btn {
+  background-color: #8babf1;
+  color: #000000;
+  width: 15rem;
+  border: 3px solid #b3c7f7;
+  padding: 8px;
+  margin: 2rem 0 1rem 9rem;
+  border-radius: 10px;
+}
+
+#login-btn-2, #forgotUsernameBtn {
+  background-color: #8babf1;
+  color: #000000;
+  width: 15rem;
+  border: 3px solid #b3c7f7;
+  padding: 1rem 2rem;
+  margin: 2rem 0 1rem 9rem;
+  border-radius: 10px;
+  text-align: center;
+}
+
 #pwd-submit-btn {
   background-color: #8babf1;
   color: #000000;
   width: 15%;
   border: 3px solid #b3c7f7;
   padding: 8px;
-  margin: 2rem 0 1rem 13rem;
+  margin: 2rem 0 1rem 18rem;
   border-radius: 10px;
 }
 
+#snap-summary-h1 {
+  margin: 3rem;
+  text-align: center;
+}
+.card{
+border: solid 5px #8babf1;
+border-radius: 2rem;
+}
+
+#view-snap-btn{
+
+}
 
 .error-msg {
   color: maroon;
@@ -221,22 +344,39 @@ border-radius: 10px;
 }
 
 
-#edit-msg, #invalid_credentials_msg, #email_exists_msg, 
+#invalid_credentials_msg, #email_exists_msg, 
 #user_not_found_msg, #wrong_sec_answers_msg {
   color: maroon;
   font-size: 1.5rem;
 }
 
-#action_successful_msg, #account_successful_msg, #logout_successful_msg, #username_reminder_msg {
+#action_successful_msg, #logout_successful_msg{
     color: darkgreen;
     font-size: 1.5rem;
     text-align: center;
     margin-bottom: 2rem;
 }
 
-#pwd_change_ok_msg {
+#account_successful_msg {
+  color: darkgreen;
+  font-size: 1.2rem;
+margin-left: 1rem;
+  margin-bottom: 2rem;
+
+}
+
+#username_reminder_msg {
   color: darkgreen;
   font-size: 1.5rem;
+  text-align: left;
+  margin-bottom: 1rem;
+  margin-left: 6rem;
+  position: relative;
+}
+
+#pwd_change_ok_msg {
+  color: darkgreen;
+  font-size: 1.1rem;
   text-align: left;
   margin-bottom: 2rem;
   display: block;

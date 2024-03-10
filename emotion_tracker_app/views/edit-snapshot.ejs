@@ -26,24 +26,24 @@
     <!--end of Navigation bar-->
 
     <main>
-        <h1>View Snapshot</h1>
+        <h1 id="edit-snap">View Snapshot</h1>
         <p id="edit-msg"><em>Kindly note, only contextual triggers are editable</em></p>
+
+        <div class="container" id="snap-edit-items">
 
         <form action="/edit-snapshot" method="post" id="editForm">
 
             <h4>
 
-                <label for="snapshot_title">Snapshot Headline:</label>
+                <label for="snapshot_title" id="edit-snap-headline">Snapshot Headline:</label>
 
             </h4>
 
-            <div>
+
 
                 <input type="text" name="snapshot_headline" value="<%= apiData.snap[0].title %>" id="snapshot-title"
                     disabled>
                 <input type="hidden" name="snap_id_del" value="<%= apiData.snap[0].snapshot_id %>">
-
-            </div>
 
             <br>
 
@@ -140,7 +140,7 @@
                             <div>
                                 <p>
 
-                                    <label for="snapshot-notes">Additional Notes:</label>
+                                    <label for="snapshot-notes" id="add-notes-2">Additional Notes:</label>
 
                                 </p>
                             </div>
@@ -161,12 +161,13 @@
                                     <br>
                                     <button type="submit" name="action"
                                         data-path="/delete-snapshot/<%= apiData.snap[0].snapshot_id %>"
-                                        value="delete">Delete Snapshot</button>
+                                        value="delete" id="delete-snap-btn">Delete Snapshot</button>
                                     <br>
 
                                 </div>
 
         </form>
+    </div>
     </main>
     <script src="/js/edit-snapshot.js"></script>
 </body>

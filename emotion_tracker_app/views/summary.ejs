@@ -26,7 +26,7 @@
     <!--end of Navigation bar-->
 
     <main>
-        <h1>Snapshot Summary</h1>
+        <h1 id="snap-summary-h1">Snapshot Summary</h1>
         <div id="action_successful_msg" class="container">
             <%= apiMessage %>
         </div>
@@ -44,7 +44,7 @@
                                     </h5>
                                     <p class="card-text">Created: <%= itemdate %>
                                     </p>
-                                    <a href='/edit-snapshot/<%= row.snapshot_id %>' class="btn btn-primary">
+                                    <a href='/edit-snapshot/<%= row.snapshot_id %>' class="btn btn-primary" id="view-snap-btn">
                                         View Snapshot</a>
 
                                 </div>
