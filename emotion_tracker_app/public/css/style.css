@@ -21,10 +21,16 @@ header, body {
   background-color: #b3c7f7;
 }
 
-h1, p, h2, h3, h4, h5, h6, li, output {
+h1, p, h2, h3, h4, h5, h6, output {
 
   color: #000000 ;
   
+}
+
+li, output {
+
+  color: #000000 ;
+  margin: 1rem 0;
 }
 
 ul, ol {
@@ -66,7 +72,7 @@ margin-top: 2rem;
   text-align: left;
 }
 #closing-pitch {
-
+margin-top: 2rem;
   width: 60%;
   display: block;
   text-align: left;
@@ -259,13 +265,23 @@ text-align: center;
 
 }
 
-#pwd-rst-2-btn, #snapshot-save-btn {
+#pwd-rst-2-btn {
   background-color: #8babf1;
   color: #000000;
   width: 15%;
   border: 3px solid #b3c7f7;
   padding: 8px;
   margin: 2rem 0 1rem 5rem;
+  border-radius: 10px;
+}
+
+#snapshot-save-btn {
+  background-color: #8babf1;
+  color: #000000;
+  width: 12rem;
+  border: 3px solid #b3c7f7;
+  padding: 8px;
+  margin: 2rem 0 1rem 10rem;
   border-radius: 10px;
 }
 
@@ -367,10 +383,10 @@ margin-left: 1rem;
 
 #username_reminder_msg {
   color: darkgreen;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   text-align: left;
   margin-bottom: 1rem;
-  margin-left: 6rem;
+  margin-left: 9rem;
   position: relative;
 }
 

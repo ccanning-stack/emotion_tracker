@@ -26,8 +26,9 @@
     <% }}); %>
     <% } %>
     
+    <% if (emailExistsMsg){ %>
     <div id="email_exists_msg" class="container"><%= emailExistsMsg %></div>
-    
+    <% } %>
 
     <form action="/new-user" method="post">
 

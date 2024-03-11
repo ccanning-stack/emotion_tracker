@@ -18,48 +18,54 @@
             <h1 id="login-title">Login</h1>
             <form action="/login" method="post">
 
+                <% if (accountCreatedMsg){ %>
+                    <div id="account_successful_msg" class="container">
+                        <%= accountCreatedMsg %>
+                    </div>
+                    <% } %>
 
-                <div id="account_successful_msg" class="container">
-                    <%= accountCreatedMsg %>
-                </div>
-                <div id="invalid_credentials_msg" class="container">
-                    <%= invalidCredentialsMsg %>
-                </div>
-                <div id="pwd_change_ok_msg" class="container">
-                    <%= passwordChangedMsg %>
-                </div>
+                        <% if (invalidCredentialsMsg){ %>
+                            <div id="invalid_credentials_msg" class="container">
+                                <%= invalidCredentialsMsg %>
+                            </div>
+                            <% } %>
 
-                <p>
+                                <% if (passwordChangedMsg){ %>
+                                    <div id="pwd_change_ok_msg" class="container">
+                                        <%= passwordChangedMsg %>
+                                    </div>
+                                    <% } %>
+                                        <p>
 
-                    <label for="userlogin-input" id="username-label">Username</label>
+                                            <label for="userlogin-input" id="username-label">Username</label>
 
-                </p>
+                                        </p>
 
-                <div class="container">
+                                        <div class="container">
 
-                    <input type="email" name="username" id="userlogin-input" required>
+                                            <input type="email" name="username" id="userlogin-input" required>
 
-                </div>
+                                        </div>
 
-                <p>
+                                        <p>
 
-                    <label for="passlogin-input" id="password-label">Password</label>
+                                            <label for="passlogin-input" id="password-label">Password</label>
 
-                </p>
+                                        </p>
 
-                <div class="container">
+                                        <div class="container">
 
-                    <input type="password" name="password" id="passlogin-input" required
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords contain at least one number, 
+                                            <input type="password" name="password" id="passlogin-input" required
+                                                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Passwords contain at least one number, 
                     one uppercase letter, one lowercase letter, and at least 8 or more characters" maxlength="20">
 
-                </div>
+                                        </div>
 
-                <div class="container">
-                    <button type="submit" name="login-attempt" id="login-btn-2">Log In</button>
-                    <br>
+                                        <div class="container">
+                                            <button type="submit" name="login-attempt" id="login-btn-2">Log In</button>
+                                            <br>
 
-                </div>
+                                        </div>
 
 
             </form>

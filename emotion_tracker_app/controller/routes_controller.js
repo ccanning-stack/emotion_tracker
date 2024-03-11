@@ -26,23 +26,23 @@ exports.getRedirect = async (req, res) => {
 }
 
 exports.getWelcomePage = async (req, res) => {
-    res.render('welcome', { logoutMessage: "" });
+    res.render('welcome', { logoutMessage: null });
 }
 
 exports.getRegisterPage = async (req, res) => {
     res.render('register', {
-        emailExistsMsg: "",
+        emailExistsMsg: null,
         validationErrorsArray: null
     });
 }
 
 exports.getLoginPage = async (req, res) => {
-    res.render('login', { accountCreatedMsg: "", invalidCredentialsMsg: "", 
-    passwordChangedMsg:"" });
+    res.render('login', { accountCreatedMsg: null, invalidCredentialsMsg: null, 
+    passwordChangedMsg:null });
 }
 
 exports.getConfirmUserPage = async (req, res) => {
-    res.render('reset-password-step1', {userNotFoundmsg: ""});
+    res.render('reset-password-step1', {userNotFoundmsg: null});
 }
 
 exports.getVerifySecurityPage = async (req, res) => {
@@ -82,8 +82,8 @@ exports.postAPINewUser = async (req, res) => {
 
         res.render('login', {
             accountCreatedMsg: "Account successfully created!  You can now log in.",
-            invalidCredentialsMsg: "",
-            passwordChangedMsg:""
+            invalidCredentialsMsg: null,
+            passwordChangedMsg:null
         });
 
     } catch (error) {
@@ -94,7 +94,7 @@ exports.postAPINewUser = async (req, res) => {
             });
         } else if (error.response.status === 422){
             res.render('register', {
-                emailExistsMsg: "",
+                emailExistsMsg: null,
                 validationErrorsArray: error.response.data
             });
 
@@ -127,9 +127,9 @@ exports.postAPILogin = async (req, res) => {
     } catch (error) {
         if (error.response.status === 401) {
             res.render('login', {
-                accountCreatedMsg: "",
+                accountCreatedMsg: null,
                 invalidCredentialsMsg: "Incorrect username and/or password",
-                passwordChangedMsg:""
+                passwordChangedMsg:null
             });
         }
         else {
@@ -173,7 +173,7 @@ exports.getAPISnapshotSummary = async (req, res) => {
             headers: { 'authorization': `${token}` }
         }, { httpsAgent });
 
-        res.render('summary', { apiData: response.data, apiMessage: "" });
+        res.render('summary', { apiData: response.data, apiMessage: null });
 
     } catch (error) {
         res.status(500).json({ error: `${error}` });
@@ -280,7 +280,7 @@ exports.postAPIConfirmUsername = async (req, res) => {
     try {
         const response = await axios.post(endpoint, req.body,{ httpsAgent });
 
-        res.render('reset-password-step2', { apiData: response.data, wrongAnswersMsg:""});
+        res.render('reset-password-step2', { apiData: response.data, wrongAnswersMsg:null});
 
     } catch (error) {
         if (error.response.status === 404) {
@@ -331,7 +331,7 @@ exports.patchAPIChangePassword = async (req, res) => {
         });
 
         res.render('login', { passwordChangedMsg: "Password successfully changed!  Please log in using new password.", 
-        accountCreatedMsg: "", invalidCredentialsMsg: ""});
+        accountCreatedMsg: null, invalidCredentialsMsg: null});
 
     } catch (error) {
         if (error.response.status === 422){

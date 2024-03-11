@@ -17,9 +17,11 @@
             <h1 class="welcome-title">Welcome to Insightful Emotions!</h1>
         </header>
 
-        <div id="logout_successful_msg" class="container">
-            <%= logoutMessage %>
-        </div>
+        <% if (logoutMessage){ %>
+            <div id="logout_successful_msg" class="container">
+                <%= logoutMessage %>
+            </div>
+            <% } %>
 
     </div>
 
@@ -42,23 +44,12 @@
         <div id="features" class="container">
             <p>Our free platform enables you to: </p>
             <ul>
-                <div>
-                    <li style='font-size:1.2rem;'>&#128200; Track your mood</li>
-                    <img src="" alt="">
-                </div>
 
+                <li style='font-size:1.2rem;'>&#128200; Track your mood</li>
 
-                <div>
-                    <li style='font-size:1.2rem;'>&#128269;Uncover patterns</li>
-                    <img src="" alt="">
-                </div>
+                <li style='font-size:1.2rem;'>&#128269;Uncover patterns</li>
 
-
-                <div>
-                    <li style='font-size:1.2rem;'>&#128161;Gain actionable insights</li>
-                    <img src="" alt="">
-                </div>
-
+                <li style='font-size:1.2rem;'>&#128161;Gain actionable insights</li>
 
             </ul>
 
