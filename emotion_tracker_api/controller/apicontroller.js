@@ -16,7 +16,14 @@ const {
     getTriggerDetailFunc,
     updateTriggersFunc,
     deleteSnapshotFunc,
-    insertUserFunc
+    insertUserFunc,
+    checkEmailFunc,
+    checkUserFunc,
+    getUserSnapshotsFunc,
+    validateUsernameFunc,
+    verifySecurityFunc,
+    changePasswordFunc,
+    getSnapshotsFunc
 } = require('../utils/functions/db_operations');
 
 
@@ -38,7 +45,7 @@ exports.postNewUser = async (req, res) => {
 
     //first: check if email is already in db
     try {
-        const checkEmailSQL = `SELECT email FROM user WHERE email = ?`;
+        const checkEmailSQL = checkEmailFunc();
         const [rows] = await conn.query(checkEmailSQL, email_add);
 
         if (!rows.length == 0) {
@@ -78,8 +85,7 @@ exports.postLogin = async (req, res) => {
 
     const { username, password } = req.body;
 
-    const checkuserSQL =
-        `SELECT * FROM user WHERE email = ?`;
+    const checkuserSQL = checkUserFunc();
 
     try {
         const [rows] = await conn.query(checkuserSQL, username);
@@ -136,8 +142,7 @@ exports.postCreateSnapshot = async (req, res) => {
 
     //SUMMARY section for redirecting back to summary page after saving deletion
     //extract user_id from req obj
-    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
-    FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;
+    const getUserSnapshotsSQL = getUserSnapshotsFunc();
 
     try {
         const [rows] = await conn.query(postSnapshotSQL, vals);
@@ -164,8 +169,7 @@ exports.getSnapshotSummary = async (req, res) => {
     //extract user_id from req obj
     const user = req.user.user;
 
-    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
-     FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;
+    const getUserSnapshotsSQL = getUserSnapshotsFunc();
 
     try {
         const result = await conn.query(getUserSnapshotsSQL, user);
@@ -241,8 +245,7 @@ exports.patchUpdateSnapshot = async (req, res) => {
     //SUMMARY section for redirecting back to summary page after saving edits
     //extract user_id from req obj
     const user = req.user.user;
-    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
-    FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;
+    const getUserSnapshotsSQL = getUserSnapshotsFunc();
 
 
     try {
@@ -280,8 +283,7 @@ exports.deleteSnapshot = async (req, res) => {
     //SUMMARY section for redirecting back to summary page after saving deletion
     //extract user_id from req obj
     const user = req.user.user;
-    const getUserSnapshotsSQL = `SELECT snapshot_id, title, datetime_created
-    FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;
+    const getUserSnapshotsSQL = getUserSnapshotsFunc();
 
 
     try {
@@ -312,8 +314,7 @@ exports.postConfirmUsername = async (req, res) => {
 
     const { user_confirm } = req.body;
 
-    const validateUsernameSQL =
-        `SELECT user_id, security_question_one, security_question_two FROM user WHERE email = ?`;
+    const validateUsernameSQL = validateUsernameFunc();
 
     try {
         const [rows] = await conn.query(validateUsernameSQL, user_confirm);
@@ -340,9 +341,7 @@ exports.postConfirmSecurity = async (req, res) => {
 
     const { user_changing_pwd, reset_answer_1, reset_answer_2, user_sec_1, user_sec_2 } = req.body;
 
-    const verifySecuritySQL =
-        `SELECT user_id FROM user WHERE user_id = ? AND security_answer_one = ? AND
-            security_answer_two = ?`;
+    const verifySecuritySQL =verifySecurityFunc();
 
     const vals = [user_changing_pwd, reset_answer_1, reset_answer_2];
 
@@ -385,7 +384,7 @@ exports.patchChangePassword = async (req, res) => {
     const { user_changing_pwd, pwd_change_1, pwd_change_2 } = req.body;
     const hash = await bcrypt.hash(pwd_change_1, 13);
 
-    const changePasswordSQL = `UPDATE user SET password = ? WHERE user_id = ?;`;
+    const changePasswordSQL = changePasswordFunc();
 
     const vals = [hash, user_changing_pwd];
 
@@ -413,7 +412,7 @@ exports.getInsights = async (req, res) => {
 
     //Get all snapshot_ids for this user
 
-    const getSnapshotsSQL = `SELECT snapshot_id FROM snapshot WHERE user_id= ?;`;
+    const getSnapshotsSQL = getSnapshotsFunc();
 
 
     //obtain sql from functions

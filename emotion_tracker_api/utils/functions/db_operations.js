@@ -112,6 +112,24 @@ function insertUserFunc () {
 
 }
 
+function checkEmailFunc() { return `SELECT email FROM user WHERE email = ?;`;}
+
+
+function checkUserFunc() { return `SELECT * FROM user WHERE email = ?;`;}
+
+
+function getUserSnapshotsFunc() { return `SELECT snapshot_id, title, datetime_created
+FROM snapshot WHERE  user_id = ? ORDER BY datetime_created DESC;`;}
+
+function validateUsernameFunc() { return `SELECT user_id, security_question_one, security_question_two FROM user WHERE email = ?`;}
+
+function verifySecurityFunc() { return `SELECT user_id FROM user WHERE user_id = ? AND security_answer_one = ? AND
+security_answer_two = ?`;}
+
+function changePasswordFunc() { return `UPDATE user SET password = ? WHERE user_id = ?;`;}
+
+function getSnapshotsFunc() { return `SELECT snapshot_id FROM snapshot WHERE user_id= ?;`;}
+
 
 module.exports = {
     newSnapShotFunc,
@@ -126,5 +144,12 @@ module.exports = {
     getTriggerDetailFunc,
     updateTriggersFunc,
     deleteSnapshotFunc,
-    insertUserFunc
+    insertUserFunc,
+    checkEmailFunc,
+    checkUserFunc,
+    getUserSnapshotsFunc,
+    validateUsernameFunc,
+    verifySecurityFunc,
+    changePasswordFunc,
+    getSnapshotsFunc
 };
