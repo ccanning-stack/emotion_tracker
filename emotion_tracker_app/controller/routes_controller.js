@@ -302,7 +302,6 @@ exports.postAPIConfirmSecurity = async (req, res) => {
 
     } catch (error) {
         if (error.response.status === 403) {
-            console.log("403 data",error.response.data);
             return res.render('reset-password-step2', {
                 wrongAnswersMsg: "Incorrect answers to security questions",
                 apiData: error.response.data

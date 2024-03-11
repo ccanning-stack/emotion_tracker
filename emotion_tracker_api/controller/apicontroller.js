@@ -30,7 +30,6 @@ exports.getUsers = async (req, res) => {
         res.json(result);
 
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -62,7 +61,6 @@ exports.postNewUser = async (req, res) => {
             return res.sendStatus(409);
         }
     } catch (err) {
-        console.log(err);
         res.json(err);
     }
 
@@ -82,7 +80,6 @@ exports.postNewUser = async (req, res) => {
             res.sendStatus(200);
         }
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -124,7 +121,6 @@ exports.postLogin = async (req, res) => {
             res.json({ accessToken: accessToken });
         }
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -194,7 +190,6 @@ exports.getSnapshotSummary = async (req, res) => {
         res.json(dataObjects);
 
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -241,7 +236,6 @@ exports.getSnapshotDetails = async (req, res) => {
         res.json(dataObjects);
 
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -285,7 +279,6 @@ exports.patchUpdateSnapshot = async (req, res) => {
             res.json(dataObjects);
         }
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -353,7 +346,6 @@ exports.postConfirmUsername = async (req, res) => {
         return res.status(200).json(responseData);
 
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -390,7 +382,6 @@ exports.postConfirmSecurity = async (req, res) => {
         return res.status(200).json(responseData);
 
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -426,7 +417,6 @@ exports.patchChangePassword = async (req, res) => {
         return res.sendStatus(200);
 
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
@@ -458,8 +448,6 @@ exports.getInsights = async (req, res) => {
 
         const [rows] = await conn.query(getSnapshotsSQL, user_id);
 
-        console.log("ROWS ARE: ",rows);
-
         for (const {snapshot_id} of rows) {
 
             //prepare vals for param. queries
@@ -486,11 +474,9 @@ exports.getInsights = async (req, res) => {
             dataObjects.push(snapshotDetail);
         }
 
-        console.log(dataObjects);
         res.json(dataObjects);
 
     } catch (err) {
-        console.log(err);
         res.json(err);
     };
 };
