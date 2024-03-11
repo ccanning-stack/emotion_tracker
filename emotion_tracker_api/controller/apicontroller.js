@@ -20,21 +20,6 @@ const {
 } = require('../utils/functions/db_operations');
 
 
-// GET /users
-exports.getUsers = async (req, res) => {
-
-    const selectSQL = 'SELECT * FROM user';
-
-    try {
-        const result = await conn.query(selectSQL);
-        res.json(result);
-
-    } catch (err) {
-        res.json(err);
-    };
-};
-
-
 exports.postNewUser = async (req, res) => {
 
     const validatorErrors = validationResult(req);
