@@ -26,8 +26,6 @@ router.get('/logout', checkAuth, controller.getLogout);
 router.get('/user-is-logged-in', checkAuth, controller.getChangePasswordPageLoggedIn);
 router.get('/insights', checkAuth, controller.getAPIInsightsPage);
 
-//router.get('/v1.1/api', controller.getMakeAPIRequest );
-
 router.post('/login', controller.postAPILogin);
 router.post('/new-user', controller.postAPINewUser);
 router.post('/create-snapshot', checkAuth, controller.postAPICreateSnapshot);

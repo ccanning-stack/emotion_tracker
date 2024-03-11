@@ -57,21 +57,6 @@ exports.getCreateSnapshotPage = async (req, res) => {
     res.render('create-snapshot');
 }
 
-
-exports.getMakeAPIRequest = async (req, res) => {
-
-    const endpoint = 'https://localhost:8443/';
-
-    try {
-        const response = await axios.get(endpoint)
-        res.json(response.data);
-
-    } catch (error) {
-        res.status(500).json({ error: "Failed to fetch data from API" });
-    };
-
-}
-
 exports.postAPINewUser = async (req, res) => {
 
     const endpoint = 'https://localhost:8443/new-user';

@@ -4,7 +4,6 @@ const router = express.Router();
 const {checkAuth} = require('../utils/middleware/authentication.js');
 const {sanitiseData, validateNewUserData, validatePasswords } = require('../utils/functions/data_operations');
 
-router.get('/users', sanitiseData(), controller.getUsers);
 router.get('/snapshot-summary', sanitiseData(), checkAuth, controller.getSnapshotSummary);
 router.get('/edit-snapshot/:id', sanitiseData(), checkAuth, controller.getSnapshotDetails);
 router.get('/insights', sanitiseData(), checkAuth, controller.getInsights);
