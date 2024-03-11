@@ -33,117 +33,121 @@
 
             <div class="container" id="snap-items">
 
-            <form action="/create-snapshot" method="post">
+                <form action="/create-snapshot" method="post">
 
 
-                <h4><label for="snapshot_title" id="snap-headline">Snapshot Headline:</label></h4>
-                    
+                    <h4><label for="snapshot_title" id="snap-headline">Snapshot Headline:</label></h4>
 
 
-                <div>
 
-                    <input type="text" name="snapshot_headline" placeholder="Enter headline here!" id="snapshot-title"
-                        required maxlength="255">
+                    <div>
 
-                </div>
+                        <input type="text" name="snapshot_headline" placeholder="Enter headline here!"
+                            id="snapshot-title" required maxlength="255">
 
-                <br>
+                    </div>
 
-                <div>
-                    <script src="./js/datescript.js"></script>
-                    <p>Current date & time: <span id="dateDisplay" name="custom_date"></span></p>
-                </div>
-
-                <br>
-
-                <h6>Please record current <b>emotion intensity</b> levels (1 = least intense, 10 = most intense):</h6>
-                <br>
-
-                <div class="slidecontainer">
-                    <input type="range" name="anger_val" min="1" max="10" value="1" class="slider" id="anger-slider">
-                </div>
-                <p>Anger: <output id="anger-value"></output></p>
-
-                <div class="slidecontainer">
-                    <input type="range" name="contempt_val" min="1" max="10" value="1" class="slider"
-                        id="contempt-slider">
-                </div>
-                <p>Contempt: <output id="contempt-value"></output></p>
-
-                <div class="slidecontainer">
-                    <input type="range" name="disgust_val" min="1" max="10" value="1" class="slider"
-                        id="disgust-slider">
-                </div>
-                <p>Disgust: <output id="disgust-value"></output></p>
-
-                <div class="slidecontainer">
-                    <input type="range" name="enjoyment_val" min="1" max="10" value="1" class="slider"
-                        id="enjoyment-slider">
-                    <p>Enjoyment: <output id="enjoyment-value"></output></p>
-                </div>
-
-                <div class="slidecontainer">
-                    <input type="range" name="fear_val" min="1" max="10" value="1" class="slider" id="fear-slider">
-                </div>
-                <p>Fear: <output id="fear-value"></output></p>
-
-                <div class="slidecontainer">
-                    <input type="range" name="sadness_val" min="1" max="10" value="1" class="slider"
-                        id="sadness-slider">
-                    <p>Sadness: <output id="sadness-value"></output></p>
-                </div>
-
-                <div class="slidecontainer">
-                    <input type="range" name="surprise_val" min="1" max="10" value="1" class="slider"
-                        id="surprise-slider">
-                </div>
-                <p>Surprise: <output id="surprise-value"></output></p>
-
-                <h6>Please enter up to 3 optional <b>Contextual Triggers:</b></h6>
-
-                <div>
-
-                    <input type="text" name="trigger_1" placeholder="Trigger 1" maxlength="50">
-
-                </div>
-
-                <div>
-
-                    <input type="text" name="trigger_2" placeholder="Trigger 2" maxlength="50">
-
-                </div>
-
-                <div>
-
-                    <input type="text" name="trigger_3" placeholder="Trigger 3" maxlength="50">
-
-                </div>
-
-                <div>
-                    <p>
-
-                        <label for="snapshot-notes" id="add-notes">Additional Notes:</label>
-
-                    </p>
-                </div>
-
-
-                <div>
-
-                    <input type="text" name="snapshot_note" placeholder="" id="snapshot-notes">
-
-                </div>
-
-                <div>
-                    <button type="submit" name="snapshot-create" id="snapshot-save-btn">Save Snapshot</button>
                     <br>
 
-                </div>
+                    <div>
+                        <script src="./js/datescript.js"></script>
+                        <p>Current date & time: <span id="dateDisplay" name="custom_date"></span></p>
+                    </div>
 
-            </form>
-        </div>
+                    <br>
+
+                    <h6>Please record current <b>emotion intensity</b> levels (1 = least intense, 10 = most intense):
+                    </h6>
+                    <br>
+
+                    <div class="slidecontainer">
+                        <input type="range" name="anger_val" min="1" max="10" value="1" class="slider"
+                            id="anger-slider">
+                    </div>
+                    <p>Anger: <output id="anger-value"></output></p>
+
+                    <div class="slidecontainer">
+                        <input type="range" name="contempt_val" min="1" max="10" value="1" class="slider"
+                            id="contempt-slider">
+                    </div>
+                    <p>Contempt: <output id="contempt-value"></output></p>
+
+                    <div class="slidecontainer">
+                        <input type="range" name="disgust_val" min="1" max="10" value="1" class="slider"
+                            id="disgust-slider">
+                    </div>
+                    <p>Disgust: <output id="disgust-value"></output></p>
+
+                    <div class="slidecontainer">
+                        <input type="range" name="enjoyment_val" min="1" max="10" value="1" class="slider"
+                            id="enjoyment-slider">
+                        <p>Enjoyment: <output id="enjoyment-value"></output></p>
+                    </div>
+
+                    <div class="slidecontainer">
+                        <input type="range" name="fear_val" min="1" max="10" value="1" class="slider" id="fear-slider">
+                    </div>
+                    <p>Fear: <output id="fear-value"></output></p>
+
+                    <div class="slidecontainer">
+                        <input type="range" name="sadness_val" min="1" max="10" value="1" class="slider"
+                            id="sadness-slider">
+                        <p>Sadness: <output id="sadness-value"></output></p>
+                    </div>
+
+                    <div class="slidecontainer">
+                        <input type="range" name="surprise_val" min="1" max="10" value="1" class="slider"
+                            id="surprise-slider">
+                    </div>
+                    <p>Surprise: <output id="surprise-value"></output></p>
+
+                    <h6>Please enter up to 3 optional <b>Contextual Triggers:</b></h6>
+
+                    <div>
+
+                        <input type="text" name="trigger_1" placeholder="Trigger 1" maxlength="50">
+
+                    </div>
+
+                    <div>
+
+                        <input type="text" name="trigger_2" placeholder="Trigger 2" maxlength="50">
+
+                    </div>
+
+                    <div>
+
+                        <input type="text" name="trigger_3" placeholder="Trigger 3" maxlength="50">
+
+                    </div>
+
+                    <div>
+                        <p>
+
+                            <label for="snapshot-notes" id="add-notes">Additional Notes:</label>
+
+                        </p>
+                    </div>
+
+
+                    <div>
+
+                        <input type="text" name="snapshot_note" placeholder="" id="snapshot-notes">
+
+                    </div>
+
+                    <div>
+                        <button type="submit" name="snapshot-create" id="snapshot-save-btn">Save Snapshot</button>
+                        <br>
+
+                    </div>
+
+                </form>
+            </div>
 
         </main>
+        <!-- Bootstrap Bundle JS (includes Popper) -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
         <script src="/js/create-snapshot.js"></script>
     </body>
 
