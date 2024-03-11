@@ -37,5 +37,7 @@ router.post('/reset-password-step1', controller.postAPIConfirmUsername);
 router.post('/reset-password-step2', controller.postAPIConfirmSecurity);
 router.post('/change-password', controller.patchAPIChangePassword);
 
+router.get('*', controller.get404);
+
 //export router
 module.exports = router;

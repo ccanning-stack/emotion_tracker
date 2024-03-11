@@ -402,3 +402,8 @@ exports.getAPIInsightsPage = async (req, res) => {
         res.status(500).json({ error: `${error}` });
     };
 }
+
+exports.get404 = async (req, res) => {
+
+    res.status(404).send("<h1>Sorry, this page does not exist</h1>");
+}
