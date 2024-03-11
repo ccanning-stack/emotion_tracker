@@ -29,16 +29,16 @@ $(function(){
 <!--end of Navigation bar-->
 
 <main>
-    <h1>Insights</h1>
+    <h1 id="insights-title">Insights</h1>
 
-    <h5>Stats</h5>
+    <h5 id="stats">At-A Glance</h5>
 
-    <h6>Total number of snapshots created: <%= noSnapshots %>
+    <h6 id="snapshot-no">Total number of snapshots created: <%= noSnapshots %>
     </h6>
 
 
 
-        <div style="position: relative; height:40vh; width:80vw">
+        <div style="position: relative; height:40vh; width:80vw" class="container">
             <canvas id="barchart" width="600px" height="250px" style="background-color: white;"></canvas>
         </div>
 
@@ -46,14 +46,14 @@ $(function(){
     </div>
 
    
-    <div class="top3_triggers">
-        <table>
+    <div id="top3_triggers" class="container">
+        <table id="top3_triggers_table">
             <tr>
                 <th colspan="2">Top 3 Contextual Triggers</th>
             </tr>
             <tr>
-                <td> <u>Trigger</u></td>
-                <td> <u>Mentioned in:</u></td>
+                <td> <em>Trigger:</em></td>
+                <td> <em>Mentioned in:</em></td>
             </tr>
             <tr>
                 <td>
@@ -82,8 +82,9 @@ $(function(){
         </table>
     </div>
 
-    <h5>Comparison vs Average Emotion Intensities</h5>
-    <div class="trigger-class">
+    <h5 id="compare">Comparison vs Average Emotion Intensities</h5>
+
+    <div class="trigger-class" class="container">
         <table>
             <tr>
                 <th colspan="2">When "<%= topTriggers[0].trigger%>" is mentioned </th>
@@ -136,7 +137,7 @@ $(function(){
         </table>
     </div>
 
-    <div class="trigger-class">
+    <div class="trigger-class" class="container">
         <table>
             <tr>
                 <th colspan="2">When "<%= topTriggers[1].trigger%>" is mentioned </th>
@@ -189,7 +190,7 @@ $(function(){
         </table>
     </div>
 
-    <div class="trigger-class">
+    <div class="trigger-class" class="container">
         <table>
             <tr>
                 <th colspan="2">When "<%= topTriggers[2].trigger%>" is mentioned </th>
@@ -245,10 +246,10 @@ $(function(){
     </div>
 
 
-    <div>
-        <h5>Emotion Tracker</h5>
-        <div style="position: relative; height:40vh; width:80vw">
-            <canvas id="linechart" width="600px" height="250px" style="background-color: white";></canvas>
+    <div class="container">
+        <h5 id="emot-title">Emotion Tracker</h5>
+        <div style="position: relative; height:60vh; width:90vw" class="container">
+            <canvas id="linechart" width="800px" height="350px" style="background-color: white";></canvas>
         </div>
 
 
