@@ -38,27 +38,27 @@ The free version is sufficient.
 2. **Clone the repository**
 
    First, clone the repository using Git:
-   git clone https://github.com/ccanning-stack/emotion_tracker.git
+   `git clone https://github.com/ccanning-stack/emotion_tracker.git`
 
    This command creates a local copy of the repository on your machine.
 
 3. **Navigate to the project directory**
 
    Change into the project directory with:
-   cd emotion_tracker
+   `cd emotion_tracker`
 
 4. **Install dependencies**
 
    Install the necessary dependencies by running:
-   npm install
+   `npm install`
 
 5. **Ensure all HTTPS filepaths and configuration files are accurate**
 
-Please ensure you are leveraging the HTTPS configuration files in the repo "as is" for ease of configuration of HTTPS. 
+   Please ensure you are leveraging the HTTPS configuration files in the repo "as is" for ease of configuration of HTTPS. 
 
-All you should need to do is check and verify that all HTTPS paths in configuration files and in the Web App and API themselves are pointing to the right path in your environment.  Additional screenshots including paths have been provided for clarity.
+   All you should need to do is check and verify that all HTTPS paths in configuration files and in the Web App and API themselves are pointing to the right path in your environment.  Additional screenshots including paths have been provided for clarity.
 
 6. **Run the application**
 
    Start the application with:
-   npm start
+   `npm start`
