@@ -193,7 +193,7 @@ exports.getAPISnapshotDetails = async (req, res) => {
 exports.patchAPIUpdateSnapshot = async (req, res) => {
 
 
-    const endpoint = `https://localhost:8443/edit-snapshot/`;
+    const endpoint = `https://localhost:8443/edit-snapshot`;
 
     //extract for use with axios as headers need to be set separately
     token = req.headers['authorization'];
@@ -213,7 +213,7 @@ exports.patchAPIUpdateSnapshot = async (req, res) => {
 
 exports.deleteAPISnapshot = async (req, res) => {
 
-    const endpoint = `https://localhost:8443/delete-snapshot/`;
+    const endpoint = `https://localhost:8443/delete-snapshot`;
 
     //extract for use with axios as headers need to be set separately
     token = req.headers['authorization'];

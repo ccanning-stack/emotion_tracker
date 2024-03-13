@@ -15,8 +15,8 @@ router.post('/reset-password-step1', sanitiseData(),controller.postConfirmUserna
 router.post('/reset-password-step2', sanitiseData(), controller.postConfirmSecurity);
 
 router.patch('/change-password', validatePasswords(), sanitiseData(), controller.patchChangePassword);
-router.patch('/edit-snapshot/', sanitiseData(), checkAuth, controller.patchUpdateSnapshot);
+router.patch('/edit-snapshot', sanitiseData(), checkAuth, controller.patchUpdateSnapshot);
 
-router.delete('/delete-snapshot/', sanitiseData(), checkAuth, controller.deleteSnapshot);
+router.delete('/delete-snapshot', sanitiseData(), checkAuth, controller.deleteSnapshot);
 
 module.exports = router;

@@ -18,6 +18,7 @@ exports.checkAuth = (req, res, next) => {
 
             //Login timeout script for improved user experience- with help from chatGPT
             //https://www.w3schools.com/js/js_window_location.asp
+            //forbidden/403 status code
             const loginUrl = 'https://localhost/login';
             return res.status(403).send(`
         <html>
