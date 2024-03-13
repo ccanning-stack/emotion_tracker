@@ -43,7 +43,6 @@ exports.postNewUser = async (req, res) => {
         security_ans_1, security_qtn_2, security_ans_2, initial_password } = req.body;
     const hash = await bcrypt.hash(initial_password, 13);
 
-    console.log(birthdate);
 
     //first: check if email is already in db
     try {
@@ -170,6 +169,7 @@ exports.getSnapshotSummary = async (req, res) => {
 
     //extract user_id from req obj
     const user = req.user.user;
+
 
     const getUserSnapshotsSQL = getUserSnapshotsFunc();
 

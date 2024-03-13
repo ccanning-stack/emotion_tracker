@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Mar 11, 2024 at 04:50 PM
+-- Generation Time: Mar 13, 2024 at 07:35 PM
 -- Server version: 5.7.39
 -- PHP Version: 7.4.33
 
@@ -251,14 +251,14 @@ INSERT INTO `trigger_table` (`trigger_id`, `name`) VALUES
 (23, 'Stress'),
 (24, 'New Project'),
 (28, 'Pizza'),
-(29, 'Netflix &amp; Chill'),
+(29, 'Netflix &amp; Chill.'),
 (30, 'Wife'),
 (31, 'Real Madrid'),
 (32, 'Wife'),
 (33, 'Dogs'),
-(34, 'Dogs'),
-(35, 'Walk'),
-(36, 'Family');
+(34, 'Roses'),
+(35, 'Daisies'),
+(36, 'Tulips');
 
 -- --------------------------------------------------------
 
@@ -285,7 +285,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `first_name`, `last_name`, `registration_date`, `birthdate`, `security_question_one`, `security_answer_one`, `security_question_two`, `security_answer_two`, `email`, `password`) VALUES
-(11, 'Alejandro', 'Perez', '2024-03-11 14:36:14', '2000-02-29', 'Favourite colour', 'Red', 'Favourite Football Team', 'Real Madrid', 'aperez@hotmail.com', '$2b$13$cgwiSiU7a0x.T9EBwO/PPuR9WyNW7PIKAfCiEeDs5V8XqLF3z480.'),
+(11, 'Alejandro', 'Perez', '2024-03-13 19:34:41', '2000-02-29', 'Favourite colour', 'Red', 'Favourite Football Team', 'Real Madrid', 'aperez@hotmail.com', '$2b$13$qGFA38Kfu8uBU0l1QAgDo.9YC0QokUH/tIMYuIhtbECvQyggZ90vK'),
 (12, 'Christopher', 'Canning', '2024-03-05 14:14:18', '1987-01-23', 'Favourite Colour', 'Green', 'First School', 'Belfast Primary', 'halamadrid@hotmail.com', '$2b$13$s9CqRj8R1NrSqW4Ve.zi..yNeV4NPjZoHLTUBaKZYF7ZbP2sDrSnK');
 
 --
@@ -348,31 +348,31 @@ ALTER TABLE `emotion`
 -- AUTO_INCREMENT for table `emotion_snapshot`
 --
 ALTER TABLE `emotion_snapshot`
-  MODIFY `emotion_snapshot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `emotion_snapshot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `snapshot`
 --
 ALTER TABLE `snapshot`
-  MODIFY `snapshot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `snapshot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `trigger_snapshot`
 --
 ALTER TABLE `trigger_snapshot`
-  MODIFY `trigger_snapshot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `trigger_snapshot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `trigger_table`
 --
 ALTER TABLE `trigger_table`
-  MODIFY `trigger_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `trigger_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Constraints for dumped tables
