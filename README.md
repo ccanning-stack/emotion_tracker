@@ -62,3 +62,8 @@ The free version is sufficient.
 
    Start the application with:
    `npm start`
+
+7. **View the Web App**
+
+   The web app url can be viewed through a web browser at:
+   `https://localhost`
